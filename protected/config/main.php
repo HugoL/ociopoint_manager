@@ -9,6 +9,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Ociopoint',
 	'theme'=>'abound',
+	'language'=>'es',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -17,6 +18,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.modules.user.models.*',
+        'application.modules.user.components.*',
+        'application.modules.rights.*',
+        'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -24,30 +29,46 @@ return array(
 		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'523360',
+			'password'=>'',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
+		'user'=>array(
+                'tableUsers' => 'om_users',
+                'tableProfiles' => 'om_profiles',
+                'tableProfileFields' => 'om_profiles_fields',
+        ),
+        'rights'=>array(
+                'install'=>true,
+        ),
 		
 	),
 
 	// application components
-	'components'=>array(
+	'components'=>array(		
 		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-		),
+                'class'=>'RWebUser',
+                // enable cookie-based authentication
+                'allowAutoLogin'=>true,
+                'loginUrl'=>array('/user/login'),
+        ),
+        'authManager'=>array(
+                'class'=>'RDbAuthManager',
+                'connectionID'=>'db',
+                'defaultRoles'=>array('Authenticated', 'Guest'),
+        ),
 		// uncomment the following to enable URLs in path-format
-		/*
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
+		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
