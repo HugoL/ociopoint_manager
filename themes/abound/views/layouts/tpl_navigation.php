@@ -8,8 +8,8 @@
           </a>
      
           <!-- Be sure to leave the brand out there if you want it shown -->
-          <a class="brand" href="#">Ociopoint <small>Manager</small></a>
-          
+          <a class="brand" href="<?php echo Yii::app()->baseUrl; ?>">Ociopoint <small>Manager</small></a>
+    
           <div class="nav-collapse">
 			<?php $this->widget('zii.widgets.CMenu',array(
                     'htmlOptions'=>array('class'=>'pull-right nav'),

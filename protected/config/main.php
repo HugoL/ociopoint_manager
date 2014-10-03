@@ -2,6 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -10,6 +11,7 @@ return array(
 	'name'=>'Ociopoint',
 	'theme'=>'abound',
 	'language'=>'es',
+	'defaultController'=>'site',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -68,6 +70,9 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		'bootstrap'=>array(
+            'class'=>'bootstrap.components.Bootstrap',
+        ),
 		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
