@@ -65,9 +65,13 @@
 		}
 ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'rol'); ?>
-		<?php echo $form->dropDownList($model,'rol',Rol::model()->find()); ?>
-		<?php echo $form->error($model,'rol'); ?>
+		<?php echo $form->labelEx($profile,'rol'); ?>
+		<?php echo $form->dropDownList($profile,'rol', array(
+                CHtml::listData(Rol::model()->findAll(),'id', 'nombre'), array(
+                	'options' => array($profile->rol => array('selected'=>true)),
+    				)
+               )); ?>
+		<?php echo $form->error($profile,'rol'); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save')); ?>

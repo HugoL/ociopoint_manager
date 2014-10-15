@@ -9,11 +9,31 @@ class ProfileController extends Controller
 	 * @var CActiveRecord the currently loaded data model instance.
 	 */
 	private $_model;
+
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('*'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+
 	/**
 	 * Shows a particular model.
 	 */
 	public function actionProfile()
 	{
+		$this->layout='//layouts/column2';
 		$model = $this->loadUser();
 	    $this->render('profile',array(
 	    	'model'=>$model,
@@ -29,6 +49,7 @@ class ProfileController extends Controller
 	 */
 	public function actionEdit()
 	{
+		$this->layout='//layouts/column2';
 		$model = $this->loadUser();
 		$profile=$model->profile;
 		
@@ -86,6 +107,37 @@ class ProfileController extends Controller
 			}
 			$this->render('changepassword',array('model'=>$model));
 	    }
+	}
+
+	public function actionRedireccionar( $idRol ){
+		$this->layout='//layouts/column1';
+		$model = User::model()->findbyPk( Yii::app()->user->id );
+		$rol = Rol::model()->findbyPk( $idRol );
+		if( !empty($rol) ){
+			switch ( $idRol ) {
+				case 1:
+					$this->redirect(Yii::app()->controller->module->returnUrl);
+					break;
+				case 2:
+					$this->render( 'administrador', array('model'=>$model, 'rol'=>$rol) );
+					break;
+				case 3:
+					$this->render( 'distribuidor', array('model'=>$model, 'rol'=>$rol) );
+					break;
+				case 4:
+					$this->render('comercial', array('model'=>$model, 'rol'=>$rol));
+					break;
+				case 5:
+					$this->render('establecimiento', array('model'=>$model, 'rol'=>$rol));
+					break;
+				
+				default:
+					$this->redirect(Yii::app()->controller->module->returnUrl);
+					break;
+			}
+		}else{
+			$this->redirect(Yii::app()->controller->module->returnUrl);
+		}
 	}
 
 	/**

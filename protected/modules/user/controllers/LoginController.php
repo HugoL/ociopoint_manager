@@ -20,11 +20,11 @@ class LoginController extends Controller
 					$this->lastViset();
 					//Miro qué rol de usuario para redirigirle a la página correcta
 					$user = User::model()->findByPk(Yii::app()->user->id);
-					
-					if (Yii::app()->user->returnUrl=='/index.php')
+					$this->redirect( 'profile/redireccionar/idRol/'.$user->profile->rol );
+					/*if (Yii::app()->user->returnUrl=='/index.php')
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else
-						$this->redirect(Yii::app()->user->returnUrl);
+						$this->redirect(Yii::app()->user->returnUrl);*/
 				}
 			}
 			// display the login form

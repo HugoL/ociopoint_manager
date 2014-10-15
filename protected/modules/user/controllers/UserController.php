@@ -6,7 +6,6 @@ class UserController extends Controller
 	 * @var CActiveRecord the currently loaded data model instance.
 	 */
 	private $_model;
-
 	/**
 	 * @return array action filters
 	 */
@@ -25,8 +24,8 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'actions'=>array('index','view', 'redireccionar'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -63,6 +62,36 @@ class UserController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionRedireccionar( $idRol = null ){
+		$model = $this->loadModel();
+		$rol = Rol::model()->findbyPk( $idRol );
+		if( !empty($rol) ){
+			switch ( $idRol ) {
+				case 1:
+					$this->redirect(Yii::app()->controller->module->returnUrl);
+					break;
+				case 2:
+					$this->render( 'admnistrador', array('model'=>$model, 'rol'=>$rol) );
+					break;
+				case 3:
+					$this->render( 'distribuidor', array('model'=>$model, 'rol'=>$rol) );
+					break;
+				case 4:
+					$this->render('comercial', array('model'=>$model, 'rol'=>$rol));
+					break;
+				case 5:
+					$this->render('establecimiento', array('model'=>$model, 'rol'=>$rol));
+					break;
+				
+				default:
+					$this->redirect(Yii::app()->controller->module->returnUrl);
+					break;
+			}
+		}else{
+			$this->redirect(Yii::app()->controller->module->returnUrl);
+		}
 	}
 
 	/**
