@@ -24,7 +24,7 @@ class RightsModule extends CWebModule
 	/**
 	* @property string the name of the role with superuser privileges.
 	*/
-	public $superuserName = 'Admin';
+	public $superuserName = 'Superadmin';
 	/**
 	* @property string the name of the guest role.
 	*/

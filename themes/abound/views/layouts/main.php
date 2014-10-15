@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>abound - Yii theme</title>
+    <title>Ociopoint</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ociopoint Manager">
     <meta name="author" content="Webapplicationthemes.com">
@@ -52,8 +52,8 @@
 <body>
 
 <section id="navigation-main">   
-<!-- Require the navigation -->
-<?php require_once('tpl_navigation.php')?>
+  <!-- Require the navigation -->
+  <?php require_once('tpl_navigation.php'); ?>
 </section><!-- /#navigation-main -->
     
 <section class="main-body">
@@ -64,7 +64,9 @@
 </section>
 
 <!-- Require the footer -->
-<?php require_once('tpl_footer.php')?>
-
+<?php require_once('tpl_footer.php'); ?>
+<?php if(!empty(Yii::app()->params['debugContent'])):?>
+        <?php echo Yii::app()->params['debugContent'];?>
+      <?php endif;?>
   </body>
 </html>

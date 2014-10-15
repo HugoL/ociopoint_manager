@@ -108,6 +108,7 @@ class Profile extends UActiveRecord
 		// class name for the relations automatically generated below.
 		$relations = array(
 			'user'=>array(self::HAS_ONE, 'User', 'id'),
+			'rol'=>array(self::HAS_ONE, 'Rol', 'rol'),
 		);
 		if (isset(Yii::app()->getModule('user')->profileRelations)) $relations = array_merge($relations,Yii::app()->getModule('user')->profileRelations);
 		return $relations;

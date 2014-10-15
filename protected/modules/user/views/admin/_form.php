@@ -64,6 +64,11 @@
 			}
 		}
 ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'rol'); ?>
+		<?php echo $form->dropDownList($model,'rol',Rol::model()->find()); ?>
+		<?php echo $form->error($model,'rol'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save')); ?>
 	</div>

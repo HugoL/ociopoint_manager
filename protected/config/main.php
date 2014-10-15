@@ -104,8 +104,8 @@ return array(
 				/*
 				array(
 					'class'=>'CWebLogRoute',
-				),
-				*/
+				),*/
+				
 			),
 		),
 	),
@@ -115,5 +115,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'hlanga@hlanga.es',
+		'debugContent'=>'',
 	),
 );
