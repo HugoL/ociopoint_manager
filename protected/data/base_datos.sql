@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-10-2014 a las 02:00:07
+-- Tiempo de generación: 16-10-2014 a las 17:12:58
 -- Versión del servidor: 5.5.38-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.4
 
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `om_profiles` (
   `rol` int(11) NOT NULL DEFAULT '3',
   PRIMARY KEY (`user_id`),
   KEY `rol` (`rol`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `om_profiles`
@@ -126,7 +126,10 @@ CREATE TABLE IF NOT EXISTS `om_profiles` (
 
 INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `telefono`, `movil`, `rol`) VALUES
 (1, 'Admin', 'Administrator', '', '', '', '', '', '', 1),
-(2, 'No sé', 'Jair', '', '', '', '', '', '', 2);
+(2, 'No sé', 'Jair', '', '', '', '', '', '', 2),
+(3, 'Uno', 'Distribuidor', '', '', '', '', '', '', 3),
+(5, 'Uno', 'Comercial', '', '', '', '', '', '', 4),
+(6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5);
 
 -- --------------------------------------------------------
 
@@ -161,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `om_profiles_fields` (
 
 INSERT INTO `om_profiles_fields` (`id`, `varname`, `title`, `field_type`, `field_size`, `field_size_min`, `required`, `match`, `range`, `error_message`, `other_validator`, `default`, `widget`, `widgetparams`, `position`, `visible`) VALUES
 (1, 'lastname', 'Last Name', 'VARCHAR', '50', '3', 1, '', '', 'Incorrect Last Name (length between 3 and 50 characters).', '', '', '', '', 1, 3),
-(2, 'firstname', 'Nombre', 'VARCHAR', '50', '3', 1, ' ''/^[A-Za-z0-9\\s,]+$/u''', '', 'Campo Nombre incorrecto (longitud entre 3 y 50 caracteres).', '', '', '', '', 0, 3),
+(2, 'firstname', 'Nombre', 'VARCHAR', '50', '3', 1, '', '', 'Campo Nombre incorrecto', '', '', '', '', 0, 3),
 (3, 'direccion', 'Dirección', 'VARCHAR', '255', '0', 0, '', '', '', '', '', '', '', 0, 2),
 (4, 'poblacion', 'Población', 'VARCHAR', '255', '0', 0, '', '', '', '', '', '', '', 0, 2),
 (5, 'provincia', 'Provincia', 'VARCHAR', '255', '0', 0, '', '', '', '', '', '', '', 0, 2),
@@ -214,15 +217,18 @@ CREATE TABLE IF NOT EXISTS `om_users` (
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `om_users`
 --
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-15 23:57:19', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-15 23:57:45', 0, 1);
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-16 15:11:00', 1, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-16 15:05:30', 0, 1),
+(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-16 14:47:40', 0, 1),
+(5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-10-16 15:10:38', 0, 1),
+(6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-16 15:12:32', 0, 1);
 
 -- --------------------------------------------------------
 

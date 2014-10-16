@@ -566,11 +566,11 @@ div.product-chooser{
       display: block;
       margin: 10px 0 5px 0;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 16px;
     }
     
     div.product-chooser div.product-chooser-item span.description{
-      font-size: 12px;
+      font-size: 14px;
     }
     
     div.product-chooser div.product-chooser-item input{
@@ -578,4 +578,7 @@ div.product-chooser{
       left: 0;
       top: 0;
       visibility:hidden;
+    }
+    .grid-view{
+      font-size: 16px;
     }
