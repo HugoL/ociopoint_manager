@@ -7,8 +7,8 @@ $baseUrl = Yii::app()->theme->baseUrl;
 <div class="row-fluid">
     <div class="hero-unit">
         <center>
-        <div class="page-header">
-            <h1>Ociopoint <small>acceso a usuarios registrados</small></h1>
+        <div class="page-header">            
+            <h1><img src="<?php echo Yii::app()->baseUrl ?>/images/llave.png" class="img-rounded" alt="Acceso restringido"> Ociopoint <small>acceso a usuarios registrados</small></h1>   
         </div>
 
         <p><?php 
