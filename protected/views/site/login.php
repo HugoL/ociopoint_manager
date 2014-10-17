@@ -1,12 +1,10 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Login");
-$this->breadcrumbs=array(
-	UserModule::t("Login"),
-);
 ?>
 
 <div class="page-header">
-	<h1>Accede <small>a Ociopoint</small></h1>
+	<center>
+	<h1><img src="<?php echo Yii::app()->baseUrl ?>/images/llave.png" class="img-rounded" alt="Acceso restringido">Ociopoint<small>acceso a usuarios registrados</small></h1></center>
 </div>
 
 <div class="row-fluid">
@@ -20,12 +18,10 @@ $this->breadcrumbs=array(
 
 <?php endif; ?>
 
-<p><?php echo UserModule::t("Please fill out the following form with your login credentials:"); ?></p>
-
+<div class="hero-unit">
 <div class="form">
+	<center>
 <?php echo CHtml::beginForm(); ?>
-
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 	
 	<?php echo CHtml::errorSummary($model); ?>
 	
@@ -40,8 +36,8 @@ $this->breadcrumbs=array(
 	</div>
 	
 	<div class="row">
-		<p class="hint">
-		<?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
+		<p class="hint"><small>
+		<?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?></small>
 		</p>
 	</div>
 	
@@ -51,12 +47,13 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row submit">
-		<?php echo CHtml::submitButton(UserModule::t("Login")); ?>
+		<?php echo CHtml::submitButton(UserModule::t("Login"), array('class'=>'btn btn-primary btn-large')); ?>
 	</div>
 	
 <?php echo CHtml::endForm(); ?>
+</center>
 </div><!-- form -->
-
+</div><!-- hero-unit -->
 
 <?php
 $form = new CForm(array(

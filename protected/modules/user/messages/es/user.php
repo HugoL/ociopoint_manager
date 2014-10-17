@@ -5,7 +5,7 @@
 return array(
     'Registration' => 'Registro',
 	'Register' => 'Registrar',
-    'Login' => 'Inicio de Sesión',
+    'Login' => 'Acceder',
     'Logout' => 'Cerrar sesión',
     'username' => "Nombre de Usuario",
     'username or email' => "Nombre de Usuario o Email",

@@ -11,7 +11,7 @@ return array(
 	'name'=>'Ociopoint',
 	'theme'=>'abound',
 	'language'=>'es',
-	'defaultController'=>'site',
+	'defaultController'=>'user/login',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

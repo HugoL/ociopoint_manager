@@ -19,8 +19,8 @@ class LoginController extends Controller
 				if($model->validate()) {
 					$this->lastViset();
 					//Miro qué rol de usuario para redirigirle a la página correcta
-					$user = User::model()->findByPk(Yii::app()->user->id);
-					$this->redirect( 'profile/redireccionar/idRol/'.$user->profile->rol );
+					$user = User::model()->findByPk(Yii::app()->user->id);					
+					$this->redirect( Yii::app()->baseUrl.'/user/profile/redireccionar/idRol/'.$user->profile->rol );
 					/*if (Yii::app()->user->returnUrl=='/index.php')
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else

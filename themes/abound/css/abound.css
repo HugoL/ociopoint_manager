@@ -582,3 +582,15 @@ div.product-chooser{
     .grid-view{
       font-size: 16px;
     }
+    .errorSummary{
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: #A94442;
+      background-color: #F2DEDE;
+      border-color: #EBCCD1;
+    }
+     .errorSummary li{
+      list-style: none;
+     }
