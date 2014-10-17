@@ -3,17 +3,21 @@
   <div class="row-fluid">
 	<div class="span3">
 		<div class="sidebar-nav">
-      <div class="well">
-
-		  <?php $this->widget('zii.widgets.CMenu', array(
-			/*'type'=>'list',*/
-			'encodeLabel'=>false,
-			'items'=>array(
-				// Include the operations menu
-				array('label'=>'OPERACIONES','items'=>$this->menu),
-			),
-			));?>
-    </div>
+      	<?php //if(!Yii::app()->user->isGuest) $this->widget('UserMenu'); ?>
+		  <?php 
+		    $superadmin = Rol::model()->find('nombre=:nombre',array('nombre' => 'superadmin'));
+		    $admin = Rol::model()->find('nombre=:nombre',array('nombre' => 'administrador'));
+		  	$rol = Yii::app()->getModule('user')->user()->profile->rol;
+		  	if( $rol == $superadmin->id || $rol == $admin->id ):
+			  $this->widget('zii.widgets.CMenu', array(
+				'encodeLabel'=>false,
+				'items'=>array(
+					// Include the operations menu
+					array('label'=>'OPERACIONES','items'=>$this->menu),
+				),
+				));
+			 endif;
+			?>
 		</div>
 		
     </div><!--/span-->
