@@ -17,6 +17,12 @@
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
+	<div class="row" style="display:none">
+	<?php echo $form->labelEx($model,'superuser'); ?>
+	<?php echo $form->dropDownList($model,'superuser',User::itemAlias('AdminStatus')); ?>
+	<?php echo $form->error($model,'superuser'); ?>
+</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>128)); ?>
@@ -29,12 +35,20 @@
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
+	<?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<?php echo $form->dropDownList($model,'status',User::itemAlias('UserStatus')); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
-<?php 
+	<?php else: ?>
+	<div class="row" style="display:none">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status',User::itemAlias('UserStatus')); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+	<?php endif; ?>
+	<?php 
 		$profileFields=$profile->getFields();
 		if ($profileFields) {
 			foreach($profileFields as $field) {
@@ -68,7 +82,7 @@
 		<?php echo $form->error($profile,'rol'); ?>
 	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save')); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save'), array('class'=>'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

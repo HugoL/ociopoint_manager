@@ -50,7 +50,6 @@
   </head>
 
 <body>
-
 <section id="navigation-main">   
   <!-- Require the navigation -->
   <?php require_once('tpl_navigation.php'); ?>

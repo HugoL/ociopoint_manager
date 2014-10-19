@@ -214,6 +214,16 @@ class UserModule extends CWebModule
 		}
 		return self::$_admins;
 	}
+
+	public static function esAlgunAdmin() {
+		 $superadmin = Rol::model()->find('nombre=:nombre',array('nombre' => 'superadmin'));
+		 $admin = Rol::model()->find('nombre=:nombre',array('nombre' => 'administrador'));
+		 $rol = Yii::app()->getModule('user')->user()->profile->rol;
+		  	if( $rol == $superadmin->id || $rol == $admin->id ){
+		  		return true;
+		  	}
+		  	return false;
+	}
 	
 	/**
 	 * Send mail method

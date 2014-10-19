@@ -78,20 +78,30 @@ class AdminController extends Controller
 		$model=new User;
 		$profile=new Profile;
 		$this->performAjaxValidation(array($model,$profile));
-		if(isset($_POST['User']))
-		{
+		if( isset($_POST['User']) ){			
+			//Yii::trace(CVarDumper::dumpAsString($_POST['User']));
 			$model->attributes=$_POST['User'];
 			$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
 			$profile->attributes=$_POST['Profile'];
+			$profile->rol = strip_tags($_POST['Profile']['rol']);
 			$profile->user_id=0;
+			$model->superuser = 0; //no se pueden crear superusuarios
+			if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
+				$model->status = 0; //Solo los administradores pueden crear usuarios activos
+			}
+			if( Yii::app()->getModule('user')->user()->profile->rol < $profile->rol ){ //No se puede crear un usuario de rol igual o superior
 			if($model->validate()&&$profile->validate()) {
-				$model->password=Yii::app()->controller->module->encrypting($model->password);
+				$model->password=Yii::app()->controller->module->encrypting($model->password);				
 				if($model->save()) {
 					$profile->user_id=$model->id;
 					$profile->save();
 				}
 				$this->redirect(array('view','id'=>$model->id));
 			} else $profile->validate();
+			}else{
+				//Intenta crear un usuario de rol igual o superior
+				//ir al formulario de nuevo
+			}
 		}
 
 		$this->render('create',array(
@@ -119,6 +129,10 @@ class AdminController extends Controller
 				if ($old_password->password!=$model->password) {
 					$model->password=Yii::app()->controller->module->encrypting($model->password);
 					$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
+				}
+				$model->superuser = 0; //no se pueden crear superusuarios
+				if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
+					$model->status = 0; //Solo los administradores pueden crear usuarios activos
 				}
 				$model->save();
 				$profile->save();
@@ -152,6 +166,10 @@ class AdminController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+	private function filtroCreate( $rolCreado ){
+
 	}
 	
 	/**
