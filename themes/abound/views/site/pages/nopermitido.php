@@ -1,0 +1,1 @@
+<div class="alert alert-error">Acción no permitida</div>

@@ -129,31 +129,42 @@ class AdminController extends Controller
 	{
 		$model=$this->loadModel();
 		$profile=$model->profile;
-		$this->performAjaxValidation(array($model,$profile));
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			$profile->attributes=$_POST['Profile'];
-			
-			if($model->validate()&&$profile->validate()) {
-				$old_password = User::model()->notsafe()->findByPk($model->id);
-				if ($old_password->password!=$model->password) {
-					$model->password=Yii::app()->controller->module->encrypting($model->password);
-					$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
-				}
-				$model->superuser = 0; //no se pueden crear superusuarios
-				if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
-					$model->status = 0; //Solo los administradores pueden crear usuarios activos
-				}
-				$model->save();
-				$profile->save();
-				$this->redirect(array('view','id'=>$model->id));
-			} else $profile->validate();
+		//si no es administrador no podrá actualizar los datos
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$this->performAjaxValidation(array($model,$profile));
+			if(isset($_POST['User'])){
+				$model->attributes=$_POST['User'];
+				$profile->attributes=$_POST['Profile'];
+				
+				if($model->validate()&&$profile->validate()) {
+					$old_password = User::model()->notsafe()->findByPk($model->id);
+					if ($old_password->password!=$model->password) {
+						$model->password=Yii::app()->controller->module->encrypting($model->password);
+						$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
+					}
+					$model->superuser = 0; //no se pueden crear superusuarios
+					if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
+						$model->status = 0; //Solo los administradores pueden crear usuarios activos
+					}
+					$model->save();
+					$profile->save();
+					$this->redirect(array('view','id'=>$model->id));
+				}else $profile->validate();
+			}
+			//Solo le paso la lista de los roles que puede elegir el usuario (aquellos cuyo id sea inferior al suyo)
+		}else{
+			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
+			Yii::app()->end;
 		}
-
+		$mirol = Yii::app()->getModule('user')->user()->profile->rol;
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'id >:id';
+		$criteria->params = array(':id'=>$mirol);
+		$rollist = Rol::model()->findAll( $criteria );
 		$this->render('update',array(
 			'model'=>$model,
 			'profile'=>$profile,
+			'rollist'=>$rollist,
 		));
 	}
 

@@ -6,9 +6,9 @@
 		<h3>Interfaz de <?php echo $rol->nombre; ?></h3>
 
 		 <div class="form-group product-chooser">
-    
-    	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-    		<div class="product-chooser-item">
+        <div class="row-fluid">
+    	<div class="span4">
+    		<center><div class="product-chooser-item">
     			<div class="well">
     			<a href="<?php echo Yii::app()->baseUrl.'/user/admin/create'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/usuario.png" class="img-rounded" alt="Añadir Usuario"></a>
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
@@ -18,10 +18,11 @@
     		</div>
     			<div class="clear"></div>
     		</div>
+        </center>
     	</div>
 
-         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="product-chooser-item">
+         <div class="span4">
+            <center><div class="product-chooser-item">
                 <div class="well">
                 <a href="<?php echo Yii::app()->baseUrl.'/user/user/listarHijos'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/usuarios2.png" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Añadir Usuario"></a>
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
@@ -31,11 +32,11 @@
                 </div>
             </div>
                 <div class="clear"></div>
-            </div>
+            </div></center>
         </div>
 
-    		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-    		<div class="product-chooser-item">
+    		<div class="span4">
+    		<center><div class="product-chooser-item">
     			<div class="well">
     			<img src="<?php echo Yii::app()->baseUrl ?>/images/informe.png" class="img-rounded" alt="Informes">
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
@@ -44,11 +45,12 @@
     			</div>
     		</div>
     			<div class="clear"></div>
-    		</div>
+    		</div></center>
     	</div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="product-chooser-item">
+    </div><!-- row-fluid -->
+    <div class="row-fluid">
+        <div class="span4">
+            <center><div class="product-chooser-item">
                 <div class="well">
                 <img src="<?php echo Yii::app()->baseUrl ?>/images/billete.png" class="img-rounded" alt="Ventas">
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
@@ -57,9 +59,21 @@
                 </div>
             </div>
                 <div class="clear"></div>
-            </div>
+            </div></center>
         </div>
-    	
+         <div class="span4">
+            <center><div class="product-chooser-item">
+                <div class="well">
+                 <a href="<?php echo Yii::app()->baseUrl.'/user/profile'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/preferencias.png" class="img-rounded" alt="Perfil"></a>
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                    <span class="title">Perfil</span>
+                    <span class="description">Ver mi perfil</span>
+                </div>
+            </div>
+                <div class="clear"></div>
+            </div></center>
+        </div>
+    	</div><!-- row-fluid -->
     </div>
 <?php endif; ?>
 </div>

@@ -4,10 +4,10 @@
 <?php if( !empty($hijos) ): ?>
 <table class="table table-striped">
 	<tr>
+		<th>Refencia</th>
 		<th>Nombre</th>
-		<th>Apellidos</th>
-		<th>Teléfono</th>
 		<th>Tipo</th>
+		<th></th>
 	</tr>
 	<?php foreach ( $hijos as $hijo ): 
 		foreach ($roles as $key => $rol) {

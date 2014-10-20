@@ -24,7 +24,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'listarHijos'),
+				'actions'=>array('index','view', 'listarHijos', 'verUsuario'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -75,6 +75,18 @@ class UserController extends Controller
 		$roles = Rol::model()->findAll();	
 
 		$this->render( 'hijos',array('hijos'=>$hijos, 'roles'=>$roles) );
+	}
+
+	public function actionVerUsuario( $id ){
+		$id = strip_tags( $id );
+
+		if( !empty($id) && $id != 0 ){
+			$user = User::model()->findbyPk( $id );
+			$rol = Rol::model()->findbyPk($user->profile->rol);
+			$this->render('verUsuario', array('user'=>$user, 'rol'=>$rol));
+		}else{
+			$this->redirect(CHttpRequest::getUrlReferrer());
+		}	
 	}
 
 	/**
