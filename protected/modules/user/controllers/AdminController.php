@@ -78,35 +78,46 @@ class AdminController extends Controller
 		$model=new User;
 		$profile=new Profile;
 		$this->performAjaxValidation(array($model,$profile));
+		$mirol = Yii::app()->getModule('user')->user()->profile->rol;
 		if( isset($_POST['User']) ){			
 			//Yii::trace(CVarDumper::dumpAsString($_POST['User']));
 			$model->attributes=$_POST['User'];
 			$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
 			$profile->attributes=$_POST['Profile'];
-			$profile->rol = strip_tags($_POST['Profile']['rol']);
+			$profile->rol = strip_tags($_POST['Profile']['rol']);		
 			$profile->user_id=0;
 			$model->superuser = 0; //no se pueden crear superusuarios
 			if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
 				$model->status = 0; //Solo los administradores pueden crear usuarios activos
 			}
-			if( Yii::app()->getModule('user')->user()->profile->rol < $profile->rol ){ //No se puede crear un usuario de rol igual o superior
-			if($model->validate()&&$profile->validate()) {
-				$model->password=Yii::app()->controller->module->encrypting($model->password);				
-				if($model->save()) {
-					$profile->user_id=$model->id;
-					$profile->save();
-				}
-				$this->redirect(array('view','id'=>$model->id));
-			} else $profile->validate();
+			if( $mirol < $profile->rol ){ //No se puede crear un usuario de rol igual o superior
+				//Asigno el padre del usuario, que es el que lo ha creado
+				$profile->id_padre = Yii::app()->user->id;
+				if($model->validate()&&$profile->validate()) {
+					$model->password=Yii::app()->controller->module->encrypting($model->password);				
+					if($model->save()) {
+						$profile->user_id=$model->id;
+						$profile->save();
+					}
+					$this->redirect(array('view','id'=>$model->id));
+				} else $profile->validate();
 			}else{
-				//Intenta crear un usuario de rol igual o superior
-				//ir al formulario de nuevo
+				Yii::app()->user->setFlash('warning',"No puedes crear un usuario con un rol igual o superior al tuyo");
+				echo "<h1>".$profile->rol.", ".$mirol."</h1>";
+				$this->redirect(Yii::app()->baseUrl.'/user/admin/create');
 			}
 		}
+
+		//Solo le paso la lista de los roles que puede elegir el usuario (aquellos cuyo id sea inferior al suyo)
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'id >:id';
+		$criteria->params = array(':id'=>$mirol);
+		$rollist = Rol::model()->findAll( $criteria );
 
 		$this->render('create',array(
 			'model'=>$model,
 			'profile'=>$profile,
+			'rollist'=>$rollist,
 		));
 	}
 

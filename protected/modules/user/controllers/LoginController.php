@@ -18,9 +18,10 @@ class LoginController extends Controller
 				// validate user input and redirect to previous page if valid
 				if($model->validate()) {
 					$this->lastViset();
-					//Miro qué rol de usuario para redirigirle a la página correcta
-					$user = User::model()->findByPk(Yii::app()->user->id);					
-					$this->redirect( Yii::app()->baseUrl.'/user/profile/redireccionar/idRol/'.$user->profile->rol );
+					//Miro qué rol de usuario para redirigirle a la página correcta	
+					$user = User::model()->findByPk(Yii::app()->user->id);	
+					$rol = Rol::model()->findByPk( $user->profile->rol );
+					$this->redirect( Yii::app()->baseUrl.'/user/profile/redireccionar/rol/'.$rol->nombre );
 					/*if (Yii::app()->user->returnUrl=='/index.php')
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else

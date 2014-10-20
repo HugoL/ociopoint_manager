@@ -1,6 +1,6 @@
 <div class="row-fluid">
-<?php if( $model->profile->rol != 5 ): ?>
-	<div class="aler alert-danger">No puedes acceder aquí</div>
+<?php if( $model->profile->rol != $rol->id ): ?>
+	<div class="alert alert-danger">No puedes acceder aquí</div>
 <?php else: ?>
 		<h3>Interfaz de <?php echo $rol->nombre; ?></h3>
 		 <div class="form-group product-chooser">

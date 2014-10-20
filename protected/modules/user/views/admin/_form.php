@@ -74,11 +74,13 @@
 ?>
 	<div class="row">
 		<?php echo $form->labelEx($profile,'rol'); ?>
-		<?php echo $form->dropDownList($profile,'rol', array(
-                CHtml::listData(Rol::model()->findAll(),'id', 'nombre'), array(
-                	'options' => array($profile->rol => array('selected'=>true)),
+		<?php echo $form->dropDownList($profile,'rol', 
+                CHtml::listData($rollist,'id', 'nombre'), array(
+                	'select'=>'--Selecciona un Rol---'
     				)
-               )); ?>
+               ); 
+        ?>
+
 		<?php echo $form->error($profile,'rol'); ?>
 	</div>
 	<div class="row buttons">

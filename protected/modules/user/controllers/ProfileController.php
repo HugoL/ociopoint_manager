@@ -109,26 +109,29 @@ class ProfileController extends Controller
 	    }
 	}
 
-	public function actionRedireccionar( $idRol ){
+	public function actionRedireccionar( $rol ){
 		$this->layout='//layouts/column1';
 		$model = User::model()->findbyPk( Yii::app()->user->id );
-		$rol = Rol::model()->findbyPk( $idRol );
-		if( !empty($rol) ){
-			switch ( $idRol ) {
-				case 1:
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'nombre =:nombreRol';
+		$criteria->params = array(':nombreRol'=>$rol);
+		$rolModel = Rol::model()->find( $criteria );
+		if( !empty($rolModel) ){
+			switch ( $rolModel->nombre ) {
+				case 'superadmin':
 					$this->redirect(Yii::app()->controller->module->returnUrl);
 					break;
-				case 2:
-					$this->render( 'administrador', array('model'=>$model, 'rol'=>$rol) );
+				case 'administrador':
+					$this->render( 'administrador', array('model'=>$model, 'rol'=>$rolModel) );
 					break;
-				case 3:
-					$this->render( 'distribuidor', array('model'=>$model, 'rol'=>$rol) );
+				case 'distribuidor':
+					$this->render( 'distribuidor', array('model'=>$model, 'rol'=>$rolModel) );
 					break;
-				case 4:
-					$this->render('comercial', array('model'=>$model, 'rol'=>$rol));
+				case 'comercial':
+					$this->render('comercial', array('model'=>$model, 'rol'=>$rolModel));
 					break;
-				case 5:
-					$this->render('establecimiento', array('model'=>$model, 'rol'=>$rol));
+				case 'establecimiento':
+					$this->render('establecimiento', array('model'=>$model, 'rol'=>$rolModel));
 					break;
 				
 				default:

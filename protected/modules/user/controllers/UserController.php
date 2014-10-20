@@ -24,7 +24,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'redireccionar'),
+				'actions'=>array('index','view', 'listarHijos'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -64,34 +64,17 @@ class UserController extends Controller
 		));
 	}
 
-	public function actionRedireccionar( $idRol = null ){
-		$model = $this->loadModel();
-		$rol = Rol::model()->findbyPk( $idRol );
-		if( !empty($rol) ){
-			switch ( $idRol ) {
-				case 1:
-					$this->redirect(Yii::app()->controller->module->returnUrl);
-					break;
-				case 2:
-					$this->render( 'admnistrador', array('model'=>$model, 'rol'=>$rol) );
-					break;
-				case 3:
-					$this->render( 'distribuidor', array('model'=>$model, 'rol'=>$rol) );
-					break;
-				case 4:
-					$this->render('comercial', array('model'=>$model, 'rol'=>$rol));
-					break;
-				case 5:
-					$this->render('establecimiento', array('model'=>$model, 'rol'=>$rol));
-					break;
-				
-				default:
-					$this->redirect(Yii::app()->controller->module->returnUrl);
-					break;
-			}
-		}else{
-			$this->redirect(Yii::app()->controller->module->returnUrl);
+	public function actionListarHijos( $pag = null){
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'id_padre=:id_padre';
+		$criteria->params = array(':id_padre'=>Yii::app()->user->id);
+		if( !empty($pag) ){
+			//calcular el offset y el limit correspondientes a la página
 		}
+		$hijos = Profile::model()->findAll( $criteria );	
+		$roles = Rol::model()->findAll();	
+
+		$this->render( 'hijos',array('hijos'=>$hijos, 'roles'=>$roles) );
 	}
 
 	/**

@@ -11,7 +11,11 @@ $this->menu=array(
 );
 ?>
 <h1><?php echo UserModule::t("Create User"); ?></h1>
-
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning">
+        <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?>
 <?php
-	echo $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile));
+	echo $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile, 'rollist'=>$rollist));
 ?>
