@@ -11,7 +11,7 @@
           </a>
      
           <!-- Be sure to leave the brand out there if you want it shown -->
-          <a class="brand" href="<?php echo Yii::app()->baseUrl; ?>">Ociopoint <small>Manager</small></a>
+          <span class="brand">Ociopoint</span>
     
           <div class="nav-collapse">
 			<?php 
