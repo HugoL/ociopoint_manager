@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-10-2014 a las 00:36:28
+-- Tiempo de generación: 21-10-2014 a las 18:06:39
 -- Versión del servidor: 5.5.40-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.4
 
@@ -132,7 +132,7 @@ INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `pob
 (2, 'No sé', 'Jair', '', '', '', '', '', '', 2, 1, ''),
 (3, 'Uno', 'Distribuidor', '', '', '', '', '', '', 3, 1, ''),
 (5, 'Uno', 'Comercial', '', '', '', '', '', '', 4, 1, ''),
-(6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5, 1, ''),
+(6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5, 1, 'es221014zgz001'),
 (7, 'Langa Murillo', 'Señor Jingles', '', '', '', '', '', '', 5, 1, ''),
 (8, 'Langa Roy', 'Hugo', '', '', '', '', '', '', 4, 2, 'es201014zgz001');
 
@@ -231,13 +231,13 @@ CREATE TABLE IF NOT EXISTS `om_users` (
 --
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-20 16:02:33', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-20 22:23:28', 0, 1),
-(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-20 22:10:56', 0, 1),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-21 15:49:11', 1, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-21 15:48:52', 0, 1),
+(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-21 15:16:32', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-10-20 22:15:10', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),
 (7, 'jingles', '2e59e9270f40bcaca25ccd2d23f87d0a', 'misterjingles@hotmail.com', '9de30667d37fdcc922395d25fbe35cc8', '2014-10-20 08:29:37', '2014-10-20 08:31:16', 0, 1),
-(8, 'hugo', 'ae4d176ebaa6d584a7450f02e8415dd3', 'hlanga@hlanga.es', '6895e3ea807e735a354e442200d92af7', '2014-10-20 10:47:04', '0000-00-00 00:00:00', 0, 1);
+(8, 'hugo', 'ae4d176ebaa6d584a7450f02e8415dd3', 'hlanga@hlanga.es', '6895e3ea807e735a354e442200d92af7', '2014-10-20 10:47:04', '2014-10-21 15:38:16', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -247,7 +247,7 @@ INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `crea
 
 CREATE TABLE IF NOT EXISTS `om_ventas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` datetime NOT NULL,
+  `fecha` date NOT NULL,
   `clics` int(11) NOT NULL DEFAULT '0',
   `nuevos_registros` int(11) NOT NULL DEFAULT '0',
   `nuevos_depositantes` int(11) NOT NULL DEFAULT '0',
@@ -282,7 +282,15 @@ CREATE TABLE IF NOT EXISTS `om_ventas` (
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `om_ventas`
+--
+
+INSERT INTO `om_ventas` (`id`, `fecha`, `clics`, `nuevos_registros`, `nuevos_depositantes`, `nuevos_depositantes_deportes`, `nuevos_depositantes_casino`, `nuevos_depositantes_poquer`, `nuevos_depositantes_juegos`, `nuevos_depositantes_bingo`, `valor_depositos`, `numero_depositos`, `facturacion_deportes`, `numero_apuestas_deportivas`, `usuarios_activos_deportes`, `sesiones_casino`, `nuevos_jugadores_deportes`, `nuevos_jugadores_casino`, `nuevos_clientes_poquer`, `nuevos_clientes_juego`, `nuevos_jugadores_bingo`, `beneficios_netos_deportes`, `beneficios_netos_casino`, `beneficios_netos_poquer`, `beneficios_netos_juegos`, `ingresos_totales_netos`, `ganancias_afiliado_deportes`, `ganancias_afiliado_casino`, `ganancias_afiliado_poquer`, `ganancias_afiliado_juego`, `comisiones_debidas`, `fecha_creacion`, `observaciones`, `id_usuario`) VALUES
+(1, '2014-10-21', 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54.23, 25.324, 45.123, 55, 210.2, 103.33, '2014-10-21 14:08:16', '', 8),
+(2, '2014-10-22', 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 245.21, 245.21, 245.21, 245.21, 245.21, 245.21, '2014-10-21 14:19:40', 'No sé', 1);
 
 -- --------------------------------------------------------
 
