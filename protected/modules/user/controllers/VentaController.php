@@ -2,6 +2,16 @@
 
 class VentaController extends Controller
 {
+	public function actions()
+    {
+        return array(
+            'upload'=>array(
+                'class'=>'xupload.actions.XUploadAction',
+                'path' =>Yii::app() -> getBasePath() . "/../uploads",
+                'publicPath' => Yii::app() -> getBaseUrl() . "/uploads",
+            ),
+        );
+    }
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -28,7 +38,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario'),
+				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -198,6 +208,44 @@ class VentaController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionImportarCsv(){
+         $model=new Venta;
+		 if( isset($_FILES['csv']) ){		 	
+		  $model->attributes=$_FILES['csv'];
+		  $filelist=CUploadedFile::getInstancesByName('csv');
+		  // To validate 
+		           if( $filelist )
+		               $model->csv=1;
+		           //if( $model->validate() ){
+		               foreach( $filelist as $file ){
+		                   try{
+		                   $transaction = Yii::app()->db->beginTransaction();
+		                   $handle = fopen("$file->tempName", "r");
+		                   $row = 1;
+		                   while ( ($data = fgetcsv($handle, 1000, ",")) !== FALSE ) {
+		                       if($row>1){
+		                             $newmodel=new Venta;    
+		                             var_dump($data);
+		                         		                             
+		                             /*$newmodel->name=$data[0];
+		                             $newmodel->age=$data[1];
+		                             $newmodel->save();*/
+		                       }
+		                       $row++;               
+		                   }
+		                   $transaction->commit();
+		                   }catch( Exception $error ){
+		                       print_r($error);
+		                       $transaction->rollback();
+		                   }                    
+		               }                            
+		           //}                        
+		 }
+		$this->render('importcsvform',array(
+		  'model'=>$model,
+		 ));
 	}
 
 	/**

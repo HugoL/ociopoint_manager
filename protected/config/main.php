@@ -24,6 +24,11 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.*',
         'application.modules.rights.components.*',
+        'application.models.*',
+    	'application.components.*',
+	),
+	'aliases' => array(
+	    'xupload' => 'ext.xupload'
 	),
 
 	'modules'=>array(
