@@ -16,6 +16,17 @@ $this->menu=array(
 
 <h1>Nueva Venta</h1>
 
+<div class="row-fluid"><center>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+    						'label'=>'Volver',
+    						'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    						'size'=>'large', // null, 'large', 'small' or 'mini'
+    						'icon'=>'arrow-left white',
+    						'url'=>array('venta/index'),
+    						'toggle'=>false,
+							)); ?>
+</center><br/></div>
+
 <?php $this->renderPartial('_form', array('model'=>$model,'usuarios'=>$usuarios)); ?>
 
 <?php else: ?>

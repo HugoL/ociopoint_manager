@@ -16,7 +16,14 @@ $this->menu=array(
 <h1>Ventas</h1>
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
-<div class="span12"><center><?php echo CHtml::link('Nuevo registro',array('venta/create'),array('class'=>'btn btn-primary btn-large')); ?></center></div>
+<div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
+    						'label'=>'Nuevo Registro',
+    						'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    						'size'=>'large', // null, 'large', 'small' or 'mini'
+    						'icon'=>'plus white',
+    						'url'=>array('venta/create'),
+    						'toggle'=>false,
+							)); ?>
 </div>
 <?php endif; ?>
 <div class="row-fluid">

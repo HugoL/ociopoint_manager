@@ -29,15 +29,16 @@
 		<?php endif; ?>
 		</div>
 	</div>
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 		<div class="span3">
 		<?php echo $form->labelEx($model,'fecha'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                                 'name'=>'Venta[fecha]',
                                 'id'=>'Venta_fecha',
-                            'value'=>Yii::app()->dateFormatter->format("y-M-d",strtotime($model->fecha)),
+                            	'value'=>Yii::app()->dateFormatter->format("d-M-y",strtotime($model->fecha)),
                                 'options'=>array(
                                 'showAnim'=>false,
+                                'dateFormat' => 'dd-mm-yy',
                                 ),
                                 'htmlOptions'=>array(
                                 'style'=>'height:20px;',
@@ -71,7 +72,7 @@
 	</div>
 	</div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 		<div class="span3">
 		<?php echo $form->labelEx($model,'nuevos_depositantes_deportes'); ?>
 		<?php echo $form->textField($model,'nuevos_depositantes_deportes',array('class'=>'input-small')); ?>
@@ -97,7 +98,7 @@
 	</div>
 	</div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 	<div class="span3">
 		<?php echo $form->labelEx($model,'nuevos_depositantes_bingo'); ?>
 		<?php echo $form->textField($model,'nuevos_depositantes_bingo',array('class'=>'input-small')); ?>
@@ -123,7 +124,7 @@
 	</div>
 </div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid well well-small">
 	<div class="span3">
 		<?php echo $form->labelEx($model,'numero_apuestas_deportivas'); ?>
 		<?php echo $form->textField($model,'numero_apuestas_deportivas',array('class'=>'input-small')); ?>
@@ -148,7 +149,7 @@
 		<?php echo $form->error($model,'nuevos_jugadores_deportes'); ?>
 	</div>
 	</div><!-- row-fluid -->
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 		<div class="span3">
 		<?php echo $form->labelEx($model,'nuevos_jugadores_casino'); ?>
 		<?php echo $form->textField($model,'nuevos_jugadores_casino',array('class'=>'input-small')); ?>
@@ -174,7 +175,7 @@
 	</div>
 	</div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 	<div class="span3">
 		<?php echo $form->labelEx($model,'beneficios_netos_deportes'); ?>
 		<?php echo $form->textField($model,'beneficios_netos_deportes',array('class'=>'input-small')); ?>
@@ -200,7 +201,7 @@
 	</div>
 	</div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 	<div class="span3">
 		<?php echo $form->labelEx($model,'ingresos_totales_netos'); ?>
 		<?php echo $form->textField($model,'ingresos_totales_netos',array('class'=>'input-small')); ?>
@@ -226,7 +227,7 @@
 	</div>
 	</div><!-- row-fluid -->
 
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 	<div class="span3">
 		<?php echo $form->labelEx($model,'ganancias_afiliado_juego'); ?>
 		<?php echo $form->textField($model,'ganancias_afiliado_juego',array('class'=>'input-small')); ?>
@@ -239,10 +240,10 @@
 		<?php echo $form->error($model,'comisiones_debidas'); ?>
 	</div>
 	</div><!-- row-fluid -->
-	<div class="row-fluid">
+	<div class="row-fluid  well well-small">
 	<div class="span12">
 		<?php echo $form->labelEx($model,'observaciones'); ?>
-		<?php echo $form->textArea($model,'observaciones',array('rows'=>6, 'cols'=>100)); ?>
+		<?php echo $form->textArea($model,'observaciones',array('rows'=>6, 'cols'=>200)); ?>
 		<?php echo $form->error($model,'observaciones'); ?>
 	</div>
 	</div>

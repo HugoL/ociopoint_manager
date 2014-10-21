@@ -1,146 +1,146 @@
 <?php
 /* @var $this VentaController */
-/* @var $data Venta */
+/*  class="span10"@var $data Venta */
 ?>
 
-<div class="view">
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('id_usuario')); ?>:</b></td>
+	<td><?php echo CHtml::encode($data->usuario->profile->referencia." - ".$data->usuario->profile->firstname); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('fecha')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode(date('d-m-Y', strtotime($data->fecha))); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('clics')); ?>:</b>
-	<?php echo CHtml::encode($data->clics); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('clics')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->clics); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_registros')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_registros); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_registros')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_registros); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_casino')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes_casino); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_casino')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes_casino); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_poquer')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes_poquer); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_poquer')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes_poquer); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_juegos')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes_juegos); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_juegos')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes_juegos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_bingo')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_depositantes_bingo); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_bingo')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_depositantes_bingo); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('valor_depositos')); ?>:</b>
-	<?php echo CHtml::encode($data->valor_depositos); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('valor_depositos')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->valor_depositos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('numero_depositos')); ?>:</b>
-	<?php echo CHtml::encode($data->numero_depositos); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('numero_depositos')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->numero_depositos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('facturacion_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->facturacion_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('facturacion_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->facturacion_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('numero_apuestas_deportivas')); ?>:</b>
-	<?php echo CHtml::encode($data->numero_apuestas_deportivas); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('numero_apuestas_deportivas')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->numero_apuestas_deportivas); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('usuarios_activos_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->usuarios_activos_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('usuarios_activos_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->usuarios_activos_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('sesiones_casino')); ?>:</b>
-	<?php echo CHtml::encode($data->sesiones_casino); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('sesiones_casino')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->sesiones_casino); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_jugadores_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_jugadores_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_casino')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_jugadores_casino); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_casino')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_jugadores_casino); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_clientes_poquer')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_clientes_poquer); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_clientes_poquer')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_clientes_poquer); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_clientes_juego')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_clientes_juego); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_clientes_juego')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_clientes_juego); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_bingo')); ?>:</b>
-	<?php echo CHtml::encode($data->nuevos_jugadores_bingo); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_jugadores_bingo')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->nuevos_jugadores_bingo); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->beneficios_netos_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->beneficios_netos_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_casino')); ?>:</b>
-	<?php echo CHtml::encode($data->beneficios_netos_casino); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_casino')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->beneficios_netos_casino); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_poquer')); ?>:</b>
-	<?php echo CHtml::encode($data->beneficios_netos_poquer); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_poquer')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->beneficios_netos_poquer); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_juegos')); ?>:</b>
-	<?php echo CHtml::encode($data->beneficios_netos_juegos); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('beneficios_netos_juegos')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->beneficios_netos_juegos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ingresos_totales_netos')); ?>:</b>
-	<?php echo CHtml::encode($data->ingresos_totales_netos); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('ingresos_totales_netos')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->ingresos_totales_netos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_deportes')); ?>:</b>
-	<?php echo CHtml::encode($data->ganancias_afiliado_deportes); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_deportes')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->ganancias_afiliado_deportes); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_casino')); ?>:</b>
-	<?php echo CHtml::encode($data->ganancias_afiliado_casino); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_casino')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->ganancias_afiliado_casino); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_poquer')); ?>:</b>
-	<?php echo CHtml::encode($data->ganancias_afiliado_poquer); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_poquer')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->ganancias_afiliado_poquer); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_juego')); ?>:</b>
-	<?php echo CHtml::encode($data->ganancias_afiliado_juego); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('ganancias_afiliado_juego')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->ganancias_afiliado_juego); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('comisiones_debidas')); ?>:</b>
-	<?php echo CHtml::encode($data->comisiones_debidas); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('comisiones_debidas')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->comisiones_debidas); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha_creacion); ?>
-	<br />
+	<tr><td class="span2"><b>Total:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->comisiones_debidas+$data->ingresos_totales_netos); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('observaciones')); ?>:</b>
-	<?php echo CHtml::encode($data->observaciones); ?>
-	<br />
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('fecha_creacion')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->fecha_creacion); ?></td>
+	</tr>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_usuario')); ?>:</b>
-	<?php echo CHtml::encode($data->id_usuario); ?>
-	<br />
-
-	?>
+	<tr><td class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('observaciones')); ?>:</b></td>
+	<td class="span10"><?php echo CHtml::encode($data->observaciones); ?></td>
+	</tr>
 
 </div>

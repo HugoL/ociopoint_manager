@@ -7,7 +7,7 @@
 
 	<div class="row-fluid">
 	<div class="span2"><b><?php echo CHtml::encode($data->getAttributeLabel('fecha')); ?>:</b>
-		<?php echo CHtml::encode($data->fecha); ?>
+		<?php echo CHtml::encode(date('d-m-Y', strtotime($data->fecha))); ?>
 	</div>
 	<div class="span2">
 	<b>Usuario :</b>

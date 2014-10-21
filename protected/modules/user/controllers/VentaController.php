@@ -28,7 +28,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update'),
+				'actions'=>array('index','view','create','update','verDetalle'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -65,6 +65,9 @@ class VentaController extends Controller
 
 		if( isset($_POST['Venta']) ){
 			$model->attributes=$_POST['Venta'];
+			if( isset($model->fecha) )
+				$model->fecha = date('Y-m-d', strtotime($model->fecha));
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -119,18 +122,17 @@ class VentaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//Si no es administrador solo puede ver las ventas de sus hijos o las suyas
+		//Si es administrador puede ver todo
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$dataProvider=new CActiveDataProvider('Venta');
 		}else{
-			//si es establecimiento solo podrá ver las suyas, puesto que no tiene hijos
-			
-			$criteria = new CDbCriteria;
-			$criteria->condition = "id_padre=:id_padre";
-			$criteria->params = array(':id_padre'=>Yii::app()->user->id);
-			$hijos = Profile::model()->findAll();
-			$dataProvider=new CActiveDataProvider('Venta',array('criteria'=>array(
-					'condition'=>'id_usuario='.Yii::app()->user->id
+			//si es el propietario puede ver las suyas
+			//para coger el nombre de la tabla correspondiente al modelo Profile:
+			$tabla = Profile::model()->tableSchema->name;
+			$dataProvider=new CActiveDataProvider('Venta',
+				array('criteria'=>array(
+					'join' => 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario',
+					'condition'=>'id_usuario='.Yii::app()->user->id,
 					)
 				)
 			);
@@ -138,6 +140,18 @@ class VentaController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionVerDetalle( $id ){
+		$id = htmlentities(strip_tags( $id ));
+		$venta = Venta::model()->findByPk( $id );
+		
+		//Si es un administrador podrá verlo, si es el propietario o padre del mismo también
+		if( !empty($venta) && (Yii::app()->getModule('user')->esAlgunAdmin() || $venta->usuario->profile->id_padre == Yii::app()->user->id || $venta->usuario->profile->user_id == Yii::app()->user->id) ){
+			$this->render( 'detalle', array('model'=>$venta) );
+		}else{
+			$this->render( 'detalle' );
+		}
 	}
 
 	/**
