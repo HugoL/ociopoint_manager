@@ -28,7 +28,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','verDetalle'),
+				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -126,9 +126,13 @@ class VentaController extends Controller
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$dataProvider=new CActiveDataProvider('Venta');
 		}else{
-			//si es el propietario puede ver las suyas
+			//si es el propietario puede ver las suyas, sino puede ver solo las de sus hijos
+
+			##FALTA VER LAS VENTAS DE LOS HIJOS		
+
 			//para coger el nombre de la tabla correspondiente al modelo Profile:
 			$tabla = Profile::model()->tableSchema->name;
+
 			$dataProvider=new CActiveDataProvider('Venta',
 				array('criteria'=>array(
 					'join' => 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario',
@@ -140,6 +144,33 @@ class VentaController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionVentasUsuario( $id ){
+		$id = htmlentities(strip_tags( $id ));
+		//Si es administrador puede ver todo
+
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'id_padre=:id_padre';
+		$criteria->params = array(':id_padre'=>Yii::app()->user->id);
+		$profile = Profile::model()->find( $criteria );
+
+		if( Yii::app()->getModule('user')->esAlgunAdmin() || $profile !== null ){
+			//si es el propietario puede ver las suyas
+			//para coger el nombre de la tabla correspondiente al modelo Profile:
+			$dataProvider=new CActiveDataProvider('Venta',
+				array('criteria'=>array(
+					'condition'=>'id_usuario='.$id,
+					)
+				)
+			);
+
+			$this->render('index',array(
+				'dataProvider'=>$dataProvider,
+			));
+		}else{
+			$this->redirect("site/page/nopermitido");
+		}
 	}
 
 	public function actionVerDetalle( $id ){
