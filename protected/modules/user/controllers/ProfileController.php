@@ -110,6 +110,10 @@ class ProfileController extends Controller
 	}
 
 	public function actionRedireccionar( $rol ){
+		if( Yii::app()->user->isGuest ){
+			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
+  			 	Yii::app()->end;
+		}
 		$this->layout='//layouts/column1';
 		$model = User::model()->findbyPk( Yii::app()->user->id );
 		$criteria = new CDbCriteria;

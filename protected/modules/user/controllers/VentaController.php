@@ -63,15 +63,16 @@ class VentaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Venta']))
-		{
+		if( isset($_POST['Venta']) ){
 			$model->attributes=$_POST['Venta'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
+		$usuarios = Profile::model()->findAll();
 		$this->render('create',array(
 			'model'=>$model,
+			'usuarios'=>$usuarios,
 		));
 	}
 
@@ -118,7 +119,22 @@ class VentaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Venta');
+		//Si no es administrador solo puede ver las ventas de sus hijos o las suyas
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$dataProvider=new CActiveDataProvider('Venta');
+		}else{
+			//si es establecimiento solo podrá ver las suyas, puesto que no tiene hijos
+			
+			$criteria = new CDbCriteria;
+			$criteria->condition = "id_padre=:id_padre";
+			$criteria->params = array(':id_padre'=>Yii::app()->user->id);
+			$hijos = Profile::model()->findAll();
+			$dataProvider=new CActiveDataProvider('Venta',array('criteria'=>array(
+					'condition'=>'id_usuario='.Yii::app()->user->id
+					)
+				)
+			);
+		}
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

@@ -14,9 +14,9 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Venta</h1>
+<h1>Nueva Venta</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'usuarios'=>$usuarios)); ?>
 
 <?php else: ?>
 	<div class="alert alert-error">No estás autorizado a realizar esta acción</div>

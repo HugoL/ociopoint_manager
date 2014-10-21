@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->nuevos_depositantes_casino); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('nuevos_depositantes_poquer')); ?>:</b>
 	<?php echo CHtml::encode($data->nuevos_depositantes_poquer); ?>
 	<br />
@@ -142,6 +141,6 @@
 	<?php echo CHtml::encode($data->id_usuario); ?>
 	<br />
 
-	*/ ?>
+	?>
 
 </div>

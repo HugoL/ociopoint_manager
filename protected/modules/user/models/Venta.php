@@ -78,7 +78,7 @@ class Venta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idUsuario' => array(self::BELONGS_TO, 'Users', 'id_usuario'),
+			'usuario' => array(self::BELONGS_TO, 'Users', 'id_usuario'),
 		);
 	}
 
@@ -121,7 +121,7 @@ class Venta extends CActiveRecord
 			'comisiones_debidas' => 'Comisiones Debidas',
 			'fecha_creacion' => 'Fecha Creacion',
 			'observaciones' => 'Observaciones',
-			'id_usuario' => 'Id Usuario',
+			'id_usuario' => 'Usuario',
 		);
 	}
 
