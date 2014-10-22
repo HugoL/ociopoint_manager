@@ -17,17 +17,18 @@ $this->menu=array(
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
 <div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
-    						'label'=>'Nuevo Registro',
+    						'label'=>'Añadir ventas',
     						'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     						'size'=>'large', // null, 'large', 'small' or 'mini'
     						'icon'=>'plus white',
-    						'url'=>array('venta/create'),
+    						'url'=>array('venta/importarCsv'),
     						'toggle'=>false,
 							)); ?>
-</div>
+</center></div>
 <?php endif; ?>
+<div class="clearfix">&nbsp;</div>
 <div class="row-fluid">
-
+<div class="span2"><b>Refencia</div><div class="span2">Nuevos Registros</div><div class="span2">Nuevos Depositantes</div><div class="span2"><b>Nuevos Dep. Deportes</div>
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_resumen',

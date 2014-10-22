@@ -44,6 +44,35 @@
  */
 class Venta extends CActiveRecord
 {
+	public $clicsCount; 
+	public $nuevos_registrosCount;
+	public $nuevos_depositantesCount;
+	public $nuevos_depositantes_deportesCount;
+	public $nuevos_depositantes_casino;
+	public $nuevos_depositantes_poquerCount;
+	public $nuevos_depositantes_juegosCount;
+	public $nuevos_depositantes_bingoCount;
+	public $valor_depositosCount;
+	public $numero_depositosCount;
+	public $facturacion_deportesCount;
+	public $numero_apuestas_deportivasCount;
+	public $usuarios_activos_deportesCount;
+	public $sesiones_casinoCount;
+	public $nuevos_jugadores_deportesCount;
+	public $nuevos_jugadores_casinoCount;
+	public $nuevos_clientes_poquerCount;
+	public $nuevos_clientes_juegoCount;
+	public $nuevos_jugadores_bingoCount;
+	public $beneficios_netos_deportesCount;
+	public $beneficios_netos_casinoCount;
+	public $beneficios_netos_poquerCount;
+	public $beneficios_netos_juegosCount;
+	public $ingresos_totales_netosCount;
+	public $ganancias_afiliado_deportesCount;
+	public $ganancias_afiliado_casinoCount;
+	public $ganancias_afiliado_poquerCount;
+	public $ganancias_afiliado_juegoCount;
+	public $comisiones_debidasCount;
 	/**
 	 * @return string the associated database table name
 	 */

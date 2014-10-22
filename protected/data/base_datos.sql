@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-10-2014 a las 18:06:39
+-- Tiempo de generación: 23-10-2014 a las 01:38:01
 -- Versión del servidor: 5.5.40-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.4
 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `om_profiles` (
   PRIMARY KEY (`user_id`),
   KEY `rol` (`rol`),
   KEY `id_padre` (`id_padre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `om_profiles`
@@ -134,7 +134,9 @@ INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `pob
 (5, 'Uno', 'Comercial', '', '', '', '', '', '', 4, 1, ''),
 (6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5, 1, 'es221014zgz001'),
 (7, 'Langa Murillo', 'Señor Jingles', '', '', '', '', '', '', 5, 1, ''),
-(8, 'Langa Roy', 'Hugo', '', '', '', '', '', '', 4, 2, 'es201014zgz001');
+(8, 'Langa Roy', 'Hugo', '', '', '', '', '', '', 4, 3, 'es201014zgz001'),
+(9, 'Bar', 'Loly', '', '', '', '', '', '', 5, 3, 'es231014zgz003'),
+(10, 'Brothers', 'Taberna', '', '', '', '', '', '', 5, 8, 'es231014epi001');
 
 -- --------------------------------------------------------
 
@@ -224,20 +226,22 @@ CREATE TABLE IF NOT EXISTS `om_users` (
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `om_users`
 --
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-21 15:49:11', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-21 15:48:52', 0, 1),
-(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-21 15:16:32', 0, 1),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-22 22:25:57', 1, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-22 22:27:39', 0, 1),
+(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-22 22:28:56', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-10-20 22:15:10', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),
 (7, 'jingles', '2e59e9270f40bcaca25ccd2d23f87d0a', 'misterjingles@hotmail.com', '9de30667d37fdcc922395d25fbe35cc8', '2014-10-20 08:29:37', '2014-10-20 08:31:16', 0, 1),
-(8, 'hugo', 'ae4d176ebaa6d584a7450f02e8415dd3', 'hlanga@hlanga.es', '6895e3ea807e735a354e442200d92af7', '2014-10-20 10:47:04', '2014-10-21 15:38:16', 0, 1);
+(8, 'hugo', 'ae4d176ebaa6d584a7450f02e8415dd3', 'hlanga@hlanga.es', '6895e3ea807e735a354e442200d92af7', '2014-10-20 10:47:04', '2014-10-22 22:28:29', 0, 1),
+(9, 'barloly', 'ecf2487f22b251a892f3749687e19fc7', 'loly@kioskopoint.com', '1e8c355ad580235fd8009f3bf431c876', '2014-10-22 22:05:29', '2014-10-22 22:13:17', 0, 1),
+(10, 'taberna', 'b61a5497e9d841306e9ef2a34a3cdc22', 'taberna@hotmail.com', '764fbda1c539f258717ce488d9d80f55', '2014-10-22 22:25:51', '2014-10-22 22:28:14', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -279,18 +283,58 @@ CREATE TABLE IF NOT EXISTS `om_ventas` (
   `comisiones_debidas` float NOT NULL DEFAULT '0',
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `observaciones` text COLLATE utf8_spanish_ci,
+  `csv` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=61 ;
 
 --
 -- Volcado de datos para la tabla `om_ventas`
 --
 
-INSERT INTO `om_ventas` (`id`, `fecha`, `clics`, `nuevos_registros`, `nuevos_depositantes`, `nuevos_depositantes_deportes`, `nuevos_depositantes_casino`, `nuevos_depositantes_poquer`, `nuevos_depositantes_juegos`, `nuevos_depositantes_bingo`, `valor_depositos`, `numero_depositos`, `facturacion_deportes`, `numero_apuestas_deportivas`, `usuarios_activos_deportes`, `sesiones_casino`, `nuevos_jugadores_deportes`, `nuevos_jugadores_casino`, `nuevos_clientes_poquer`, `nuevos_clientes_juego`, `nuevos_jugadores_bingo`, `beneficios_netos_deportes`, `beneficios_netos_casino`, `beneficios_netos_poquer`, `beneficios_netos_juegos`, `ingresos_totales_netos`, `ganancias_afiliado_deportes`, `ganancias_afiliado_casino`, `ganancias_afiliado_poquer`, `ganancias_afiliado_juego`, `comisiones_debidas`, `fecha_creacion`, `observaciones`, `id_usuario`) VALUES
-(1, '2014-10-21', 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54.23, 25.324, 45.123, 55, 210.2, 103.33, '2014-10-21 14:08:16', '', 8),
-(2, '2014-10-22', 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 245.21, 245.21, 245.21, 245.21, 245.21, 245.21, '2014-10-21 14:19:40', 'No sé', 1);
+INSERT INTO `om_ventas` (`id`, `fecha`, `clics`, `nuevos_registros`, `nuevos_depositantes`, `nuevos_depositantes_deportes`, `nuevos_depositantes_casino`, `nuevos_depositantes_poquer`, `nuevos_depositantes_juegos`, `nuevos_depositantes_bingo`, `valor_depositos`, `numero_depositos`, `facturacion_deportes`, `numero_apuestas_deportivas`, `usuarios_activos_deportes`, `sesiones_casino`, `nuevos_jugadores_deportes`, `nuevos_jugadores_casino`, `nuevos_clientes_poquer`, `nuevos_clientes_juego`, `nuevos_jugadores_bingo`, `beneficios_netos_deportes`, `beneficios_netos_casino`, `beneficios_netos_poquer`, `beneficios_netos_juegos`, `ingresos_totales_netos`, `ganancias_afiliado_deportes`, `ganancias_afiliado_casino`, `ganancias_afiliado_poquer`, `ganancias_afiliado_juego`, `comisiones_debidas`, `fecha_creacion`, `observaciones`, `csv`, `id_usuario`) VALUES
+(20, '2014-10-02', 21, 0, 0, 0, 0, 0, 0, 0, 40, 2, 317, 8054, 32, 3, 0, 0, 0, 0, 0, 0, 166, 6643, 0, 0, 0, 166, 6643, 24, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(21, '2014-10-03', 26, 1, 1, 1, 0, 0, 0, 0, 260, 7, 414, 9313, 39, 4, 0, 1, 0, 0, 0, 0, 58, 3308, 0, 0, 0, 58, 3308, 8, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(22, '2014-10-04', 29, 0, 0, 0, 0, 0, 0, 0, 160, 3, 566, 6369, 47, 7, 0, 0, 0, 0, 0, 0, 95, 4819, 0, 0, 0, 95, 4819, 14, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(23, '2014-10-05', 25, 0, 0, 0, 0, 0, 0, 0, 320, 4, 733, 325, 52, 8, 0, 0, 0, 0, 0, 0, 395, 8534, 0, 0, 0, 395, 8534, 59, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(24, '2014-10-06', 16, 0, 0, 0, 0, 0, 0, 0, 370, 4, 302, 5845, 31, 4, 0, 0, 0, 0, 0, 0, 71, 429, 0, 0, 0, 71, 429, 10, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(25, '2014-10-07', 12, 0, 0, 0, 0, 0, 0, 0, 330, 5, 399, 3321, 33, 3, 0, 0, 0, 0, 0, 0, 232, 4963, 0, 0, 0, 232, 4963, 34, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(26, '2014-10-08', 13, 0, 0, 0, 0, 0, 0, 0, 230, 4, 312, 13, 4, 0, 0, 0, 0, 0, 0, 128, 4066, 0, 0, 0, 128, 4066, 19, 261, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(27, '2014-10-09', 22, 0, 0, 0, 0, 0, 0, 0, 260, 6, 561, 8611, 34, 3, 0, 0, 0, 0, 0, 0, 249, 3296, 0, 0, 0, 249, 3296, 37, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(28, '2014-10-10', 0, 0, 0, 0, 0, 0, 0, 0, 370, 7, 416, 232, 21, 4, 0, 0, 0, 0, 0, 0, -136, 9146, 0, 0, 0, -136, 9146, -20, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(29, '2014-10-11', 27, 0, 0, 0, 0, 0, 0, 0, 260, 4, 1736, 19, 43, 5, 0, 0, 0, 0, 0, 0, 452, 8403, 0, 0, 0, 452, 8403, 67, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(30, '2014-10-12', 8, 0, 0, 0, 0, 0, 0, 0, 227, 5, 656, 35, 6, 0, 0, 0, 0, 0, 0, 233, 5826, 0, 0, 0, 233, 5826, 35, 374, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(31, '2014-10-13', 17, 0, 0, 0, 0, 0, 0, 0, 280, 6, 475, 939, 37, 5, 0, 0, 0, 0, 0, 0, 138, 8608, 0, 0, 0, 138, 8608, 20, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(32, '2014-10-14', 8, 1, 1, 0, 0, 0, 0, 0, 60, 3, 453, 7646, 34, 4, 0, 0, 0, 0, 0, 0, -106, 7063, 0, 0, 0, -106, 7063, -16, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(33, '2014-10-15', 8, 0, 0, 0, 0, 0, 0, 0, 570, 8, 2066, 5931, 44, 3, 0, 0, 0, 0, 0, 0, 183, 1461, 0, 0, 0, 183, 1461, 27, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(34, '2014-10-16', 10, 0, 0, 0, 0, 0, 0, 0, 140, 2, 1067, 2745, 37, 3, 0, 0, 0, 0, 0, 0, 304, 4426, 0, 0, 0, 304, 4426, 45, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(35, '2014-10-17', 20, 0, 0, 0, 0, 0, 0, 0, 213, 3, 536, 214, 36, 3, 0, 0, 0, 0, 0, 0, -18, 9306, 0, 0, 0, -18, 9306, -2, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(36, '2014-10-18', 23, 0, 0, 1, 0, 0, 0, 0, 1210, 12, 1707, 368, 55, 5, 0, 1, 0, 0, 0, 0, 315, 447, 0, 0, 0, 315, 447, 47, 0, '2014-10-22 14:47:21', NULL, NULL, 8),
+(37, '2014-10-02', 21, 0, 0, 0, 0, 0, 0, 0, 40, 2, 317, 8054, 32, 3, 0, 0, 0, 0, 0, 0, 166, 6643, 0, 0, 0, 166, 6643, 24, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(38, '2014-10-03', 26, 1, 1, 1, 0, 0, 0, 0, 260, 7, 414, 9313, 39, 4, 0, 1, 0, 0, 0, 0, 58, 3308, 0, 0, 0, 58, 3308, 8, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(39, '2014-10-04', 29, 0, 0, 0, 0, 0, 0, 0, 160, 3, 566, 6369, 47, 7, 0, 0, 0, 0, 0, 0, 95, 4819, 0, 0, 0, 95, 4819, 14, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(40, '2014-10-05', 25, 0, 0, 0, 0, 0, 0, 0, 320, 4, 733, 325, 52, 8, 0, 0, 0, 0, 0, 0, 395, 8534, 0, 0, 0, 395, 8534, 59, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(41, '2014-10-06', 16, 0, 0, 0, 0, 0, 0, 0, 370, 4, 302, 5845, 31, 4, 0, 0, 0, 0, 0, 0, 71, 429, 0, 0, 0, 71, 429, 10, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(42, '2014-10-07', 12, 0, 0, 0, 0, 0, 0, 0, 330, 5, 399, 3321, 33, 3, 0, 0, 0, 0, 0, 0, 232, 4963, 0, 0, 0, 232, 4963, 34, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(43, '2014-10-08', 13, 0, 0, 0, 0, 0, 0, 0, 230, 4, 312, 13, 4, 0, 0, 0, 0, 0, 0, 128, 4066, 0, 0, 0, 128, 4066, 19, 261, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(44, '2014-10-09', 22, 0, 0, 0, 0, 0, 0, 0, 260, 6, 561, 8611, 34, 3, 0, 0, 0, 0, 0, 0, 249, 3296, 0, 0, 0, 249, 3296, 37, 0, '2014-10-22 16:27:49', NULL, NULL, 6),
+(45, '2014-10-02', 11, 0, 0, 0, 0, 0, 0, 0, 40, 2, 317, 8054, 32, 3, 0, 0, 0, 0, 0, 0, 166, 6643, 0, 0, 0, 166, 6643, 24, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(46, '2014-10-03', 26, 1, 1, 1, 0, 0, 0, 0, 260, 7, 414, 9313, 39, 4, 0, 1, 0, 0, 0, 0, 58, 3308, 0, 0, 0, 58, 3308, 8, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(47, '2014-10-04', 29, 0, 0, 0, 0, 0, 0, 0, 160, 3, 566, 6369, 47, 7, 0, 0, 0, 0, 0, 0, 95, 4819, 0, 0, 0, 95, 4819, 14, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(48, '2014-10-05', 25, 1, 0, 0, 0, 0, 0, 0, 320, 4, 733, 325, 52, 8, 0, 0, 0, 0, 0, 0, 395, 8534, 0, 0, 0, 395, 8534, 59, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(49, '2014-10-06', 10, 0, 0, 0, 0, 0, 0, 0, 370, 4, 302, 5845, 31, 4, 0, 0, 0, 0, 0, 0, 71, 429, 0, 0, 0, 71, 429, 10, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(50, '2014-10-07', 12, 1, 0, 0, 0, 0, 0, 0, 330, 5, 399, 3321, 33, 3, 0, 0, 0, 0, 0, 0, 232, 4963, 0, 0, 0, 232, 4963, 34, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(51, '2014-10-08', 13, 1, 0, 0, 0, 0, 0, 0, 230, 4, 312, 13, 4, 0, 0, 0, 0, 0, 0, 128, 4066, 0, 0, 0, 128, 4066, 19, 261, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(52, '2014-10-09', 33, 0, 0, 0, 0, 0, 0, 0, 260, 6, 561, 8611, 34, 3, 0, 0, 0, 0, 0, 0, 249, 3296, 0, 0, 0, 249, 3296, 37, 0, '2014-10-22 22:11:17', NULL, NULL, 9),
+(53, '2014-10-02', 11, 0, 0, 0, 0, 0, 0, 0, 40, 2, 317, 8054, 32, 3, 0, 0, 0, 0, 0, 0, 166, 6643, 0, 0, 0, 166, 6643, 24, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(54, '2014-10-03', 26, 1, 1, 1, 0, 0, 0, 0, 260, 7, 414, 9313, 39, 4, 0, 1, 0, 0, 0, 0, 58, 3308, 0, 0, 0, 58, 3308, 8, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(55, '2014-10-04', 29, 0, 2, 0, 0, 0, 0, 0, 160, 3, 566, 6369, 47, 7, 0, 0, 0, 0, 0, 0, 95, 4819, 0, 0, 0, 95, 4819, 14, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(56, '2014-10-05', 25, 1, 0, 3, 0, 0, 0, 0, 320, 4, 733, 325, 52, 8, 0, 0, 0, 0, 0, 0, 395, 8534, 0, 0, 0, 395, 8534, 59, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(57, '2014-10-06', 10, 2, 2, 0, 0, 0, 0, 0, 370, 4, 302, 5845, 31, 4, 0, 0, 0, 0, 0, 0, 71, 429, 0, 0, 0, 71, 429, 10, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(58, '2014-10-07', 12, 1, 0, 3, 0, 0, 0, 0, 330, 5, 399, 3321, 33, 3, 0, 0, 0, 0, 0, 0, 232, 4963, 0, 0, 0, 232, 4963, 34, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(59, '2014-10-08', 13, 1, 0, 3, 0, 0, 0, 0, 230, 4, 312, 13, 4, 0, 0, 0, 0, 0, 0, 128, 4066, 0, 0, 0, 128, 4066, 19, 261, 0, '2014-10-22 22:27:53', NULL, NULL, 10),
+(60, '2014-10-09', 33, 2, 0, 0, 0, 0, 0, 0, 260, 6, 561, 8611, 34, 3, 0, 0, 0, 0, 0, 0, 249, 3296, 0, 0, 0, 249, 3296, 37, 0, '2014-10-22 22:27:53', NULL, NULL, 10);
 
 -- --------------------------------------------------------
 

@@ -136,22 +136,42 @@ class VentaController extends Controller
 	{
 		//Si es administrador puede ver todo
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
-			$dataProvider=new CActiveDataProvider('Venta');
+			$dataProvider=new CActiveDataProvider('Venta', array(
+				'criteria'=>array(
+					'group' => 'id_usuario',
+					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha',
+					)
+				));
 		}else{
 			//si es el propietario puede ver las suyas, sino puede ver solo las de sus hijos
 
-			##FALTA VER LAS VENTAS DE LOS HIJOS		
+			##FALTA VER LAS VENTAS DE LOS NIETOS	
+			$criteria = new CDbCriteria;
+			$criteria->select = 'user_id';
+			$criteria->condition = 'id_padre=:id_padre';
+			$criteria->params = array(':id_padre' => Yii::app()->user->id);
+			$hijos = Profile::model()->findAll( $criteria );
+
+			$arrayhijos = array();
+			foreach ($hijos as $hijo) {
+				array_push($arrayhijos, $hijo->user_id);
+			}
 
 			//para coger el nombre de la tabla correspondiente al modelo Profile:
 			$tabla = Profile::model()->tableSchema->name;
 
+			$criteria2 = new CDbCriteria;
+			$criteria2->group = 'id_usuario';
+			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
+			$criteria2->join = 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario';
+			$criteria2->condition ='id_usuario ='.Yii::app()->user->id;
+			$criteria2->addInCondition('id_usuario', $arrayhijos, 'OR');
+
 			$dataProvider=new CActiveDataProvider('Venta',
-				array('criteria'=>array(
-					'join' => 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario',
-					'condition'=>'id_usuario='.Yii::app()->user->id,
-					)
+				array('criteria'=> $criteria2
 				)
 			);
+
 		}
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -160,7 +180,6 @@ class VentaController extends Controller
 
 	public function actionVentasUsuario( $id ){
 		$id = htmlentities(strip_tags( $id ));
-		//Si es administrador puede ver todo
 
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'id_padre=:id_padre';
@@ -168,16 +187,30 @@ class VentaController extends Controller
 		$profile = Profile::model()->find( $criteria );
 
 		if( Yii::app()->getModule('user')->esAlgunAdmin() || $profile !== null ){
-			//si es el propietario puede ver las suyas
-			//para coger el nombre de la tabla correspondiente al modelo Profile:
+			//si soy administrador o el usuario en cuestión es mi hijo puedo ver los datos
+			/*$ventasmeses = array(); //creo los índices correspondientes a los meses
+			$criteria2 = new CDbCriteria;
+			$criteria2->condition = "id_usuario=:id_usuario";
+			$criteria2->params = array(':id_usuario'=>$id);
+			$ventas = Venta::model()->findAll( $criteria2 );
+
+			foreach ($ventas as $venta) {
+				//miro el mes al que pertenece la venta
+				$time=strtotime($venta->fecha);
+				$mes=date("n",$time);
+				var_dump($ventasmeses);
+				//coloco la venta en la posición del array del mes correspondiente
+				//ventasmeses($mes => $venta);
+			}*/
 			$dataProvider=new CActiveDataProvider('Venta',
 				array('criteria'=>array(
 					'condition'=>'id_usuario='.$id,
+					'group' => 'MONTH(fecha)',
 					)
 				)
 			);
 
-			$this->render('index',array(
+			$this->render('ventasusuario',array(
 				'dataProvider'=>$dataProvider,
 			));
 		}else{
@@ -213,6 +246,7 @@ class VentaController extends Controller
 	}
 
 	public function actionImportarCsv(){
+         if( Yii::app()->getModule('user')->esAlgunAdmin() ){
          $model = new Venta;
 		 if( isset($_FILES['csv']) ){		
 		 $ok = true; 	
@@ -226,16 +260,14 @@ class VentaController extends Controller
                    $transaction = Yii::app()->db->beginTransaction();
                    $handle = fopen("$file->tempName", "r");
                    $row = 1;
-                   while ( ($data = fgetcsv($handle, 2000, ";")) !== FALSE ) {
+                   while ( ($data = fgetcsv($handle, 2000, ",")) !== FALSE ) {
                       if($row>1){                       		 
                              $venta = new Venta;
                              //si la referencia no cambia pongo el id de usuario que ya tenía para evitar actividad con la BD
                              if( $this->esMismaReferencia( $data[0] ) ){
                              	$venta->id_usuario = $profile->user_id;
-                             	echo "<br/>User Id: ".$profile->user_id;
                              }else{
-                             	$profile = $this->dameUsuario( $data[0] );
-                             	echo "<br/>User Id: ".$profile->user_id;
+                             	$profile = $this->dameUsuario( $data[0] );                         	
                              	if( empty( $profile) ){
                              		$transaction->commit();
                              		fclose($handle);
@@ -247,8 +279,8 @@ class VentaController extends Controller
                              	}
                              	$venta->id_usuario = $profile->user_id;
                              }
-                             //relleno el resto de campos de la Venta
-                             $venta->fecha = '2014-10-22';
+                             //relleno el resto de campos de la Venta              
+                             $venta->fecha = date('Y/m/d',strtotime($data[1]));
                              $venta->clics = $data[2];
                              $venta->nuevos_registros = $data[3];
                              $venta->nuevos_depositantes = $data[4];
@@ -278,11 +310,6 @@ class VentaController extends Controller
                              $venta->ganancias_afiliado_poquer = $data[28];
                              $venta->ganancias_afiliado_juego = $data[29];
 
-                             echo "<br/>";                            
-                             echo $data[0]."<br/>";
-                             echo $data[1]."<br/>";
-                             echo $data[2]."<br/>";
-                             echo "-------";
                              if( !$venta->save() ){
                              	$ok = false;
                              }                             
@@ -290,7 +317,7 @@ class VentaController extends Controller
                        $row++;
                    }
                    $transaction->commit();
-                   //fclose($handle);
+                   fclose($handle);
                    }catch( Exception $error ){
                        print_r($error);
                        $transaction->rollback();
@@ -302,10 +329,12 @@ class VentaController extends Controller
                		Yii::app()->user->setFlash('warning', "No se han podido guardar todos los datos");
                }
 		 }
-
 		$this->render('importcsvform',array(
 		'model'=>$model,
 		));
+	}else{
+		$this->render('importcsvform');
+	}
 		 
 	}
 
