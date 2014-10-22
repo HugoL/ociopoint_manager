@@ -2,6 +2,8 @@
 
 class VentaController extends Controller
 {
+	private $_ref; //referencia del usuario
+
 	public function actions()
     {
         return array(
@@ -211,41 +213,100 @@ class VentaController extends Controller
 	}
 
 	public function actionImportarCsv(){
-         $model=new Venta;
-		 if( isset($_FILES['csv']) ){		 	
-		  $model->attributes=$_FILES['csv'];
-		  $filelist=CUploadedFile::getInstancesByName('csv');
+         $model = new Venta;
+		 if( isset($_FILES['csv']) ){		
+		 $ok = true; 	
+		  $model->attributes = $_FILES['csv'];
+		  $filelist = CUploadedFile::getInstancesByName('csv');
 		  // To validate 
-		           if( $filelist )
-		               $model->csv=1;
-		           //if( $model->validate() ){
-		               foreach( $filelist as $file ){
-		                   try{
-		                   $transaction = Yii::app()->db->beginTransaction();
-		                   $handle = fopen("$file->tempName", "r");
-		                   $row = 1;
-		                   while ( ($data = fgetcsv($handle, 1000, ",")) !== FALSE ) {
-		                       if($row>1){
-		                             $newmodel=new Venta;    
-		                             var_dump($data);
-		                         		                             
-		                             /*$newmodel->name=$data[0];
-		                             $newmodel->age=$data[1];
-		                             $newmodel->save();*/
-		                       }
-		                       $row++;               
-		                   }
-		                   $transaction->commit();
-		                   }catch( Exception $error ){
-		                       print_r($error);
-		                       $transaction->rollback();
-		                   }                    
-		               }                            
-		           //}                        
+           if( $filelist )
+               $model->csv = 1;
+               foreach( $filelist as $file ){
+                   try{
+                   $transaction = Yii::app()->db->beginTransaction();
+                   $handle = fopen("$file->tempName", "r");
+                   $row = 1;
+                   while ( ($data = fgetcsv($handle, 2000, ";")) !== FALSE ) {
+                      if($row>1){                       		 
+                             $venta = new Venta;
+                             //si la referencia no cambia pongo el id de usuario que ya tenía para evitar actividad con la BD
+                             if( $this->esMismaReferencia( $data[0] ) ){
+                             	$venta->id_usuario = $profile->user_id;
+                             	echo "<br/>User Id: ".$profile->user_id;
+                             }else{
+                             	$profile = $this->dameUsuario( $data[0] );
+                             	echo "<br/>User Id: ".$profile->user_id;
+                             	if( empty( $profile) ){
+                             		$transaction->commit();
+                             		fclose($handle);
+                             		Yii::app()->user->setFlash('error', "El usuario de la referencia ".$data[0]." no existe!");
+                             		$this->render('importcsvform',array(
+		                                  'model'=>$model,
+		                             ));
+                             		 Yii::app()->end();
+                             	}
+                             	$venta->id_usuario = $profile->user_id;
+                             }
+                             //relleno el resto de campos de la Venta
+                             $venta->fecha = '2014-10-22';
+                             $venta->clics = $data[2];
+                             $venta->nuevos_registros = $data[3];
+                             $venta->nuevos_depositantes = $data[4];
+                             $venta->nuevos_depositantes_deportes = $data[5];
+                             $venta->nuevos_depositantes_casino = $data[6];
+                             $venta->nuevos_depositantes_poquer = $data[7];
+                             $venta->nuevos_depositantes_juegos = $data[8];
+                             $venta->nuevos_depositantes_bingo = $data[9];
+                             $venta->valor_depositos = $data[10];
+                             $venta->numero_depositos = $data[11];
+                             $venta->facturacion_deportes = $data[12];
+                             $venta->numero_apuestas_deportivas = $data[13];
+                             $venta->usuarios_activos_deportes = $data[14];
+                             $venta->sesiones_casino = $data[15];
+                             $venta->nuevos_jugadores_deportes = $data[16];
+                             $venta->nuevos_jugadores_casino = $data[17];
+                             $venta->nuevos_clientes_poquer = $data[18];
+                             $venta->nuevos_clientes_juego = $data[19];
+                             $venta->nuevos_jugadores_bingo = $data[20];
+                             $venta->beneficios_netos_deportes = $data[21];
+                             $venta->beneficios_netos_casino = $data[22];
+                             $venta->beneficios_netos_poquer = $data[23];
+                             $venta->beneficios_netos_juegos = $data[24];
+                             $venta->ingresos_totales_netos = $data[25];
+                             $venta->ganancias_afiliado_deportes = $data[26];
+                             $venta->ganancias_afiliado_casino = $data[27];
+                             $venta->ganancias_afiliado_poquer = $data[28];
+                             $venta->ganancias_afiliado_juego = $data[29];
+
+                             echo "<br/>";                            
+                             echo $data[0]."<br/>";
+                             echo $data[1]."<br/>";
+                             echo $data[2]."<br/>";
+                             echo "-------";
+                             if( !$venta->save() ){
+                             	$ok = false;
+                             }                             
+                       }
+                       $row++;
+                   }
+                   $transaction->commit();
+                   //fclose($handle);
+                   }catch( Exception $error ){
+                       print_r($error);
+                       $transaction->rollback();
+                   }
+               }
+               if( $ok ){
+               		Yii::app()->user->setFlash('success', "Todos los datos se han guardado!");
+               }else{
+               		Yii::app()->user->setFlash('warning', "No se han podido guardar todos los datos");
+               }
 		 }
+
 		$this->render('importcsvform',array(
-		  'model'=>$model,
-		 ));
+		'model'=>$model,
+		));
+		 
 	}
 
 	/**
@@ -261,6 +322,29 @@ class VentaController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function esMismaReferencia( $referencia ){
+		$referencia = strip_tags( $referencia );
+		if( !empty($this->_ref) ){
+			if( strcmp($this->_ref, $referencia) == 0){
+				return true;
+			}else{
+				$this->_ref = $referencia;
+				return false;
+			}
+		}else{
+			$this->_ref = $referencia;
+			return false;
+		}
+	}
+
+	protected function dameUsuario( $referencia ){
+		$criteria = new CDbCriteria;
+		$criteria->condition = "referencia=:referencia";
+		$criteria->params = array(':referencia'=>$referencia);
+
+		return Profile::model()->find( $criteria );
 	}
 
 	/**
