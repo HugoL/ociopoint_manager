@@ -40,7 +40,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv'),
+				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv','verDetalleMes'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -145,30 +145,20 @@ class VentaController extends Controller
 		}else{
 			//si es el propietario puede ver las suyas, sino puede ver solo las de sus hijos
 
-			##FALTA VER LAS VENTAS DE LOS NIETOS	
-			$criteria = new CDbCriteria;
-			$criteria->select = 'user_id';
-			$criteria->condition = 'id_padre=:id_padre';
-			$criteria->params = array(':id_padre' => Yii::app()->user->id);
-			$hijos = Profile::model()->findAll( $criteria );
-
-			$arrayhijos = array();
-			foreach ($hijos as $hijo) {
-				array_push($arrayhijos, $hijo->user_id);
-			}
-
+			$descendientes = $this->dameMisDescendientes(); //me devuelve un array con los id de los usuarios que son descendientes míos
+			
 			//para coger el nombre de la tabla correspondiente al modelo Profile:
-			$tabla = Profile::model()->tableSchema->name;
+			//$tabla = Profile::model()->tableSchema->name;
 
-			$criteria2 = new CDbCriteria;
-			$criteria2->group = 'id_usuario';
-			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
-			$criteria2->join = 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario';
-			$criteria2->condition ='id_usuario ='.Yii::app()->user->id;
-			$criteria2->addInCondition('id_usuario', $arrayhijos, 'OR');
+			$criteria = new CDbCriteria;
+			$criteria->group = 'id_usuario';
+			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
+			$criteria->condition ='id_usuario ='.Yii::app()->user->id;
+			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
+			//$criteria2->join = 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario';
 
 			$dataProvider=new CActiveDataProvider('Venta',
-				array('criteria'=> $criteria2
+				array('criteria'=> $criteria
 				)
 			);
 
@@ -181,13 +171,14 @@ class VentaController extends Controller
 	public function actionVentasUsuario( $id ){
 		$id = htmlentities(strip_tags( $id ));
 
+		$descendientes = $this->dameMisDescendientes();
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'id_padre=:id_padre';
-		$criteria->params = array(':id_padre'=>Yii::app()->user->id);
+		$criteria->addInCondition('id_padre', $descendientes, 'OR');
+		//$criteria->params = array(':id_padre'=>Yii::app()->user->id);
 		$profile = Profile::model()->find( $criteria );
 
 		if( Yii::app()->getModule('user')->esAlgunAdmin() || $profile !== null ){
-			//si soy administrador o el usuario en cuestión es mi hijo puedo ver los datos
+			//si soy administrador o el usuario en cuestión es mi hijo o mi nieto puedo ver los datos
 			/*$ventasmeses = array(); //creo los índices correspondientes a los meses
 			$criteria2 = new CDbCriteria;
 			$criteria2->condition = "id_usuario=:id_usuario";
@@ -202,16 +193,28 @@ class VentaController extends Controller
 				//coloco la venta en la posición del array del mes correspondiente
 				//ventasmeses($mes => $venta);
 			}*/
-			$dataProvider=new CActiveDataProvider('Venta',
+
+			$criteria2 = new CDbCriteria;
+			$criteria2->group = 'MONTH(fecha)';
+			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
+			$criteria2->condition ='id_usuario=:id_usuario';
+			$criteria2->params = array(':id_usuario'=>$profile->user_id);
+
+			/*$dataProvider=new CActiveDataProvider('Venta',
 				array('criteria'=>array(
 					'condition'=>'id_usuario='.$id,
 					'group' => 'MONTH(fecha)',
 					)
 				)
+			);*/
+			$dataProvider=new CActiveDataProvider('Venta',
+				array('criteria'=> $criteria2
+				)
 			);
 
 			$this->render('ventasusuario',array(
 				'dataProvider'=>$dataProvider,
+				'profile'=> $profile,
 			));
 		}else{
 			$this->redirect("site/page/nopermitido");
@@ -223,11 +226,35 @@ class VentaController extends Controller
 		$venta = Venta::model()->findByPk( $id );
 		
 		//Si es un administrador podrá verlo, si es el propietario o padre del mismo también
+
+		#FALTA COMPROBAR SI ES NIETO
+
 		if( !empty($venta) && (Yii::app()->getModule('user')->esAlgunAdmin() || $venta->usuario->profile->id_padre == Yii::app()->user->id || $venta->usuario->profile->user_id == Yii::app()->user->id) ){
 			$this->render( 'detalle', array('model'=>$venta) );
 		}else{
 			$this->render( 'detalle' );
 		}
+	}
+
+	public function actionVerDetalleMes( $id, $mes ){
+		$id = htmlentities(strip_tags( $id ));
+		$mes = htmlentities(strip_tags( $mes ));
+
+		$profile = Profile::model()->findByPk( $id );
+
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'id_usuario=:id_usuario AND MONTH(fecha)=:mes';
+		$criteria->params = array(':id_usuario'=>$id, ':mes'=>$mes);
+
+		$dataProvider=new CActiveDataProvider('Venta',
+				array('criteria'=> $criteria
+				)
+			);
+		$this->render('ventasusuario',array(
+				'dataProvider'=>$dataProvider,
+				'profile'=> $profile,
+			));
+
 	}
 
 	/**
@@ -376,6 +403,34 @@ class VentaController extends Controller
 		return Profile::model()->find( $criteria );
 	}
 
+
+	protected function dameMisDescendientes(){
+		//cojo los hijos
+		$criteria = new CDbCriteria;
+		$criteria->select = 'user_id';
+		$criteria->condition = 'id_padre=:id_padre';
+		$criteria->params = array(':id_padre' => Yii::app()->user->id);
+		$hijos = Profile::model()->findAll( $criteria );			
+
+		$arrayhijos = array();			
+		foreach ($hijos as $hijo) {
+			array_push($arrayhijos, $hijo->user_id);
+		}
+
+		//cojo los nietos
+		$criteria3 = new CDbCriteria;
+		$criteria3->select = 'user_id';
+		$criteria3->addInCondition('id_padre',$arrayhijos, 'OR');
+		$nietos = Profile::model()->findAll( $criteria3 );
+
+		array_push($arrayhijos, Yii::app()->user->id);
+
+		foreach ($nietos as $nieto) {
+			array_push($arrayhijos, $nieto->user_id);
+		}
+
+		return $arrayhijos;
+	}
 	/**
 	 * Performs the AJAX validation.
 	 * @param Venta $model the model to be validated

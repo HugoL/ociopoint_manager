@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Ventas</h1>
+<h2>Ventas de <span class="referencia"><?php echo $profile->referencia; ?></span></h2>
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
 <div class="span12">
@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
 	</center></div>
 <?php endif; ?>
 <div class="row-fluid">
-
+<div class="span2"><b>Mes</div><div class="span2">Nuevos Registros</div><div class="span2">Nuevos Depositantes</div><div class="span2"><b>Nuevos Dep. Deportes</div>
 <?php 
 //var_dump($dataProvider);
 $this->widget('zii.widgets.CListView', array(

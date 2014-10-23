@@ -65,9 +65,9 @@ class UserController extends Controller
 	}
 
 	public function actionListarHijos( $pag = null){
+		$descendientes = $this->dameMisDescendientes();
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'id_padre=:id_padre';
-		$criteria->params = array(':id_padre'=>Yii::app()->user->id);
+		$criteria->addInCondition('id_padre',$descendientes,'OR');
 		if( !empty($pag) ){
 			//calcular el offset y el limit correspondientes a la página
 		}
@@ -121,5 +121,33 @@ class UserController extends Controller
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $this->_model;
+	}
+
+	protected function dameMisDescendientes(){
+		//cojo los hijos
+		$criteria = new CDbCriteria;
+		$criteria->select = 'user_id';
+		$criteria->condition = 'id_padre=:id_padre';
+		$criteria->params = array(':id_padre' => Yii::app()->user->id);
+		$hijos = Profile::model()->findAll( $criteria );			
+
+		$arrayhijos = array();			
+		foreach ($hijos as $hijo) {
+			array_push($arrayhijos, $hijo->user_id);
+		}
+
+		//cojo los nietos
+		$criteria3 = new CDbCriteria;
+		$criteria3->select = 'user_id';
+		$criteria3->addInCondition('id_padre',$arrayhijos, 'OR');
+		$nietos = Profile::model()->findAll( $criteria3 );
+
+		array_push($arrayhijos, Yii::app()->user->id);
+
+		foreach ($nietos as $nieto) {
+			array_push($arrayhijos, $nieto->user_id);
+		}
+
+		return $arrayhijos;
 	}
 }
