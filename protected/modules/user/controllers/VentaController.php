@@ -139,21 +139,21 @@ class VentaController extends Controller
 			$dataProvider=new CActiveDataProvider('Venta', array(
 				'criteria'=>array(
 					'group' => 'id_usuario',
-					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha',
+					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha',
 					)
 				));
 		}else{
 			//si es el propietario puede ver las suyas, sino puede ver solo las de sus hijos
 
-			$descendientes = $this->dameMisDescendientes(); //me devuelve un array con los id de los usuarios que son descendientes míos
+			$descendientes = $this->dameMisDescendientes(); //me devuelve un array con los id de los usuarios que son descendientes míos			
 			
 			//para coger el nombre de la tabla correspondiente al modelo Profile:
 			//$tabla = Profile::model()->tableSchema->name;
 
 			$criteria = new CDbCriteria;
 			$criteria->group = 'id_usuario';
-			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
-			$criteria->condition ='id_usuario ='.Yii::app()->user->id;
+			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
+			//$criteria->condition ='id_usuario ='.Yii::app()->user->id;
 			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
 			//$criteria2->join = 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario';
 
@@ -174,39 +174,16 @@ class VentaController extends Controller
 		$descendientes = $this->dameMisDescendientes();
 		$criteria = new CDbCriteria;
 		$criteria->addInCondition('id_padre', $descendientes, 'OR');
-		//$criteria->params = array(':id_padre'=>Yii::app()->user->id);
-		$profile = Profile::model()->find( $criteria );
+		$profile = Profile::model()->findByPk( $id );
 
-		if( Yii::app()->getModule('user')->esAlgunAdmin() || $profile !== null ){
-			//si soy administrador o el usuario en cuestión es mi hijo o mi nieto puedo ver los datos
-			/*$ventasmeses = array(); //creo los índices correspondientes a los meses
-			$criteria2 = new CDbCriteria;
-			$criteria2->condition = "id_usuario=:id_usuario";
-			$criteria2->params = array(':id_usuario'=>$id);
-			$ventas = Venta::model()->findAll( $criteria2 );
-
-			foreach ($ventas as $venta) {
-				//miro el mes al que pertenece la venta
-				$time=strtotime($venta->fecha);
-				$mes=date("n",$time);
-				var_dump($ventasmeses);
-				//coloco la venta en la posición del array del mes correspondiente
-				//ventasmeses($mes => $venta);
-			}*/
+		if( Yii::app()->getModule('user')->esAlgunAdmin() || in_array($profile->user_id,$descendientes) ){
 
 			$criteria2 = new CDbCriteria;
 			$criteria2->group = 'MONTH(fecha)';
-			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, id_usuario, fecha';
+			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
 			$criteria2->condition ='id_usuario=:id_usuario';
 			$criteria2->params = array(':id_usuario'=>$profile->user_id);
 
-			/*$dataProvider=new CActiveDataProvider('Venta',
-				array('criteria'=>array(
-					'condition'=>'id_usuario='.$id,
-					'group' => 'MONTH(fecha)',
-					)
-				)
-			);*/
 			$dataProvider=new CActiveDataProvider('Venta',
 				array('criteria'=> $criteria2
 				)
@@ -236,24 +213,29 @@ class VentaController extends Controller
 		}
 	}
 
-	public function actionVerDetalleMes( $id, $mes ){
-		$id = htmlentities(strip_tags( $id ));
-		$mes = htmlentities(strip_tags( $mes ));
+	public function actionVerDetalleMes( $id, $mes ){		
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$id = htmlentities(strip_tags( $id ));
+			$mes = htmlentities(strip_tags( $mes ));
 
-		$profile = Profile::model()->findByPk( $id );
+			$profile = Profile::model()->findByPk( $id );
 
-		$criteria = new CDbCriteria;
-		$criteria->condition = 'id_usuario=:id_usuario AND MONTH(fecha)=:mes';
-		$criteria->params = array(':id_usuario'=>$id, ':mes'=>$mes);
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'id_usuario=:id_usuario AND MONTH(fecha)=:mes';
+			$criteria->params = array(':id_usuario'=>$id, ':mes'=>$mes);
 
-		$dataProvider=new CActiveDataProvider('Venta',
-				array('criteria'=> $criteria
-				)
-			);
-		$this->render('ventasusuario',array(
+			$dataProvider=new CActiveDataProvider('Venta',
+					array('criteria'=> $criteria,
+						'pagination'=>false,
+					)
+				);
+			$this->render('detallemes',array(
 				'dataProvider'=>$dataProvider,
 				'profile'=> $profile,
 			));
+		}else{
+			$this->redirect("site/page/nopermitido");
+		}
 
 	}
 
@@ -287,7 +269,7 @@ class VentaController extends Controller
                    $transaction = Yii::app()->db->beginTransaction();
                    $handle = fopen("$file->tempName", "r");
                    $row = 1;
-                   while ( ($data = fgetcsv($handle, 2000, ",")) !== FALSE ) {
+                   while ( ($data = fgetcsv($handle, 2000, ";")) !== FALSE ) {
                       if($row>1){                       		 
                              $venta = new Venta;
                              //si la referencia no cambia pongo el id de usuario que ya tenía para evitar actividad con la BD
@@ -306,19 +288,26 @@ class VentaController extends Controller
                              	}
                              	$venta->id_usuario = $profile->user_id;
                              }
-                             //relleno el resto de campos de la Venta              
-                             $venta->fecha = date('Y/m/d',strtotime($data[1]));
+                             $fecha = explode('/',$data[1]);
+                             $aux = $fecha[0];
+                             $fecha[0]=$fecha[1].'/';
+                             $fecha[1]=$aux.'/';
+                             $fecha[2];                
+                             
+                             $fecha = implode($fecha);
+                             //relleno el resto de campos de la Venta                             
+                             $venta->fecha = date('Y-m-d',strtotime($fecha));
                              $venta->clics = $data[2];
-                             $venta->nuevos_registros = $data[3];
+                          	 $venta->nuevos_registros = $data[3];
                              $venta->nuevos_depositantes = $data[4];
                              $venta->nuevos_depositantes_deportes = $data[5];
                              $venta->nuevos_depositantes_casino = $data[6];
                              $venta->nuevos_depositantes_poquer = $data[7];
                              $venta->nuevos_depositantes_juegos = $data[8];
                              $venta->nuevos_depositantes_bingo = $data[9];
-                             $venta->valor_depositos = $data[10];
+                             $venta->valor_depositos = floatval(str_replace(',','.',$data[10]));
                              $venta->numero_depositos = $data[11];
-                             $venta->facturacion_deportes = $data[12];
+                             $venta->facturacion_deportes = floatval(str_replace(',','.',$data[12]));
                              $venta->numero_apuestas_deportivas = $data[13];
                              $venta->usuarios_activos_deportes = $data[14];
                              $venta->sesiones_casino = $data[15];
@@ -327,19 +316,20 @@ class VentaController extends Controller
                              $venta->nuevos_clientes_poquer = $data[18];
                              $venta->nuevos_clientes_juego = $data[19];
                              $venta->nuevos_jugadores_bingo = $data[20];
-                             $venta->beneficios_netos_deportes = $data[21];
-                             $venta->beneficios_netos_casino = $data[22];
-                             $venta->beneficios_netos_poquer = $data[23];
-                             $venta->beneficios_netos_juegos = $data[24];
-                             $venta->ingresos_totales_netos = $data[25];
-                             $venta->ganancias_afiliado_deportes = $data[26];
-                             $venta->ganancias_afiliado_casino = $data[27];
-                             $venta->ganancias_afiliado_poquer = $data[28];
-                             $venta->ganancias_afiliado_juego = $data[29];
-
+                             $venta->beneficios_netos_deportes = floatval(str_replace(',','.',$data[21]));
+                             $venta->beneficios_netos_casino = floatval(str_replace(',','.',$data[22]));;
+                             $venta->beneficios_netos_poquer = floatval(str_replace(',','.',$data[23]));
+                             $venta->beneficios_netos_juegos = floatval(str_replace(',','.',$data[24]));
+                             $venta->ingresos_totales_netos = floatval(str_replace(',','.',$data[25]));
+                             $venta->ganancias_afiliado_deportes = floatval(str_replace(',','.',$data[26]));
+                             $venta->ganancias_afiliado_casino = floatval(str_replace(',','.',$data[27]));
+                             $venta->ganancias_afiliado_poquer = floatval(str_replace(',','.',$data[28]));
+                             $venta->ganancias_afiliado_juego = floatval(str_replace(',','.',$data[29]));
+                             $venta->comisiones_debidas = floatval(str_replace(',','.',$data[30]));
+                             //var_dump($venta);
                              if( !$venta->save() ){
                              	$ok = false;
-                             }                             
+                             }
                        }
                        $row++;
                    }

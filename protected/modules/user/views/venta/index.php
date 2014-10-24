@@ -12,8 +12,11 @@ $this->menu=array(
 	array('label'=>'Manage Venta', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Ventas</h1>
+<?php 
+    $rol = Rol::model()->findByPK(Yii::app()->getModule('user')->user()->profile->rol); 
+    $esadmin = Yii::app()->getModule('user')->esAlgunAdmin();
+?>
+<h1>Vista general de ventas</h1>
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
 <div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -28,10 +31,13 @@ $this->menu=array(
 <?php endif; ?>
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid">
-<div class="span2"><b>Refencia</div><div class="span2">Nuevos Registros</div><div class="span2">Nuevos Depositantes</div><div class="span2"><b>Nuevos Dep. Deportes</div>
+<table class="table table-hover">
+<tr><th>Refencia</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Nuevos Dep. Deportes</th><?php if( strcmp($rol->nombre,'distribuidor') == 0 || $esadmin ) : ?><th>Comisiones Debidas</th><?php endif; ?><th></th></tr>
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
+	'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin ),
 	'itemView'=>'_resumen',
 )); ?>
+</table>
 </div>
 </div>

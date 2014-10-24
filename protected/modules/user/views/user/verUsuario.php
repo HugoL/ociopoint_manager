@@ -1,5 +1,12 @@
 <div class="row-fluid span12">
-	<div class="span12"><center><?php echo CHtml::link('Volver',array('user/listarHijos'),array('class'=>'btn btn-primary')); ?></center></div>
+	<div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
+    				'label'=>'Volver',
+    				'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    				'size'=>'large', // null, 'large', 'small' or 'mini'
+    				'icon'=>'arrow-left white',
+    				'url'=>array('user/listarHijos'),
+    				'toggle'=>false,
+				)); ?></center></div>
 <?php if( !empty($user) ): ?>
 <h1>Usuario <?php echo $user->profile->firstname; ?></h1>
 <div class="row-fluid">

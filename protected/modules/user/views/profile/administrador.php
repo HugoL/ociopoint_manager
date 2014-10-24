@@ -31,24 +31,8 @@
                     <input type="radio" name="product" value="mobile_desktop" checked="checked">
                 </div>
             </div>
-                <div class="clear"></div>
             </div></center>
         </div>
-
-    		<div class="span4">
-    		<center><div class="product-chooser-item">
-    			<div class="well">
-    			<img src="<?php echo Yii::app()->baseUrl ?>/images/informe.png" class="img-rounded" alt="Informes">
-                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
-    				<span class="title">Informes</span>
-    				<span class="description">Generar informes</span>
-    			</div>
-    		</div>
-    			<div class="clear"></div>
-    		</div></center>
-    	</div>
-    </div><!-- row-fluid -->
-    <div class="row-fluid">
         <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">
@@ -58,9 +42,10 @@
                     <span class="description">Ver datos de ventas</span>
                 </div>
             </div>
-                <div class="clear"></div>
             </div></center>
         </div>
+    </div><!-- row-fluid -->
+    <div class="row-fluid">        
          <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">
@@ -70,7 +55,17 @@
                     <span class="description">Ver mi perfil</span>
                 </div>
             </div>
-                <div class="clear"></div>
+            </div></center>
+        </div>
+         <div class="span4">
+            <center><div class="product-chooser-item">
+                <div class="well">
+                 <a href="<?php echo Yii::app()->baseUrl.'/user/logout'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/apagar.png" class="img-rounded" alt="Perfil"></a>
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                    <span class="title">Salir</span>
+                    <span class="description">Salir de Ociopoint</span>
+                </div>
+            </div>
             </div></center>
         </div>
     	</div><!-- row-fluid -->

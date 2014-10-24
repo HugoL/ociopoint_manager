@@ -12,11 +12,10 @@
                 <div class="well">
                 <a href="<?php echo Yii::app()->baseUrl.'/user/admin/create'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/usuario.png" class="img-rounded" alt="Añadir Usuario"></a>
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
-                    <span class="title">Añadir usuario</span>
-                    <span class="description">Añadir un nuevo usuario</span>
+                    <span class="title">Añadir establecimiento</span>
+                    <span class="description">Añadir un nuevo establecimiento</span>
                 </div>
             </div>
-                <div class="clear"></div>
             </div>
         </center>
         </div>
@@ -26,29 +25,14 @@
                 <div class="well">
                 <a href="<?php echo Yii::app()->baseUrl.'/user/user/listarHijos'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/usuarios2.png" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Añadir Usuario"></a>
                 <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
-                    <span class="title">Ver mis usuarios</span>
-                    <span class="description">Listado de usuarios a mi cargo</span>
+                    <span class="title">Ver mis establecimientos</span>
+                    <span class="description">Listado de establecimientos a mi cargo</span>
                     <input type="radio" name="product" value="mobile_desktop" checked="checked">
                 </div>
             </div>
-                <div class="clear"></div>
             </div></center>
         </div>
             <div class="span4">
-            <center><div class="product-chooser-item">
-                <div class="well">
-                <img src="<?php echo Yii::app()->baseUrl ?>/images/informe.png" class="img-rounded" alt="Informes">
-                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
-                    <span class="title">Informes</span>
-                    <span class="description">Generar informes</span>
-                </div>
-            </div>
-                <div class="clear"></div>
-            </div></center>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">
                  <a href="<?php echo Yii::app()->baseUrl.'/user/venta/index'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/billete.png" class="img-rounded" alt="Ventas"></a>
@@ -57,9 +41,11 @@
                     <span class="description">Ver datos de ventas</span>
                 </div>
             </div>
-                <div class="clear"></div>
             </div></center>
         </div>
+    </div>
+    <div class="row-fluid">
+       
          <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">
@@ -69,7 +55,17 @@
                     <span class="description">Ver mi perfil</span>
                 </div>
             </div>
-                <div class="clear"></div>
+            </div></center>
+        </div>
+         <div class="span4">
+            <center><div class="product-chooser-item">
+                <div class="well">
+                 <a href="<?php echo Yii::app()->baseUrl.'/user/logout'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/apagar.png" class="img-rounded" alt="Perfil"></a>
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                    <span class="title">Salir</span>
+                    <span class="description">Salir de Ociopoint</span>
+                </div>
+            </div>
             </div></center>
         </div>
     </div><!-- row-fluid -->

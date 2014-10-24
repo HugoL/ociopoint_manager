@@ -123,5 +123,8 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'hlanga@hlanga.es',
 		'debugContent'=>'',
+		'porcentaje_distribuidor' => 5,
+		'porcentaje_comercial' => 5,
+		'porcentaje_establecimiento' => 10,
 	),
 );
