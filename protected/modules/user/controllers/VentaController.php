@@ -202,11 +202,11 @@ class VentaController extends Controller
 		$id = htmlentities(strip_tags( $id ));
 		$venta = Venta::model()->findByPk( $id );
 		
-		//Si es un administrador podrá verlo, si es el propietario o padre del mismo también
+		//El detalle completo solo lo pueden ver los administradores (de momento)
 
-		#FALTA COMPROBAR SI ES NIETO
+		//$descendientes = $this->dameMisDescendientes();
 
-		if( !empty($venta) && (Yii::app()->getModule('user')->esAlgunAdmin() || $venta->usuario->profile->id_padre == Yii::app()->user->id || $venta->usuario->profile->user_id == Yii::app()->user->id) ){
+		if( !empty($venta) && (Yii::app()->getModule('user')->esAlgunAdmin()) ){
 			$this->render( 'detalle', array('model'=>$venta) );
 		}else{
 			$this->render( 'detalle' );

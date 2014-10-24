@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-10-2014 a las 02:08:57
--- Versión del servidor: 5.5.40-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4.4
+-- Tiempo de generación: 24-10-2014 a las 14:17:57
+-- Versión del servidor: 5.6.15-log
+-- Versión de PHP: 5.2.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `AuthAssignment`
+-- Estructura de tabla para la tabla `authassignment`
 --
 
-CREATE TABLE IF NOT EXISTS `AuthAssignment` (
+CREATE TABLE IF NOT EXISTS `authassignment` (
   `itemname` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `userid` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
   `bizrule` text COLLATE utf8_spanish_ci,
@@ -35,10 +35,10 @@ CREATE TABLE IF NOT EXISTS `AuthAssignment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `AuthAssignment`
+-- Volcado de datos para la tabla `authassignment`
 --
 
-INSERT INTO `AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('superadmin', '1', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -118,26 +118,27 @@ CREATE TABLE IF NOT EXISTS `om_profiles` (
   `rol` int(11) NOT NULL DEFAULT '3',
   `id_padre` int(11) NOT NULL DEFAULT '0',
   `referencia` varchar(255) NOT NULL DEFAULT '',
+  `pdf` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   KEY `rol` (`rol`),
   KEY `id_padre` (`id_padre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Volcado de datos para la tabla `om_profiles`
 --
 
-INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `telefono`, `movil`, `rol`, `id_padre`, `referencia`) VALUES
-(1, 'Admin', 'Administrator', '', '', '', '', '', '', 1, 1, ''),
-(2, 'No sé', 'Jair', '', '', '', '', '', '', 2, 1, ''),
-(3, 'Uno', 'Distribuidor', '', '', '', '', '', '', 3, 1, ''),
-(5, 'Uno', 'Comercial', '', '', '', '', '', '', 4, 1, ''),
-(6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5, 1, 'es221014zgz001'),
-(7, 'Langa Murillo', 'Señor Jingles', '', '', '', '', '', '', 5, 1, ''),
-(8, 'Langa Roy', 'Hugo', '', '', '', '', '', '', 4, 3, 'es201014zgz001'),
-(9, 'Bar', 'Loly', '', '', '', '', '', '', 5, 3, 'es231014zgz003'),
-(10, 'Brothers', 'Taberna', '', '', '', '', '', '', 5, 8, 'es231014epi001'),
-(11, 'Nápoli', 'Bar', '', '', '', '', '', '', 5, 8, 'es001cr0414');
+INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `telefono`, `movil`, `rol`, `id_padre`, `referencia`, `pdf`) VALUES
+(1, 'Admin', 'Administrator', '', '', '', '', '', '', 1, 1, '', ''),
+(2, 'No sé', 'Jair', '', '', '', '', '', '', 2, 1, '', ''),
+(3, 'Uno', 'Distribuidor', '', '', '', '', '', '', 3, 1, '', ''),
+(5, 'Uno', 'Comercial', '', '', '', '', '', '', 4, 1, '', ''),
+(6, 'Uno', 'Establecimiento', '', '', '', '', '', '', 5, 1, 'es221014zgz001', ''),
+(7, 'Langa Murillo', 'Señor Jingles', '', '', '', '', '', '', 5, 1, '', ''),
+(8, 'Langa Roy', 'Hugo', '', '', '', '', '', '', 4, 3, 'es201014zgz001', ''),
+(9, 'Bar', 'Loly', '', '', '', '', '', '', 5, 3, 'es231014zgz003', ''),
+(10, 'Brothers', 'Taberna', '', '', '', '', '', '', 5, 8, 'es231014epi001', ''),
+(11, 'Nápoli', 'Bar', '', '', '', '', '', '', 5, 8, 'es001cr0414', '');
 
 -- --------------------------------------------------------
 
@@ -164,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `om_profiles_fields` (
   `visible` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `varname` (`varname`,`widget`,`visible`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `om_profiles_fields`
@@ -180,7 +181,8 @@ INSERT INTO `om_profiles_fields` (`id`, `varname`, `title`, `field_type`, `field
 (8, 'telefono', 'Teléfono', 'VARCHAR', '20', '0', 0, '/^[A-Za-z0-9\\s,]+$/u', '', 'Campo Teléfono no válido', '', '', '', '', 7, 2),
 (9, 'movil', 'Teléfono Móvil', 'VARCHAR', '20', '0', 0, '', '', 'Campo Teléfono Móvil no válido', '', '', '', '', 8, 2),
 (10, 'id_padre', 'Padre', 'INTEGER', '11', '1', 3, '', '', 'El padre es incorrecto', '', '1', '', '', 0, 0),
-(11, 'referencia', 'Referencia', 'VARCHAR', '255', '1', 2, '', '', 'Referencia inválida', '', '', '', '', 9, 2);
+(11, 'referencia', 'Referencia', 'VARCHAR', '255', '1', 2, '', '', 'Referencia inválida', '', '', '', '', 9, 2),
+(12, 'pdf', 'Pdf', 'VARCHAR', '255', '0', 0, '', '', '', '{"file":{"types":"jpg, gif, png, pdf"}}', '', '', '', 10, 0);
 
 -- --------------------------------------------------------
 
@@ -227,15 +229,15 @@ CREATE TABLE IF NOT EXISTS `om_users` (
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Volcado de datos para la tabla `om_users`
 --
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-23 19:07:32', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-24 00:06:44', 0, 1),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-10-24 09:01:49', 1, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-10-24 09:14:29', 0, 1),
 (3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-10-23 23:54:15', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-10-23 18:56:56', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),
@@ -243,7 +245,8 @@ INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `crea
 (8, 'hugo', 'ae4d176ebaa6d584a7450f02e8415dd3', 'hlanga@hlanga.es', '6895e3ea807e735a354e442200d92af7', '2014-10-20 10:47:04', '2014-10-24 00:07:50', 0, 1),
 (9, 'barloly', 'ecf2487f22b251a892f3749687e19fc7', 'loly@kioskopoint.com', '1e8c355ad580235fd8009f3bf431c876', '2014-10-22 22:05:29', '2014-10-22 22:13:17', 0, 1),
 (10, 'taberna', 'b61a5497e9d841306e9ef2a34a3cdc22', 'taberna@hotmail.com', '764fbda1c539f258717ce488d9d80f55', '2014-10-22 22:25:51', '2014-10-23 17:58:51', 0, 1),
-(11, 'napoli', '81bd8fe38f89db0696e623c09b6bb820', 'barnapoli@gmail.com', '84825e4c836b731e0a4f18158e0fd0ce', '2014-10-23 19:07:19', '2014-10-24 00:08:07', 0, 1);
+(11, 'napoli', '81bd8fe38f89db0696e623c09b6bb820', 'barnapoli@gmail.com', '84825e4c836b731e0a4f18158e0fd0ce', '2014-10-23 19:07:19', '2014-10-24 00:08:07', 0, 1),
+(12, 'tirar', '83e7b7bc412f20ece3066547f88ed173', 'tirar@tirar.com', '7550131cfee495b242a6f56c905af9d5', '2014-10-24 10:33:54', '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -393,9 +396,9 @@ INSERT INTO `rights` (`itemname`, `type`, `weight`) VALUES
 --
 
 --
--- Filtros para la tabla `AuthAssignment`
+-- Filtros para la tabla `authassignment`
 --
-ALTER TABLE `AuthAssignment`
+ALTER TABLE `authassignment`
   ADD CONSTRAINT `AuthAssignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

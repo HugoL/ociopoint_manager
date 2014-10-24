@@ -35,19 +35,18 @@ $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Login");
 		<?php echo CHtml::activePasswordField($model,'password') ?>
 	</div>
 	
+	<div class="row rememberMe">
+		<?php echo CHtml::activeCheckBox($model,'rememberMe'); ?><span> Recordarme más tarde</span>
+		<?php //echo CHtml::activeLabelEx($model,'rememberMe'); ?> 
+	</div>
+	<br/>
+	<div class="row submit">
+		<?php echo CHtml::submitButton(UserModule::t("Login"), array('class'=>'btn btn-primary btn-large')); ?>
+	</div>
 	<div class="row">
 		<p class="hint"><small>
 		<?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?></small>
 		</p>
-	</div>
-	
-	<div class="row rememberMe">
-		<?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
-		<?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>
-	</div>
-
-	<div class="row submit">
-		<?php echo CHtml::submitButton(UserModule::t("Login"), array('class'=>'btn btn-primary btn-large')); ?>
 	</div>
 	
 <?php echo CHtml::endForm(); ?>

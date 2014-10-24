@@ -9,29 +9,17 @@ $this->breadcrumbs=array(
     $esadmin = Yii::app()->getModule('user')->esAlgunAdmin();
 ?>
 <h2>Ventas de <span class="referencia"><?php echo $profile->referencia; ?></span></h2>
-<?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
-<div class="row-flui8577d">
-<div class="span6" align="right">
+
+<div class="span12" align="left"><center>
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
-    				'label'=>'Nuevo Registro',
-    				'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    				'size'=>'large', // null, 'large', 'small' or 'mini'
-    				'icon'=>'plus white',
-    				'url'=>array('venta/create'),
-    				'toggle'=>false,
-				)); ?>
-	</div>	
-<?php endif; ?>
-<div class="span6" align="left">
-	<center><?php $this->widget('bootstrap.widgets.TbButton', array(
     				'label'=>'Volver',
     				'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     				'size'=>'large', // null, 'large', 'small' or 'mini'
     				'icon'=>'arrow-left white',
     				'url'=>array('venta/index'),
     				'toggle'=>false,
-				)); ?>
-	</center></div>
+				)); ?></center>
+	</div>
 </div>
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid">

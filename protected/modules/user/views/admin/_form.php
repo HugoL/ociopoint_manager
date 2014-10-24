@@ -83,6 +83,23 @@
 
 		<?php echo $form->error($profile,'rol'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($profile,'pdf'); ?>
+		<?php 
+              $this->widget('CMultiFileUpload', array(
+                  'model'=>$profile,
+                  'name' => 'pdf',
+                  'attribute'=>'pdf',
+                  'max'=>1,
+                  'accept' => 'pdf',
+                  'duplicate' => 'Fichero duplicado!', 
+                  'denied' => 'Tipo de archivo invalido',              
+              ));
+          ?>
+
+		<?php echo $form->error($profile,'pdf'); ?>
+	</div>
+	<div class="clearfix">&nbsp;</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save'), array('class'=>'btn btn-primary')); ?>
 	</div>

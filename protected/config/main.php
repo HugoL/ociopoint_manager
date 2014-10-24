@@ -24,8 +24,6 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.*',
         'application.modules.rights.components.*',
-        'application.models.*',
-    	'application.components.*',
 	),
 	'aliases' => array(
 	    'xupload' => 'ext.xupload'
@@ -64,6 +62,16 @@ return array(
                 'connectionID'=>'db',
                 'defaultRoles'=>array('Authenticated', 'Guest'),
         ),
+        'Smtpmail'=>array(
+            'class'=>'application.extensions.smtpmail.PHPMailer',
+            'Host'=>"mail.kioskopoint.es",
+            'Username'=>'info@pkioskopoint.es',
+            'Password'=>'',
+            'Mailer'=>'smtp',
+            'Port'=>5025,
+            'SMTPAuth'=>true, 
+        ),
+
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
@@ -122,6 +130,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'hlanga@hlanga.es',
+		'email'=>'info@kioskopoint.com',
 		'debugContent'=>'',
 		'porcentaje_distribuidor' => 5,
 		'porcentaje_comercial' => 5,

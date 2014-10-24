@@ -20,10 +20,10 @@ $this->menu=array(
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
 <div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
-    						'label'=>'Añadir ventas',
+    						'label'=>'Importar ventas',
     						'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     						'size'=>'large', // null, 'large', 'small' or 'mini'
-    						'icon'=>'plus white',
+    						'icon'=>'file white',
     						'url'=>array('venta/importarCsv'),
     						'toggle'=>false,
 							)); ?>

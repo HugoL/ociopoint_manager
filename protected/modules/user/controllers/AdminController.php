@@ -10,6 +10,17 @@ class AdminController extends Controller
 	/**
 	 * @return array action filters
 	 */
+	public function actions()
+    {
+        return array(
+            'upload'=>array(
+                'class'=>'xupload.actions.XUploadAction',
+                'path' =>Yii::app() -> getBasePath() . "/../uploads",
+                'publicPath' => Yii::app() -> getBaseUrl() . "/uploads",
+            ),
+        );
+    }
+
 	public function filters()
 	{
 		return CMap::mergeArray(parent::filters(),array(
@@ -93,13 +104,41 @@ class AdminController extends Controller
 			if( $mirol < $profile->rol ){ //No se puede crear un usuario de rol igual o superior
 				//Asigno el padre del usuario, que es el que lo ha creado
 				$profile->id_padre = Yii::app()->user->id;
+
+				//FICHERO PDF
+				$pdf = CUploadedFile::getInstancesByName('pdf');
+				//var_dump($pdf);
+				if( !is_dir(Yii::getPathOfAlias('webroot').'/uploads/pdf/') ){
+   					mkdir(Yii::getPathOfAlias('webroot').'/uploads/pdf/');
+   					chmod(Yii::getPathOfAlias('webroot').'/uploads/pdf/', 0755);
+				}
+				if(isset($pdf)){
+					foreach ($pdf as $key => $fichero) { 
+						if ( $fichero->saveAs(Yii::getPathOfAlias('webroot').'/uploads/pdf/'.$fichero->name) )
+								$profile->pdf = $fichero->name;
+					}
+					
+				}
 				if($model->validate()&&$profile->validate()) {
-					$model->password=Yii::app()->controller->module->encrypting($model->password);				
+					$model->password=Yii::app()->controller->module->encrypting($model->password);
 					if($model->save()) {
 						$profile->user_id=$model->id;
 						$profile->save();
 					}
+					//Envío un email al admin con los datos del usuario
+					$to = Yii::app()->params['email'];
+					$cco= Yii::app()->params['email'];	
+					$from = Yii::app()->params['email'];		
+					$subject = 'Nuevo usuario registrado';		
+					$message = 'Se ha registrado un nuevo usuario en ociopoint. Para que pueda acceder a la plataforma se debe activar accediendo como administrador.';	
+					if( !empty($profile->pdf) ){
+						$rutapdf = Yii::getPathOfAlias('webroot').'/uploads/pdf/'.$profile->pdf;
+						$this->mailsend($to,$cco,$from,$subject,$message,$rutapdf);				
+					}
+					$this->mailsend($to,$cco,$from,$subject,$message);
+					
 					$this->redirect(array('view','id'=>$model->id));
+					
 				} else $profile->validate();
 			}else{
 				Yii::app()->user->setFlash('warning',"No puedes crear un usuario con un rol igual o superior al tuyo");
@@ -193,6 +232,27 @@ class AdminController extends Controller
 	private function filtroCreate( $rolCreado ){
 
 	}
+
+	private function mailsend($to,$cco,$from,$subject,$message,$rutapdf=null){
+
+        $mail=Yii::app()->Smtpmail;
+        $mail->SetFrom($from, 'Ociopoint');
+        $mail->Subject = $subject;
+        $mail->MsgHTML($message);
+        $mail->AddAddress($to, "");
+        $mail->AddBCC($cco);
+        if( !empty($rutapdf) )
+        	$mail->AddAttachment($rutapdf);
+       
+
+
+        if(!$mail->Send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        }else {
+            echo "Message sent!";
+        }
+        //$this->render('generado');
+    }
 	
 	/**
      * Performs the AJAX validation.
