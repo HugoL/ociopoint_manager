@@ -73,6 +73,13 @@
 		}
 ?>
 	<div class="row">
+		<?php echo $form->labelEx($profile,'Cuenta Bancaria'); ?>
+		<?php echo $form->textField($profile,'cuentabancaria',array('placeholder'=>'0000 0000 00 0000000000')); 
+        ?>
+
+		<?php echo $form->error($profile,'cuentabancaria'); ?>
+	</div>
+	<div class="row">
 		<?php echo $form->labelEx($profile,'rol'); ?>
 		<?php echo $form->dropDownList($profile,'rol', 
                 CHtml::listData($rollist,'id', 'nombre'), array(
@@ -82,7 +89,7 @@
         ?>
 
 		<?php echo $form->error($profile,'rol'); ?>
-	</div>
+	</div>	
 	<div class="row">
 		<?php echo $form->labelEx($profile,'pdf'); ?>
 		<?php 

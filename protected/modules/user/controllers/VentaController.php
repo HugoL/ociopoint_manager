@@ -145,19 +145,18 @@ class VentaController extends Controller
 		}else{
 			//si es el propietario puede ver las suyas, sino puede ver solo las de sus hijos
 
-			$descendientes = $this->dameMisDescendientes(); //me devuelve un array con los id de los usuarios que son descendientes míos			
+			$descendientes = $this->dameMisDescendientes();
+			//me devuelve un array con los id de los usuarios que son descendientes míos			
 			
 			//para coger el nombre de la tabla correspondiente al modelo Profile:
 			//$tabla = Profile::model()->tableSchema->name;
 
 			$criteria = new CDbCriteria;
 			$criteria->group = 'id_usuario';
-			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
-			//$criteria->condition ='id_usuario ='.Yii::app()->user->id;
+			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount,  sum(valor_depositos) AS valor_depositosCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
 			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
-			//$criteria2->join = 'INNER JOIN '.$tabla.' pro ON pro.user_id=t.id_usuario';
 
-			$dataProvider=new CActiveDataProvider('Venta',
+			$dataProvider=new CActiveDataProvider( 'Venta',
 				array('criteria'=> $criteria
 				)
 			);
@@ -180,7 +179,7 @@ class VentaController extends Controller
 
 			$criteria2 = new CDbCriteria;
 			$criteria2->group = 'MONTH(fecha)';
-			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
+			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(valor_depositos) AS valor_depositosCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
 			$criteria2->condition ='id_usuario=:id_usuario';
 			$criteria2->params = array(':id_usuario'=>$profile->user_id);
 
@@ -213,8 +212,9 @@ class VentaController extends Controller
 		}
 	}
 
-	public function actionVerDetalleMes( $id, $mes ){		
-		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+	public function actionVerDetalleMes( $id, $mes ){	
+		 $establecimiento = Rol::model()->find('nombre=:nombre',array('nombre' => 'establecimiento'));	
+		if( Yii::app()->getModule('user')->esAlgunAdmin() || $establecimiento->id == Yii::app()->getModule('user')->user()->profile->rol ){
 			$id = htmlentities(strip_tags( $id ));
 			$mes = htmlentities(strip_tags( $mes ));
 

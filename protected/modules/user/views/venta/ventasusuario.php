@@ -24,7 +24,7 @@ $this->breadcrumbs=array(
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid">
 <table class="table table-hover">
-<tr><th>Mes</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Nuevos Dep. Deportes</th><?php if( strcmp($rol->nombre,'distribuidor') == 0 || $esadmin ) : ?><th>Comisiones Debidas</th><?php endif; ?><?php if( $esadmin ) : ?><th></th><?php endif; ?></tr>
+<tr><th>Mes</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><?php if( strcmp($rol->nombre,'comercial') == 0 ): ?><th>Valor Depósitos</th> <?php else: ?><th>Nuevos Dep. Deportes</th><?php endif; ?><th>Comisiones Debidas</th><?php if( $esadmin || strcmp($rol->nombre,'establecimiento') == 0) : ?><th></th><?php endif; ?></tr>
 <?php 
 //var_dump($dataProvider);
 $this->widget('zii.widgets.CListView', array(

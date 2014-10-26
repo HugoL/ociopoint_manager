@@ -32,7 +32,7 @@ $this->menu=array(
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid">
 <table class="table table-hover">
-<tr><th>Refencia</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Nuevos Dep. Deportes</th><?php if( strcmp($rol->nombre,'distribuidor') == 0 || $esadmin ) : ?><th>Comisiones Debidas</th><?php endif; ?><th></th></tr>
+<tr><th>Refencia</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><?php if( strcmp($rol->nombre,'comercial') == 0 ): ?><th>Valor Depósitos</th> <?php else: ?><th>Nuevos Dep. Deportes</th><?php endif; ?><th>Comisiones Debidas</th><th></th></tr>
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin ),

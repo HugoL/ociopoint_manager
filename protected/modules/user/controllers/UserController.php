@@ -65,9 +65,13 @@ class UserController extends Controller
 	}
 
 	public function actionListarHijos( $pag = null){
-		$descendientes = $this->dameMisDescendientes();
-		$criteria = new CDbCriteria;
-		$criteria->addInCondition('id_padre',$descendientes,'OR');
+		if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$descendientes = $this->dameMisDescendientes();
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('id_padre',$descendientes,'OR');
+		}else{
+			$criteria = new CDbCriteria;
+		}
 		if( !empty($pag) ){
 			//calcular el offset y el limit correspondientes a la página
 		}

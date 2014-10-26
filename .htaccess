@@ -1,6 +1,6 @@
 RewriteEngine on
 
-RewriteBase /~mrjingles/ociopoint_manager
+RewriteBase /~ko/ociopoint_manager
 
 # if a directory or a file exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f

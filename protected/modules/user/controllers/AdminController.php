@@ -91,7 +91,6 @@ class AdminController extends Controller
 		$this->performAjaxValidation(array($model,$profile));
 		$mirol = Yii::app()->getModule('user')->user()->profile->rol;
 		if( isset($_POST['User']) ){			
-			//Yii::trace(CVarDumper::dumpAsString($_POST['User']));
 			$model->attributes=$_POST['User'];
 			$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
 			$profile->attributes=$_POST['Profile'];
@@ -107,7 +106,6 @@ class AdminController extends Controller
 
 				//FICHERO PDF
 				$pdf = CUploadedFile::getInstancesByName('pdf');
-				//var_dump($pdf);
 				if( !is_dir(Yii::getPathOfAlias('webroot').'/uploads/pdf/') ){
    					mkdir(Yii::getPathOfAlias('webroot').'/uploads/pdf/');
    					chmod(Yii::getPathOfAlias('webroot').'/uploads/pdf/', 0755);
@@ -251,7 +249,6 @@ class AdminController extends Controller
         }else {
             echo "Message sent!";
         }
-        //$this->render('generado');
     }
 	
 	/**
