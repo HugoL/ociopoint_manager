@@ -134,9 +134,14 @@ class VentaController extends Controller
 	 */
 
 	//Por defecto se muestran las ventas de la categoría 'bet'
-	public function actionIndex( $categoria = 1 )
+	public function actionIndex( $categoria = null )
 	{
-		$categoria = htmlentities(strip_tags($categoria));
+		if( isset($categoria) )
+			$categoria = htmlentities(strip_tags($categoria));
+		else
+			$categoria = 1;
+		$categorias = Categoriaventa::model()->findAll();
+		echo $categoria;
 		//Si es administrador puede ver todo
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$dataProvider=new CActiveDataProvider('Venta', array(
@@ -158,9 +163,10 @@ class VentaController extends Controller
 			$criteria = new CDbCriteria;
 			$criteria->group = 'id_usuario';
 			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount,  sum(valor_depositos) AS valor_depositosCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
-			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
 			$criteria->condition = 'id_categoria = :categoria';
 			$criteria->params = array(':categoria'=>$categoria);
+			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
+			
 
 			$dataProvider=new CActiveDataProvider( 'Venta',
 				array('criteria'=> $criteria
@@ -170,6 +176,8 @@ class VentaController extends Controller
 		}
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'categorias'=>$categorias,
+			'categoria'=>$categoria,
 		));
 	}
 
