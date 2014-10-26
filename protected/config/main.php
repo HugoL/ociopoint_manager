@@ -135,5 +135,6 @@ return array(
 		'porcentaje_distribuidor' => 5,
 		'porcentaje_comercial' => 5,
 		'porcentaje_establecimiento' => 10,
+		'porcentaje_administrador' => 30,
 	),
 );
