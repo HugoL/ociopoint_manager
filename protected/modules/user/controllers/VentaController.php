@@ -75,19 +75,24 @@ class VentaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		//Las ventas introducidas a través del formulario serán de cualquier categoría distinta a Bet
 		if( isset($_POST['Venta']) ){
-			$model->attributes=$_POST['Venta'];
+			$model->attributes=$_POST['Venta'];			
 			if( isset($model->fecha) )
 				$model->fecha = date('Y-m-d', strtotime($model->fecha));
 
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
-		$usuarios = Profile::model()->findAll();
+		
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'id > 1'; //excluyo la categoría Bet
+		$categorias = Categoriaventa::model()->findAll( $criteria );
+		$usuarios = Profile::model()->findAll( );
 		$this->render('create',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
+			'categorias'=>$categorias,
 		));
 	}
 
@@ -139,15 +144,14 @@ class VentaController extends Controller
 		if( isset($categoria) )
 			$categoria = htmlentities(strip_tags($categoria));
 		else
-			$categoria = 1;
-		$categorias = Categoriaventa::model()->findAll();
-		echo $categoria;
+			$categoria = 1; //categoría bet
+		$categorias = Categoriaventa::model()->findAll();		
 		//Si es administrador puede ver todo
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$dataProvider=new CActiveDataProvider('Venta', array(
 				'criteria'=>array(
 					'group' => 'id_usuario',
-					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha',
+					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, id_categoria, fecha',
 					'condition' => 'id_categoria = '.$categoria,
 					)
 				));
@@ -162,10 +166,10 @@ class VentaController extends Controller
 
 			$criteria = new CDbCriteria;
 			$criteria->group = 'id_usuario';
-			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount,  sum(valor_depositos) AS valor_depositosCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
+			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount,  sum(valor_depositos) AS valor_depositosCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, id_categoria, fecha';
 			$criteria->condition = 'id_categoria = :categoria';
 			$criteria->params = array(':categoria'=>$categoria);
-			$criteria->addInCondition('id_usuario', $descendientes, 'OR');
+			$criteria->addInCondition('id_usuario', $descendientes, 'AND');
 			
 
 			$dataProvider=new CActiveDataProvider( 'Venta',
@@ -193,7 +197,7 @@ class VentaController extends Controller
 
 			$criteria2 = new CDbCriteria;
 			$criteria2->group = 'MONTH(fecha)';
-			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(valor_depositos) AS valor_depositosCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, fecha';
+			$criteria2->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(nuevos_depositantes_deportes) AS nuevos_depositantes_deportesCount, sum(valor_depositos) AS valor_depositosCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, id_categoria, fecha';
 			$criteria2->condition ='id_usuario=:id_usuario AND id_categoria = :categoria';
 			$criteria2->params = array(':id_usuario'=>$profile->user_id, ':categoria'=>$categoria);
 

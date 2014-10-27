@@ -16,6 +16,8 @@ $this->menu=array(
 
 <h1>Nueva Venta</h1>
 
+<div class="alert alert-info">Las ventas insertadas manualmente corresponden a ventas NO relacionadas con <strong>Bet365</strong></div>
+
 <div class="row-fluid"><center>
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
     						'label'=>'Volver',
@@ -27,7 +29,7 @@ $this->menu=array(
 							)); ?>
 </center><br/></div>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'usuarios'=>$usuarios)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'usuarios'=>$usuarios,'categorias'=>$categorias)); ?>
 
 <?php else: ?>
 	<div class="alert alert-error">No estás autorizado a realizar esta acción</div>

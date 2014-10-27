@@ -152,6 +152,7 @@ class Venta extends CActiveRecord
 			'fecha_creacion' => 'Fecha Creacion',
 			'observaciones' => 'Observaciones',
 			'id_usuario' => 'Usuario',
+			'id_categoria' => 'Categoría',
 		);
 	}
 
