@@ -48,11 +48,13 @@
   </div><!-- well -->
   </div><!-- form -->
 <div class="clearfix">&nbsp;</div>
+<div class="clearfix">&nbsp;</div>
+
   <div class="span12"><?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Listado de ventas',
-                'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                'size'=>'large', // null, 'large', 'small' or 'mini'
-                'icon'=>'list white',
+                'type'=>'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'size'=>'small', // null, 'large', 'small' or 'mini'
+                'icon'=>'arrow-left white',
                 'url'=>array('venta/index'),
                 'toggle'=>false,
               )); ?>

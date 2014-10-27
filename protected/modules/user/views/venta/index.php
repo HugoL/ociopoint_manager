@@ -19,15 +19,24 @@ $this->menu=array(
 <h1>Vista general de ventas</h1>
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 <div class="row-fluid">
-<div class="span12"><center><?php $this->widget('bootstrap.widgets.TbButton', array(
-    						'label'=>'Importar ventas',
+<div class="span6" align="right"><?php $this->widget('bootstrap.widgets.TbButton', array(
+    						'label'=>'Importar CSV',
     						'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     						'size'=>'large', // null, 'large', 'small' or 'mini'
     						'icon'=>'file white',
     						'url'=>array('venta/importarCsv'),
     						'toggle'=>false,
 							)); ?>
-</center></div>
+</div>
+<div class="span6" align="left"><?php $this->widget('bootstrap.widgets.TbButton', array(
+                            'label'=>'Insertar manualmente',
+                            'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                            'size'=>'large', // null, 'large', 'small' or 'mini'
+                            'icon'=>'pencil white',
+                            'url'=>array('venta/create'),
+                            'toggle'=>false,
+                            )); ?>
+</div>
 <?php endif; ?>
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid"> 

@@ -18,8 +18,8 @@
 	<p class="note">Los campos con <span class="required">*</span> son obligatorios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row-fluid  well well-small">
+		<div class="span3">
 		<?php if( isset( $usuarios ) ): ?>
 			<?php echo $form->labelEx($model,'id_usuario'); ?>
 			<?php echo $form->dropDownList($model,'id_usuario',CHtml::listData($usuarios,'user_id', 'referencia'), array(
@@ -28,8 +28,6 @@
 			<?php echo $form->error($model,'id_usuario'); ?>
 		<?php endif; ?>
 		</div>
-	</div>
-	<div class="row-fluid  well well-small">
 		<div class="span3">
 		<?php echo $form->labelEx($model,'fecha'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
