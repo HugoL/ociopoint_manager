@@ -140,7 +140,6 @@ class AdminController extends Controller
 				} else $profile->validate();
 			}else{
 				Yii::app()->user->setFlash('warning',"No puedes crear un usuario con un rol igual o superior al tuyo");
-				echo "<h1>".$profile->rol.", ".$mirol."</h1>";
 				$this->redirect(Yii::app()->baseUrl.'/user/admin/create');
 			}
 		}
@@ -245,9 +244,9 @@ class AdminController extends Controller
 
 
         if(!$mail->Send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
+            return false;
         }else {
-            echo "Message sent!";
+            return true;
         }
     }
 	

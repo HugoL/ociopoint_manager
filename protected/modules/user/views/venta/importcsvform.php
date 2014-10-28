@@ -24,7 +24,8 @@
   )); ?>
 
    <?php //echo $form->errorSummary($model); ?>
-   <h2>Importar datos de ventas</h2>
+   <h2>Importar datos de ventas <small>desde un fichero CSV</small></h2>
+   <div class="alert alert-info">Nota: <strong>Eliminar</strong> (si es que existe) la <strong>fila de los totales</strong>. Todas las filas deben de tener la referencia del establecimiento, excepto la primera fila, que deben ser los títulos de las columnas. El caracter de separación del fichero CSV debe ser el <strong>punto y coma</strong>: <strong>;</strong></div>
    <div class="well">
    <div class="row-fluid">
           <?php 
