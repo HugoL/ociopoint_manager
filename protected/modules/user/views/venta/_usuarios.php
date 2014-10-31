@@ -24,7 +24,7 @@
 	<td> <?php echo CHtml::encode($data->valor_depositosCount); ?></td>
 	<?php else: ?>
 	<td>
-		<?php if( $data->id_categoria != 1 ): ?>
+		<?php if( $data->id_categoria == 1 ): ?>
 			<?php echo CHtml::encode($data->nuevos_depositantes_deportesCount); ?>
 		<?php endif; ?>
 	</td>
@@ -38,12 +38,12 @@
 	</td>
 	<?php endif; ?>
 	<?php if( $esadmin ) : ?>
-	<td>
-			<?php echo CHtml::link(
-    '<img src="'.Yii::app()->baseUrl .'/images/papelera_small.png" width="25px" height="25px">',
-     array('venta/eliminarVentasMes/','idUsuario'=>$data->id_usuario,'mes'=>$mes),
-     array('confirm' => 'Se eliminarán todas las ventas del usaurio del mes. ¿Estás seguro?')
-	); ?> 
-	</td>
+		<td>
+		<?php echo CHtml::link(
+	    '<img src="'.Yii::app()->baseUrl .'/images/papelera_small.png" width="25px" height="25px">',
+	     array('venta/eliminarVentasMes/','idUsuario'=>$data->id_usuario,'mes'=>$mes),
+	     array('confirm' => 'Se eliminarán todas las ventas del usaurio del mes. ¿Estás seguro?')
+		); ?> 
+		</td>
 	<?php endif; ?>
 </tr>

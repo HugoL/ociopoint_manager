@@ -146,7 +146,7 @@ class VentaController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->actionVentasUsuario( $idUsuario );
+				$this->redirect(Yii::app()->baseUrl.'/user/venta/ventasUsuario/id/'.$idUsuario);
 		}else{
 			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
 		}
@@ -164,7 +164,8 @@ class VentaController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->actionIndex();
+				$this->redirect(Yii::app()->baseUrl.'/user/venta/index');
+
 		}else{
 			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
 		}
@@ -382,18 +383,16 @@ class VentaController extends Controller
                              $venta->comisiones_debidas = floatval(str_replace(',','.',$data[30]));
                              
                             //Si ya hay datos de este usuario en esa fecha, se actualiza, si no se crea 
-                             /*if( Venta::model()->exists('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha)) ){
+                             if( Venta::model()->exists('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha)) ){
+                             	$venta->isNewRecord = false;
                              	if( !$venta->update() ){
 	                             	$ok = false;
-	                             }
+	                             }                             	
                              }else{
-	                             if( !$venta->save() ){
+                             	if( !$venta->save() ){
 	                             	$ok = false;
 	                             }
-                         	 }*/
-                         	 if( !$venta->save() ){
-	                         	$ok = false;
-	                         }
+                             }
                        }
                        $row++;
                    }
