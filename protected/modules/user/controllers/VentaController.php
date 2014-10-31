@@ -40,7 +40,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv','verDetalleMes'),
+				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv','verDetalleMes','eliminarVentasMes','eliminarVentasUsuario'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -132,6 +132,42 @@ class VentaController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	public function actionEliminarVentasMes( $idUsuario, $mes ){
+
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+		
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'id_usuario = :id_usuario AND MONTH(fecha) = :mes';
+			$criteria->params = array(':id_usuario'=>$idUsuario, ':mes'=>$mes);
+			
+			Venta::model()->deleteAll($criteria);
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->actionVentasUsuario( $idUsuario );
+		}else{
+			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
+		}
+	}
+
+	public function actionEliminarVentasUsuario( $id ){
+
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+		
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'id_usuario = :id_usuario';
+			$criteria->params = array(':id_usuario'=>$id);
+			
+			Venta::model()->deleteAll($criteria);
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->actionIndex();
+		}else{
+			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
+		}
 	}
 
 	/**
@@ -344,10 +380,20 @@ class VentaController extends Controller
                              $venta->ganancias_afiliado_poquer = floatval(str_replace(',','.',$data[28]));
                              $venta->ganancias_afiliado_juego = floatval(str_replace(',','.',$data[29]));
                              $venta->comisiones_debidas = floatval(str_replace(',','.',$data[30]));
-                             //var_dump($venta);
-                             if( !$venta->save() ){
-                             	$ok = false;
-                             }
+                             
+                            //Si ya hay datos de este usuario en esa fecha, se actualiza, si no se crea 
+                             /*if( Venta::model()->exists('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha)) ){
+                             	if( !$venta->update() ){
+	                             	$ok = false;
+	                             }
+                             }else{
+	                             if( !$venta->save() ){
+	                             	$ok = false;
+	                             }
+                         	 }*/
+                         	 if( !$venta->save() ){
+	                         	$ok = false;
+	                         }
                        }
                        $row++;
                    }
@@ -401,6 +447,22 @@ class VentaController extends Controller
 			$this->_ref = $referencia;
 			return false;
 		}
+	}
+
+	protected function borrarVentasUsuarioMes( $idUsuario, $mes ){
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+		
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'id_usuario = :id_usuario AND MONTH(fecha) = :mes';
+			$criteria->params = array(':id_usuario'=>$idUsuario, ':mes'=>$mes);
+			
+			if( Venta::model()->deleteAll($criteria) > 0 )
+				return true;
+			else 
+				return false;
+
+		}
+		return false;
 	}
 
 	protected function dameUsuario( $referencia ){

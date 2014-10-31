@@ -34,7 +34,16 @@
 	</td>
 	<?php if( ($esadmin || strcmp($rol->nombre,'establecimiento') == 0) && $data->id_categoria == 1 ) : ?>
 	<td>
-		<a href="<?php echo Yii::app()->baseUrl."/user/venta/verDetalleMes/id/".$data->id_usuario."/mes/".$mes; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/ojo_small.png" width="25px" height="25px" class="img-rounded" alt="Ver Detalle Venta"></a>
+		<a href="<?php echo Yii::app()->baseUrl."/user/venta/verDetalleMes/id/".$data->id_usuario."/mes/".$mes; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/ojo_small.png" width="25px" height="25px" class="img-rounded" alt="Ver Detalle Venta"></a>		
+	</td>
+	<?php endif; ?>
+	<?php if( $esadmin ) : ?>
+	<td>
+			<?php echo CHtml::link(
+    '<img src="'.Yii::app()->baseUrl .'/images/papelera_small.png" width="25px" height="25px">',
+     array('venta/eliminarVentasMes/','idUsuario'=>$data->id_usuario,'mes'=>$mes),
+     array('confirm' => 'Se eliminarán todas las ventas del usaurio del mes. ¿Estás seguro?')
+	); ?> 
 	</td>
 	<?php endif; ?>
 </tr>
