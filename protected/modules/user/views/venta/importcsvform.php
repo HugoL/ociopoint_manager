@@ -1,3 +1,8 @@
+<?php if(Yii::app()->user->hasFlash('info')):?>
+    <div class="alert alert-info">
+        <?php echo Yii::app()->user->getFlash('info'); ?>
+    </div>
+<?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
     <div class="alert alert-success">
         <?php echo Yii::app()->user->getFlash('success'); ?>

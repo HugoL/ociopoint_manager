@@ -384,6 +384,7 @@ class VentaController extends Controller
                              
                             //Si ya hay datos de este usuario en esa fecha, se actualiza, si no se crea 
                              if( Venta::model()->exists('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha)) ){
+                             	Yii::app()->user->setFlash('info','Algunos datos ya existían. Se han sobreescrito');
                              	$venta->isNewRecord = false;
                              	if( !$venta->update() ){
 	                             	$ok = false;
