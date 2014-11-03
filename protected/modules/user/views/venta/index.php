@@ -42,7 +42,7 @@ $this->menu=array(
 <?php endif; ?>
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid"> 
-    <?php if( strcmp($rol->nombre,'establecimiento') == 0 ): ?>   
+    <?php if( strcmp($rol->nombre,'establecimiento') == 0 || Yii::app()->getModule('user')->esAlgunAdmin() ): ?>   
         <ul class="nav nav-tabs">
             <?php foreach ($categorias as $key => $cat): ?>
             <li <?php if( $cat->id == $categoria ) echo "class='active'"; ?>><a href="<?php echo "index/categoria/".$cat->id; ?>"><?php echo $cat->nombre; ?></a></li>

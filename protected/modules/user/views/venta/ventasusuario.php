@@ -42,8 +42,6 @@ $this->breadcrumbs=array(
             break;
         default:
     }    
-
-
 ?>
 <h2>Ventas de <span class="referencia"><?php echo $profile->referencia; ?></span></h2>
 
@@ -61,14 +59,23 @@ $this->breadcrumbs=array(
 <div class="clearfix">&nbsp;</div>
 <div class="row-fluid">
 <table class="table table-hover">
-<tr><th>Mes</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Valor Depósitos</th><th>Número Depósitos</th><th>Facturación Deportes</th><th>Comisiones Debidas</th><th></th></tr>
-<?php 
-//var_dump($dataProvider);
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
+<?php if($categoria == 1 ): ?>
+    <tr><th>Mes</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Valor Depósitos</th><th>Número Depósitos</th><th>Facturación Deportes</th><th>Comisiones Debidas</th><th></th></tr>
+    <?php 
+    $this->widget('zii.widgets.CListView', array(
+    'dataProvider'=>$dataProvider,
     'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin, 'comision_distribuidor'=>$comision_distribuidor, 'comision_comercial' => $comision_comercial, 'comision_establecimiento'=>$comision_establecimiento),
-	'itemView'=>'_usuarios',    
-)); ?>
+    'itemView'=>'_usuarios',    
+    )); ?>
+<?php else: ?>
+    <tr><th>Mes</th><th>Nuevos Registros</th><th>Comisiones Debidas</th></tr>
+    <?php 
+    $this->widget('zii.widgets.CListView', array(
+    'dataProvider'=>$dataProvider,
+    'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin),
+    'itemView'=>'_usuariospoquer',    
+    )); ?>
+<?php endif; ?>
 </table>
 </div>
 </div>

@@ -249,6 +249,7 @@ class VentaController extends Controller
 			$this->render('ventasusuario',array(
 				'dataProvider'=>$dataProvider,
 				'profile'=> $profile,
+				'categoria'=>$categoria,
 			));
 		}else{
 			$this->redirect("site/page/nopermitido");
