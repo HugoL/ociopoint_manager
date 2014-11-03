@@ -80,7 +80,8 @@ class VentaController extends Controller
 			$model->attributes=$_POST['Venta'];			
 			if( isset($model->fecha) )
 				$model->fecha = date('Y-m-d', strtotime($model->fecha));
-
+			//calculo la comision
+			$model->comisiones_debidas = $model->nuevos_registros * $model->comision_registro;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -88,7 +89,8 @@ class VentaController extends Controller
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'id > 1'; //excluyo la categoría Bet
 		$categorias = Categoriaventa::model()->findAll( $criteria );
-		$usuarios = Profile::model()->findAll( );
+		$rol = Rol::model()->find('nombre LIKE "establecimiento"');
+		$usuarios = Profile::model()->findAll( 'rol = '.$rol->id );
 		$this->render('create',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
@@ -189,7 +191,7 @@ class VentaController extends Controller
 			$dataProvider=new CActiveDataProvider('Venta', array(
 				'criteria'=>array(
 					'group' => 'id_usuario',
-					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(valor_depositos) AS valor_depositosCount, sum(numero_depositos) AS numero_depositosCount, sum(facturacion_deportes) AS facturacion_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, id_categoria, fecha',
+					'select' => 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(valor_depositos) AS valor_depositosCount, sum(numero_depositos) AS numero_depositosCount, sum(facturacion_deportes) AS facturacion_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, comision_registro, id_usuario, id_categoria, fecha',
 					'condition' => 'id_categoria = '.$categoria,
 					)
 				));
@@ -204,7 +206,7 @@ class VentaController extends Controller
 
 			$criteria = new CDbCriteria;
 			$criteria->group = 'id_usuario';
-			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(valor_depositos) AS valor_depositosCount, sum(numero_depositos) AS numero_depositosCount, sum(facturacion_deportes) AS facturacion_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario, id_categoria, fecha';
+			$criteria->select = 'sum(nuevos_registros) AS nuevos_registrosCount, sum(nuevos_depositantes) AS nuevos_depositantesCount, sum(valor_depositos) AS valor_depositosCount, sum(numero_depositos) AS numero_depositosCount, sum(facturacion_deportes) AS facturacion_deportesCount, sum(comisiones_debidas) AS comisiones_debidasCount, comision_registro, id_usuario, id_categoria, fecha';
 			$criteria->condition = 'id_categoria = :categoria';
 			$criteria->params = array(':categoria'=>$categoria);
 			$criteria->addInCondition('id_usuario', $descendientes, 'AND');

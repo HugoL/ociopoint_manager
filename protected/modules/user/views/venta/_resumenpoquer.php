@@ -2,6 +2,7 @@
 /* @var $this VentaController */
 /* @var $data Venta */
 ?>
+<?php $profile = Profile::model()->findByPk($data->id_usuario); ?>
 <tr>
 	<td>
 		
@@ -11,7 +12,7 @@
 		<?php echo CHtml::encode($data->nuevos_registrosCount); ?>
 	</td>
 	<td>
-
+		<?php echo number_format( $data->comision_registro); ?>
 	</td>
 	<td>
 		<?php echo number_format( $data->comisiones_debidasCount); ?>

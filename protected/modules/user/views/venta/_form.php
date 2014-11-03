@@ -28,7 +28,7 @@
 			<?php echo $form->error($model,'id_usuario'); ?>
 		<?php endif; ?>
 		</div>
-		<div class="span3">
+		<div class="span2">
 		<?php echo $form->labelEx($model,'fecha'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                                 'name'=>'Venta[fecha]',
@@ -50,13 +50,17 @@
                     'options'=>array('format'=>'yyyy-mm-dd'))); */?>
 		<?php echo $form->error($model,'fecha'); ?>
 	</div>
-
-	<div class="span3">
-		<?php echo $form->labelEx($model,'comisiones_debidas'); ?>
-		<?php echo $form->textField($model,'comisiones_debidas',array('class'=>'input-small')); ?>
-		<?php echo $form->error($model,'comisiones_debidas'); ?>
+	<div class="span2">
+		<?php echo $form->labelEx($model,'nuevos_registros'); ?>
+		<?php echo $form->textField($model,'nuevos_registros',array('class'=>'input-small')); ?>
+		<?php echo $form->error($model,'nuevos_registros'); ?>
 	</div>
-	<div class="span3">
+	<div class="span2">
+		<?php echo $form->labelEx($model,'comision_registro'); ?>
+		<?php echo $form->textField($model,'comision_registro',array('class'=>'input-small')); ?>
+		<?php echo $form->error($model,'comision_registro'); ?>
+	</div>
+	<div class="span2">
 		<?php echo $form->labelEx($model,'id_categoria'); ?>
 		<?php echo $form->dropDownList($model,'id_categoria',CHtml::listData($categorias,'id', 'nombre')); ?>
 		<?php echo $form->error($model,'comisiones_debidas'); ?>

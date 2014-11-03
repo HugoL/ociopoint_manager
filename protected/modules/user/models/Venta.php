@@ -90,12 +90,12 @@ class Venta extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('fecha, id_usuario', 'required'),
-			array('clics, nuevos_registros, nuevos_depositantes, nuevos_depositantes_deportes, nuevos_depositantes_casino, nuevos_depositantes_poquer, nuevos_depositantes_juegos, nuevos_depositantes_bingo, numero_depositos, numero_apuestas_deportivas, usuarios_activos_deportes, sesiones_casino, nuevos_jugadores_deportes, nuevos_jugadores_casino, nuevos_clientes_poquer, nuevos_clientes_juego, nuevos_jugadores_bingo, id_usuario, id_categoria', 'numerical', 'integerOnly'=>true),
+			array('clics, nuevos_registros, nuevos_depositantes, nuevos_depositantes_deportes, nuevos_depositantes_casino, nuevos_depositantes_poquer, nuevos_depositantes_juegos, nuevos_depositantes_bingo, numero_depositos, numero_apuestas_deportivas, usuarios_activos_deportes, sesiones_casino, nuevos_jugadores_deportes, nuevos_jugadores_casino, nuevos_clientes_poquer, nuevos_clientes_juego, nuevos_jugadores_bingo, comision_registro, id_usuario, id_categoria', 'numerical', 'integerOnly'=>true),
 			array(' valor_depositos, facturacion_deportes, beneficios_netos_deportes, beneficios_netos_casino, beneficios_netos_poquer, beneficios_netos_juegos, ingresos_totales_netos, ganancias_afiliado_deportes, ganancias_afiliado_casino, ganancias_afiliado_poquer, ganancias_afiliado_juego, comisiones_debidas', 'numerical'),
 			array('observaciones', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, fecha, clics, nuevos_registros, nuevos_depositantes, nuevos_depositantes_deportes, nuevos_depositantes_casino, nuevos_depositantes_poquer, nuevos_depositantes_juegos, nuevos_depositantes_bingo, valor_depositos, numero_depositos, facturacion_deportes, numero_apuestas_deportivas, usuarios_activos_deportes, sesiones_casino, nuevos_jugadores_deportes, nuevos_jugadores_casino, nuevos_clientes_poquer, nuevos_clientes_juego, nuevos_jugadores_bingo, beneficios_netos_deportes, beneficios_netos_casino, beneficios_netos_poquer, beneficios_netos_juegos, ingresos_totales_netos, ganancias_afiliado_deportes, ganancias_afiliado_casino, ganancias_afiliado_poquer, ganancias_afiliado_juego, comisiones_debidas, fecha_creacion, observaciones, id_usuario, id_categoria', 'safe', 'on'=>'search'),
+			array('id, fecha, clics, nuevos_registros, nuevos_depositantes, nuevos_depositantes_deportes, nuevos_depositantes_casino, nuevos_depositantes_poquer, nuevos_depositantes_juegos, nuevos_depositantes_bingo, valor_depositos, numero_depositos, facturacion_deportes, numero_apuestas_deportivas, usuarios_activos_deportes, sesiones_casino, nuevos_jugadores_deportes, nuevos_jugadores_casino, nuevos_clientes_poquer, nuevos_clientes_juego, nuevos_jugadores_bingo, beneficios_netos_deportes, beneficios_netos_casino, beneficios_netos_poquer, beneficios_netos_juegos, ingresos_totales_netos, ganancias_afiliado_deportes, ganancias_afiliado_casino, ganancias_afiliado_poquer, ganancias_afiliado_juego, comisiones_debidas, fecha_creacion, observaciones, comision_registro, id_usuario, id_categoria', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -153,6 +153,7 @@ class Venta extends CActiveRecord
 			'observaciones' => 'Observaciones',
 			'id_usuario' => 'Usuario',
 			'id_categoria' => 'Categoría',
+			'comision_registro' => 'Comisión por registro',
 		);
 	}
 
