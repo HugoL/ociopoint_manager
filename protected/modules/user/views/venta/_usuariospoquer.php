@@ -2,6 +2,7 @@
 /* @var $this VentaController */
 /* @var $data Venta */
 ?>
+<?php $mes = date('n',strtotime($data->fecha)); ?>
 <tr>
 	<td>
 		<span class="label label-warning"><?php echo CHtml::encode(date('F', strtotime($data->fecha))); ?></span>
