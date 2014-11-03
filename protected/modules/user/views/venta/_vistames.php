@@ -13,14 +13,15 @@
 		<?php echo CHtml::encode($data->nuevos_depositantes); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode($data->nuevos_depositantes_deportes); ?>
-	</td>
-	<?php if( $esadmin ): ?>
-	<td>
-		<?php echo CHtml::encode($data->ganancias_afiliado_juego); ?>
+		<?php echo CHtml::encode(number_format($data->valor_depositos)); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode($data->comisiones_debidas); ?>
+		<?php echo CHtml::encode(number_format($data->numero_depositos)); ?>
 	</td>
-	<?php endif; ?>
+	<td>
+		<?php echo CHtml::encode(number_format($data->facturacion_deportes)); ?>
+	</td>
+	<td>
+		<?php echo CHtml::encode(number_format($data->comisiones_debidas,1)); ?>
+	</td>
 </tr>

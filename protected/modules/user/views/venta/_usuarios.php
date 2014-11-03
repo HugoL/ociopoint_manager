@@ -2,35 +2,47 @@
 /* @var $this VentaController */
 /* @var $data Venta */
 ?>
-<?php $mes = date('n',strtotime($data->fecha)); ?>
-<?php $parametro = 'porcentaje_'.$rol->nombre; ?>
+<?php $mes = date('n',strtotime($data->fecha));
+ $parametro = 'porcentaje_'.$rol->nombre; 
+
+if( strcmp($rol->nombre, 'administrador') == 0 ):
+        $comisiones = $data->comisiones_debidasCount * 10 / 30;
+    endif;
+    if( strcmp($rol->nombre, 'distribuidor') == 0 ):
+        $comisiones = $data->comisiones_debidasCount * ( 20 - $comision_comercial - $comision_establecimiento ) / 30;
+    endif;
+    if( strcmp($rol->nombre, 'comercial') == 0 ):
+        $comisiones = $data->comisiones_debidasCount * ( 15 - $comision_establecimiento ) / 30;
+    endif;
+    if( strcmp($rol->nombre, 'establecimiento') == 0 ):
+        if( Yii::app()->getModule('user')->user()->profile->comision != null )
+            $comision = Yii::app()->getModule('user')->user()->profile->comision;
+        else
+            $comision = Yii::app()->params['porcentaje_establecimiento'];
+        $comisiones = $data->comisiones_debidasCount * $comision / 30;
+    endif;
+?>
 <tr>
 	<td>
 		<span class="label label-warning"><?php echo CHtml::encode(date('F', strtotime($data->fecha))); ?></span>
 	</td>
 	<td>
-		<?php if( $data->id_categoria == 1 ): ?>
-			<?php echo CHtml::encode($data->nuevos_registrosCount); ?>	
-		<?php else:  ?>
-			<?php echo CHtml::encode(date("d-m-Y",strtotime($data->fecha))); ?>	
-		<?php endif; ?>
+		<?php echo CHtml::encode($data->nuevos_registrosCount); ?>	
 	</td>
 	<td>
-		<?php if( $data->id_categoria == 1 ): ?>
-			<?php echo CHtml::encode($data->nuevos_depositantesCount); ?>
-		<?php endif; ?>
+		<?php echo CHtml::encode($data->nuevos_depositantesCount); ?>
 	</td>
-	<?php if( strcmp($rol->nombre,'comercial') == 0 ): ?>
-	<td> <?php echo CHtml::encode($data->valor_depositosCount); ?></td>
-	<?php else: ?>
-	<td>
-		<?php if( $data->id_categoria == 1 ): ?>
-			<?php echo CHtml::encode($data->nuevos_depositantes_deportesCount); ?>
-		<?php endif; ?>
+	<td> 
+		<?php echo CHtml::encode(number_format($data->valor_depositosCount)); ?>
 	</td>
-	<?php endif; ?>
 	<td>
-		<?php echo number_format(((Yii::app()->params[$parametro] / 100) * $data->comisiones_debidasCount ), 3); ?>
+		<?php echo CHtml::encode(number_format($data->numero_depositosCount)); ?>
+	</td>
+	<td>
+		<?php echo CHtml::encode(number_format($data->facturacion_deportesCount)); ?>
+	</td>
+	<td>
+		<?php echo number_format($comisiones); ?>
 	</td>
 	<?php if( ($esadmin || strcmp($rol->nombre,'establecimiento') == 0) && $data->id_categoria == 1 ) : ?>
 	<td>

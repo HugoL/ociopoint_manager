@@ -20,6 +20,10 @@
 	<div class="well well-small span6">Email: <strong><?php echo $user->email; ?></strong></div>
 	<div class="well well-small span6">Referencia: <strong><?php echo $user->profile->referencia; ?></strong></div>
 </div>
+<div class="row-fluid">
+	<div class="well well-small span6">Cuenta Bancaria: <strong><?php echo $user->profile->cuentabancaria; ?></strong></div>
+	<div class="well well-small span6">Comision: <strong><?php echo $user->profile->comision; ?>%</strong></div>
+</div>
 <?php else: ?>
 	<div class="alert alert-warning">No se ha definido ningún user</div>
 <?php endif;?>

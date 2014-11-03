@@ -18,9 +18,9 @@ $this->menu=array(
 	<?php echo Yii::app()->user->getFlash('profileMessage'); ?>
 </div>
 <?php endif; ?>
-<table class="dataGrid">
+<table class="table">
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('username')); ?></th>
+		<th class="label span2"><?php echo CHtml::encode($model->getAttributeLabel('username')); ?></th>
 	    <td><?php echo CHtml::encode($model->username); ?></td>
 	</tr>
 	<?php 
@@ -38,19 +38,19 @@ $this->menu=array(
 		}
 	?>
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('email')); ?></th>
+		<th class="label span2"><?php echo CHtml::encode($model->getAttributeLabel('email')); ?></th>
     	<td><?php echo CHtml::encode($model->email); ?></td>
 	</tr>
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('create_at')); ?></th>
+		<th class="label span2"><?php echo CHtml::encode($model->getAttributeLabel('create_at')); ?></th>
     	<td><?php echo $model->create_at; ?></td>
 	</tr>
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('lastvisit_at')); ?></th>
+		<th class="label span2"><?php echo CHtml::encode($model->getAttributeLabel('lastvisit_at')); ?></th>
     	<td><?php echo $model->lastvisit_at; ?></td>
 	</tr>
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('status')); ?></th>
+		<th class="label span2"><?php echo CHtml::encode($model->getAttributeLabel('status')); ?></th>
     	<td><?php echo CHtml::encode(User::itemAlias("UserStatus",$model->status)); ?></td>
 	</tr>
 </table>

@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
 <div class="row-fluid">
 	<table class="table table-condensed">
 		<tr>
-<th>fecha</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th><b>Nuevos Dep. Deportes</th><?php if( $esadmin ): ?> <th>Ganancias Afiliado Juego</th><th>Comisiones Debidas</th><?php endif; ?>
+<th>fecha</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Valor Depósitos</th><th>Número Depósitos</th><th>Facturación Deportes</th><th>Comisiones Debidas</th>
 </tr>
 <?php 
 //var_dump($dataProvider);

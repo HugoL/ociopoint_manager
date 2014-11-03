@@ -2,10 +2,69 @@
 /* @var $this VentaController */
 /* @var $data Venta */
 ?>
-<?php $parametro = 'porcentaje_'.$rol->nombre; ?>
+<?php 
+$parametro = 'porcentaje_'.$rol->nombre; 
+
+//Fórmula para calcular la comisión que se lleva cada usuario (Comisiones * ( 20 - Com_Comercial - Com_Establecimiento )) / 30
+     $profile = Profile::model()->findByPk($data->id_usuario);
+    if( $profile->comision != null )
+    	$comision_establecimiento = $profile->comision;
+    else
+    	$comision_establecimiento = Yii::app()->params['porcentaje_establecimiento'];
+
+    $padre = Profile::model()->findByPk( $profile->id_padre );
+    $rol_padre = Rol::model()->findByPK($padre->rol); 
+    $comision_comercial = 0;
+    $comision_distribuidor = 0;
+    switch ($rol_padre->nombre) {
+        case 'comercial':
+            $abuelo = Profile::model()->findByPk( $padre->user_id );
+            if( $padre->comision != null )
+                $comision_comercial = $padre->comision;
+            else
+                $comision_comercial = Yii::app()->params['porcentaje_comercial'];
+
+            if( $abuelo->comision != null )
+                $comision_distribuidor = $abuelo->comision;
+            else
+                $comision_distribuidor = Yii::app()->params['porcentaje_distribuidor'];
+            break;
+        case 'distribuidor':
+            $comision_comercial = 0;
+            if( $padre->comision != null )
+                $comision_distribuidor = $padre->comision;
+            else
+                $comision_distribuidor = Yii::app()->params['porcentaje_distribuidor'];
+            break;
+        default:
+    }
+
+
+if( strcmp($rol->nombre, 'administrador') == 0 ):
+	$comisiones = $data->comisiones_debidasCount * (30 - $comision_distribuidor - $comision_comercial - $comision_establecimiento) / 30;
+	$calculo = "<p>Cálculo: ".$data->comisiones_debidasCount." X (30 - ".$comision_distribuidor." - ".$comision_comercial." - ".$comision_establecimiento.") / 30 </p>";
+endif;
+if( strcmp($rol->nombre, 'distribuidor') == 0 ):
+	$comisiones = $data->comisiones_debidasCount * ( 20 - $comision_comercial - $comision_establecimiento ) / 30;
+	$calculo = "<p>Cálculo: ".$data->comisiones_debidasCount." X (20 - ".$comision_comercial." - ".$comision_establecimiento." ) / 30 </p>";
+endif;
+if( strcmp($rol->nombre, 'comercial') == 0 ):
+	$comisiones = $data->comisiones_debidasCount * ( 15 - $comision_establecimiento ) / 30;
+	$calculo = "<p>Cálculo: ".$data->comisiones_debidasCount." X (15 - ".$comision_establecimiento." ) / 30 </p>";
+endif;
+if( strcmp($rol->nombre, 'establecimiento') == 0 ):
+	if( Yii::app()->getModule('user')->user()->profile->comision != null )
+		$comision = Yii::app()->getModule('user')->user()->profile->comision;
+	else
+		$comision = Yii::app()->params['porcentaje_establecimiento'];
+	$comisiones = $data->comisiones_debidasCount * $comision / 30;
+	$calculo = "<p>Cálculo: ".$data->comisiones_debidasCount." X ".$comision." ) / 30 </p>";
+endif;
+
+?>
 <tr>
 	<td>
-		<?php $profile = Profile::model()->findByPk($data->id_usuario); ?>
+		
 		<span class="label label-info"><?php echo CHtml::encode($profile->referencia); ?></span>
 	</td>
 	<td>
@@ -14,16 +73,19 @@
 	<td>
 		<?php echo CHtml::encode($data->nuevos_depositantesCount); ?>
 	</td>
-	<?php if( strcmp($rol->nombre,'comercial') == 0 ): ?>
-	<td> <?php echo CHtml::encode($data->valor_depositosCount); ?></td>
-	<?php else: ?>
+	<td> <?php echo CHtml::encode(number_format($data->valor_depositosCount)); ?></td>
 	<td>
-		<?php echo CHtml::encode($data->nuevos_depositantes_deportesCount); ?>
+		<?php echo CHtml::encode(number_format($data->numero_depositosCount)); ?>
 	</td>
-	<?php endif; ?>
 	<td>
-		<?php 
-			echo number_format(( (Yii::app()->params[$parametro] / 100) * $data->comisiones_debidasCount ),3); ?>
+		<?php echo CHtml::encode(number_format($data->facturacion_deportesCount)); ?>
+	</td>
+	<td>
+		<?php if( $esadmin): ?>
+			<?php echo number_format( $comisiones)." / ".number_format($data->comisiones_debidasCount); ?>
+		<?php else: ?>
+			<?php echo number_format( $comisiones); ?>
+		<?php endif; ?>
 	</td>
 	<td>
 	<?php  if( strcmp($rol->nombre,'establecimiento') == 0 ): ?>

@@ -15,6 +15,8 @@ $this->menu=array(
 <?php 
     $rol = Rol::model()->findByPK(Yii::app()->getModule('user')->user()->profile->rol); 
     $esadmin = Yii::app()->getModule('user')->esAlgunAdmin();
+
+    //Miro qué rol de usuario es el padre del establecimiento de la venta    
 ?>
 <h1>Vista general de ventas</h1>
 <?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
@@ -48,12 +50,22 @@ $this->menu=array(
     <?php endif; ?>
 
     <table class="table table-hover">
-    <tr><th>Refencia</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><?php if( strcmp($rol->nombre,'comercial') == 0 ): ?><th>Valor Depósitos</th> <?php else: ?><th>Nuevos Dep. Deportes</th><?php endif; ?><th>Comisiones Debidas</th><th></th></tr>
-    <?php $this->widget('zii.widgets.CListView', array(
+    <?php if($categoria == 1): ?>
+        <tr><th>Refencia</th><th>Nuevos Registros</th><th>Nuevos Depositantes</th><th>Valor Depósitos</th><th>Número Depósitos</th><th>Facturación Deportes</th><th>Comisiones Debidas</th><th></th></tr>
+        <?php $this->widget('zii.widgets.CListView', array(
        'dataProvider'=>$dataProvider,
        'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin ),
        'itemView'=>'_resumen',
        )); ?>
+    <?php else: ?>
+         <tr><th>Refencia</th><th>Nuevos Registros</th><th>Comision por Registro</th><th>Comisiones Debidas</th><th></th></tr>
+         <?php $this->widget('zii.widgets.CListView', array(
+       'dataProvider'=>$dataProvider,
+       'viewData' => array( 'rol' => $rol, 'esadmin' => $esadmin ),
+       'itemView'=>'_resumenpoquer',
+       )); ?>
+    <?php endif; ?>
+    
     </table>
    <?php if( strcmp($rol->nombre,'establemiento') == 0 ): ?>  
         </ul>
