@@ -69,7 +69,7 @@ return array(
             'class'=>'application.extensions.smtpmail.PHPMailer',
             'Host'=>"smtp.gmail.com",
             'Username'=>'betandgames4you@gmail.com',
-            'Password'=>'jair2001',
+            'Password'=>'',
             'Mailer'=>'smtp',
             'Port'=>465,
             'SMTPAuth'=>true, 
