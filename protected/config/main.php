@@ -53,6 +53,9 @@ return array(
 	'components'=>array(		
 		'user'=>array(
                 'class'=>'RWebUser',
+                'behaviors' => array(
+            		'application.vendor.schmunk42.web-user-behavior.WebUserBehavior'
+        				),
                 // enable cookie-based authentication
                 'allowAutoLogin'=>true,
                 'loginUrl'=>array('/user/login'),
@@ -64,11 +67,11 @@ return array(
         ),
         'Smtpmail'=>array(
             'class'=>'application.extensions.smtpmail.PHPMailer',
-            'Host'=>"mail.kioskopoint.es",
-            'Username'=>'info@pkioskopoint.es',
-            'Password'=>'',
+            'Host'=>"smtp.gmail.com",
+            'Username'=>'betandgames4you@gmail.com',
+            'Password'=>'jair2001',
             'Mailer'=>'smtp',
-            'Port'=>5025,
+            'Port'=>465,
             'SMTPAuth'=>true, 
         ),
 
@@ -130,7 +133,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'hlanga@hlanga.es',
-		'email'=>'info@kioskopoint.com',
+		'email'=>'betandgames4you@gmail.com',
 		'debugContent'=>'',
 		'porcentaje_distribuidor' => 5,
 		'porcentaje_comercial' => 5,

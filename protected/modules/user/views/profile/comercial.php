@@ -57,6 +57,17 @@
             </div>
             </div></center>
         </div>
+        <div class="span4">
+            <center><div class="product-chooser-item">
+                <div class="well">
+                 <a href="<?php echo Yii::app()->baseUrl.'/user/profile/contact'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/sobre.png" class="img-rounded" alt="Perfil"></a>
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                    <span class="title">Contacto</span>
+                    <span class="description">Contacta con nosotros</span>
+                </div>
+            </div>
+            </div></center>
+        </div>
          <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">

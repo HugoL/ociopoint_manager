@@ -236,16 +236,14 @@ class AdminController extends Controller
         $mail->SetFrom($from, 'Ociopoint');
         $mail->Subject = $subject;
         $mail->MsgHTML($message);
-        $mail->AddAddress($to, "");
+        $mail->AddAddress($to, Yii::app()->params['email']);
         $mail->AddBCC($cco);
         if( !empty($rutapdf) )
         	$mail->AddAttachment($rutapdf);
-       
-
 
         if(!$mail->Send()) {
             return false;
-        }else {
+        }else{
             return true;
         }
     }

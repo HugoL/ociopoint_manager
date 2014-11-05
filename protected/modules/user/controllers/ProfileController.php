@@ -28,6 +28,17 @@ class ProfileController extends Controller
 		);
 	}
 
+	public function actions()
+	{
+		return array(
+			// captcha action renders the CAPTCHA image displayed on the contact page
+			'captcha'=>array(
+				'class'=>'CCaptchaAction',
+				'backColor'=>0xFFFFFF,
+			),
+		);
+	}
+
 	/**
 	 * Shows a particular model.
 	 */
@@ -145,6 +156,28 @@ class ProfileController extends Controller
 		}else{
 			$this->redirect(Yii::app()->controller->module->returnUrl);
 		}
+	}
+
+	public function actionContact(){
+		$model=new ContactForm;
+		if(isset($_POST['ContactForm']))
+		{
+			$model->attributes=$_POST['ContactForm'];
+			if($model->validate())
+			{
+				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
+				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
+				$headers="From: $name <{$model->email}>\r\n".
+					"Reply-To: {$model->email}\r\n".
+					"MIME-Version: 1.0\r\n".
+					"Content-Type: text/plain; charset=UTF-8";
+
+				mail(Yii::app()->params['email'],$subject,$model->body,$headers);
+				Yii::app()->user->setFlash('contact','Gracias por contactar con nosotros. Su mensaje se ha enviado correctamente');
+				$this->refresh();
+			}
+		}
+		$this->render('contact',array('model'=>$model));
 	}
 
 	/**
