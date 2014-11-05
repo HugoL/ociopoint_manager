@@ -163,6 +163,9 @@ class ProfileController extends Controller
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];
+			$model->email = Yii::app()->getModule('user')->user()->email;
+			$model->name = Yii::app()->getModule('user')->user()->profile->firstname;
+			
 			if($model->validate())
 			{
 				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
