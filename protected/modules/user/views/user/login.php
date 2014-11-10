@@ -8,7 +8,8 @@ $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Login");
 </div>
 
 <div class="row-fluid">
-	 <div class="span6 offset3">
+	 <div class="span3">&nbsp;</div>
+	 <div class="span6">
 
 <?php if(Yii::app()->user->hasFlash('loginMessage')): ?>
 
@@ -78,5 +79,6 @@ $form = new CForm(array(
     ),
 ), $model);
 ?>
-	</div><!-- offset3 -->
+	</div><!-- span6 -->
+<div class="span3">&nbsp;</div>
 </div><!-- row-fluid -->

@@ -12,10 +12,10 @@
 		<?php echo CHtml::encode($data->nuevos_registrosCount); ?>
 	</td>
 	<td>
-		<?php echo number_format( $data->comision_registro); ?>
+		<?php echo intval( $data->comision_registro); ?>
 	</td>
 	<td>
-		<?php echo number_format( $data->comisiones_debidasCount); ?>
+		<?php echo intval( $data->comisiones_debidasCount); ?>
 	</td>
 	<td>
 	<?php  if( strcmp($rol->nombre,'establecimiento') == 0 || $esadmin ): ?>

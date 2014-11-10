@@ -33,16 +33,16 @@ if( strcmp($rol->nombre, 'administrador') == 0 ):
 		<?php echo CHtml::encode($data->nuevos_depositantesCount); ?>
 	</td>
 	<td> 
-		<?php echo CHtml::encode(number_format($data->valor_depositosCount)); ?>
+		<?php echo CHtml::encode(intval($data->valor_depositosCount)); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(number_format($data->numero_depositosCount)); ?>
+		<?php echo CHtml::encode(intval($data->numero_depositosCount)); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(number_format($data->facturacion_deportesCount)); ?>
+		<?php echo CHtml::encode(intval($data->facturacion_deportesCount)); ?>
 	</td>
 	<td>
-		<?php echo number_format($comisiones); ?>
+		<?php echo intval($comisiones); ?>
 	</td>
 	<?php if( ($esadmin || strcmp($rol->nombre,'establecimiento') == 0) && $data->id_categoria == 1 ) : ?>
 	<td>

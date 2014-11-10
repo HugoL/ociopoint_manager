@@ -11,7 +11,7 @@
 		<?php echo CHtml::encode($data->nuevos_registrosCount); ?>	
 	</td>
 	<td>
-		<?php echo number_format($data->comisiones_debidasCount); ?>
+		<?php echo intval($data->comisiones_debidasCount); ?>
 	</td>
 	<?php if( $esadmin ) : ?>
 		<td>
