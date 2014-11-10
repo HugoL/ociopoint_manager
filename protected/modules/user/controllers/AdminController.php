@@ -36,7 +36,7 @@ class AdminController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','view'),
+				'actions'=>array('admin','delete','create','update','view', 'probarEmail'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -90,11 +90,12 @@ class AdminController extends Controller
 		$profile=new Profile;
 		$this->performAjaxValidation(array($model,$profile));
 		$mirol = Yii::app()->getModule('user')->user()->profile->rol;
-		if( isset($_POST['User']) ){			
+		if( isset($_POST['User']) ){
 			$model->attributes=$_POST['User'];
 			$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
 			$profile->attributes=$_POST['Profile'];
-			$profile->rol = strip_tags($_POST['Profile']['rol']);		
+			$profile->rol = strip_tags($_POST['Profile']['rol']);
+				
 			$profile->user_id=0;
 			$model->superuser = 0; //no se pueden crear superusuarios
 			if( !Yii::app()->getModule('user')->esAlgunAdmin() ){

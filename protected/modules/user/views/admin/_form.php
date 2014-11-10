@@ -70,8 +70,9 @@
 	</div>
 			<?php
 			}
-		}
+		}		
 ?>
+
 	<div class="row">
 		<?php echo $form->labelEx($profile,'Cuenta Bancaria'); ?>
 		<?php echo $form->textField($profile,'cuentabancaria',array('placeholder'=>'0000 0000 00 0000000000')); 
@@ -87,9 +88,21 @@
     				)
                ); 
         ?>
-
 		<?php echo $form->error($profile,'rol'); ?>
-	</div>	
+	</div>
+
+	<?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
+	<div class="row">		
+		<?php echo $form->labelEx($profile,'Comision'); ?>		
+		<?php echo $form->textField($profile,'comision'); 
+        ?>
+        <?php echo $form->error($model,'comision'); ?>
+
+		<?php echo $form->error($profile,'cuentabancaria'); ?>
+		<small>Si se deja vacío se cogerá el porcentaje por defecto</small>
+	</div>
+	<?php endif; ?>
+	
 	<div class="row">
 		<?php echo $form->labelEx($profile,'pdf'); ?>
 		<?php 
