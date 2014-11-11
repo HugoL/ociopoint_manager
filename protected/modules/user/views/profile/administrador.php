@@ -45,7 +45,18 @@
             </div></center>
         </div>
     </div><!-- row-fluid -->
-    <div class="row-fluid">        
+    <div class="row-fluid">   
+         <div class="span4">
+            <center><div class="product-chooser-item">
+                <div class="well">
+                 <a href="<?php echo Yii::app()->baseUrl.'/user/profile/verDocumentos'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/documento.png" class="img-rounded" alt="Documentos"></a>
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                    <span class="title">Documentos</span>
+                    <span class="description">Ver documentos subidos a la plataforma</span>
+                </div>
+            </div>
+            </div></center>
+         </div>     
          <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">

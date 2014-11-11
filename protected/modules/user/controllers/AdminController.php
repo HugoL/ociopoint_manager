@@ -242,11 +242,11 @@ class AdminController extends Controller
         $mail=Yii::app()->Smtpmail;
         $mail->SetFrom($from, 'Ociopoint');
         $mail->Subject = $subject;
-        $mail->MsgHTML($message);
         $mail->AddAddress($to, Yii::app()->params['email']);
         $mail->AddBCC($cco);
         if( !empty($rutapdf) )
-        	$mail->AddAttachment($rutapdf);
+        	$message = $message." Se ha subido un documento PDF que podrás ver en la plataforma";
+        $mail->MsgHTML($message);
 
         if(!$mail->Send()) {
             return false;

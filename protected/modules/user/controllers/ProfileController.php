@@ -183,6 +183,21 @@ class ProfileController extends Controller
 		$this->render('contact',array('model'=>$model));
 	}
 
+	public function actionVerDocumentos(){
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'pdf IS NOT NULL';
+
+			$documentos = Profile::model()->findAll( $criteria );
+
+			$this->render( 'documentos',array('documentos' => $documentos) );
+		}else{
+			Yii::app()->user->setFlash('error', "No puedes ver los documentos");
+			$documentos = array();
+			$this->render( 'documentos',array('documentos' => $documentos) );
+		}
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
