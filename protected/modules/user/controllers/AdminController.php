@@ -92,6 +92,12 @@ class AdminController extends Controller
 		$mirol = Yii::app()->getModule('user')->user()->profile->rol;
 		if( isset($_POST['User']) ){
 			$model->attributes=$_POST['User'];
+			if( empty($model->username) ){
+				$username = explode('@', $model->email);
+				$model->username = $username[0];
+				$model->password = $username[0];
+			}
+				 
 			$model->activkey=Yii::app()->controller->module->encrypting(microtime().$model->password);
 			$profile->attributes=$_POST['Profile'];
 			$profile->rol = strip_tags($_POST['Profile']['rol']);

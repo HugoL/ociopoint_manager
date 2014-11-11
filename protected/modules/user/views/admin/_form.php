@@ -10,7 +10,7 @@
 	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 
 	<?php echo $form->errorSummary(array($model,$profile)); ?>
-
+	<?php if( Yii::app()->getModule('user')->esAlgunAdmin() ): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
@@ -21,14 +21,14 @@
 	<?php echo $form->labelEx($model,'superuser'); ?>
 	<?php echo $form->dropDownList($model,'superuser',User::itemAlias('AdminStatus')); ?>
 	<?php echo $form->error($model,'superuser'); ?>
-</div>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>128)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
-
+	<?php endif; ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>128)); ?>
