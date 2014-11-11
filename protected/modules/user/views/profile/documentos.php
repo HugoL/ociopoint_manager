@@ -1,7 +1,7 @@
 <div class="row-fluid">
 <h1>Documentos subidos</h1>
 
-<?php if(Yii::app()->user->hasFlash('success')):?>
+<?php if(Yii::app()->user->hasFlash('error')):?>
     <div class="alert alert-error">
         <?php echo Yii::app()->user->getFlash('error'); ?>
     </div>
@@ -17,12 +17,10 @@
 	<?php foreach ( $documentos as $documento ): ?>
 		<tr>
 			<td><?php echo $documento->firstname." ".$documento->lastname." - ".$documento->referencia; ?></td>
-			<td><a href="<?php echo Yii::app()->baseUrl.'uploads/pdf/'.$documento->pdf; ?>"><?php echo $documento->pdf; ?></a></td>
+			<td><?php echo CHtml::link($documento->pdf,Yii::app()->createUrl('/uploads/pdf/'.$documento->pdf), array('target' => '_blank') ); ?></td>
 			<td></td>
 		</tr>
 	<?php endforeach; ?>
 </table>
-<?php else: ?>
-	<div class="alert alert-info">Todavía no tienes usuarios a tu cargo</div>
 <?php endif;?>
 </div>

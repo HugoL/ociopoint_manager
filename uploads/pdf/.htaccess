@@ -1,0 +1,4 @@
+deny from all
+<FilesMatch "\.(pdf|jpg)$">
+Satisfy Any
+Allow from all
