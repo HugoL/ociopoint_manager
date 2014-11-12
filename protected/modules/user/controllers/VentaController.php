@@ -356,6 +356,14 @@ class VentaController extends Controller
                              $fecha = implode($fecha);
                              //relleno el resto de campos de la Venta                             
                              $venta->fecha = date('Y-m-d',strtotime($fecha));
+
+                             //Si el registro ya existe almaceno los datos que ya tenía para que luego detecte que tiene que actualizarlos y no crear un nuevo registro
+                             $venta_old = Venta::model()->find('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha));
+                             if( !empty($venta_old) ){
+                             	$venta = $venta_old;
+                             	Yii::app()->user->setFlash('info','Algunos datos ya existían. Se han sobreescrito');
+                             }
+
                              $venta->clics = $data[2];
                           	 $venta->nuevos_registros = $data[3];
                              $venta->nuevos_depositantes = $data[4];
@@ -386,18 +394,11 @@ class VentaController extends Controller
                              $venta->ganancias_afiliado_juego = floatval(str_replace(',','.',$data[29]));
                              $venta->comisiones_debidas = floatval(str_replace(',','.',$data[30]));
                              
-                            //Si ya hay datos de este usuario en esa fecha, se actualiza, si no se crea 
-                             if( Venta::model()->exists('id_usuario = :id_usuario AND fecha = :fecha AND id_categoria = 1', array(":id_usuario"=>$venta->id_usuario, ':fecha'=>$venta->fecha)) ){
-                             	Yii::app()->user->setFlash('info','Algunos datos ya existían. Se han sobreescrito');
-                             	$venta->isNewRecord = false;
-                             	if( !$venta->update() ){
-	                             	$ok = false;
-	                             }                             	
-                             }else{
-                             	if( !$venta->save() ){
-	                             	$ok = false;
-	                             }
-                             }
+                       
+                            if( !$venta->save() ){
+	                        	$ok = false;
+	                        }                             	
+                             
                        }
                        $row++;
                    }

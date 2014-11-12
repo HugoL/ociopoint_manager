@@ -179,6 +179,7 @@ class AdminController extends Controller
 				$model->attributes=$_POST['User'];
 				$profile->attributes=$_POST['Profile'];
 				$profile->rol = htmlentities(strip_tags($_POST['Profile']['rol']));
+				$profile->comision = htmlentities(strip_tags($_POST['Profile']['comision']));
 				if($model->validate()&&$profile->validate()) {
 					$old_password = User::model()->notsafe()->findByPk($model->id);
 					if ($old_password->password!=$model->password) {
