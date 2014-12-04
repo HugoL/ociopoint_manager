@@ -6,7 +6,7 @@ class WebcajitaController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -32,7 +32,7 @@ class WebcajitaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','crear'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -76,6 +76,35 @@ class WebcajitaController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionCrear( $id_web ){
+		$model=new Webcajita;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){			
+			$web = Web::model()->findByPk($id_web);
+
+			if( $web->tipo == 0 ) //pagina Web Personalizada
+				for( $i = 0; $i < 12; $i++ )
+					$cajitas[$i] = Webcajita::model();
+			else
+				for( $i = 0; $i < 48; $i++ )
+					$cajitas[$i] = Webcajita::model();
+
+			if( isset($_POST['Webcajita']) ){
+				$model->attributes=$_POST['Webcajita'];
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
+		}
+
+		$this->render('crear',array(
+			'model'=>$model,
+			'web'=>$web,
+			'cajitas'=>$cajitas,
 		));
 	}
 

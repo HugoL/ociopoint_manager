@@ -63,8 +63,8 @@ class Webcajita extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idCategoria' => array(self::BELONGS_TO, 'Categoriaswebs', 'id_categoria'),
-			'idWeb' => array(self::BELONGS_TO, 'Webs', 'id_web'),
+			'categoria' => array(self::BELONGS_TO, 'Categoriaweb', 'id_categoria'),
+			'web' => array(self::BELONGS_TO, 'Web', 'id_web'),
 		);
 	}
 
@@ -76,12 +76,12 @@ class Webcajita extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'url' => 'Url',
-			'posicion' => 'Posicion',
-			'titulo' => 'Titulo',
+			'posicion' => 'Posición',
+			'titulo' => 'Título',
 			'imagen' => 'Imagen',
-			'tamano' => 'Tamano',
-			'id_categoria' => 'Id Categoria',
-			'id_web' => 'Id Web',
+			'tamano' => 'Tamaño',
+			'id_categoria' => 'Categoría',
+			'id_web' => 'Web',
 		);
 	}
 

@@ -60,8 +60,8 @@ class Web extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'webcajitases' => array(self::HAS_MANY, 'Webcajitas', 'id_web'),
-			'idUsuario' => array(self::BELONGS_TO, 'Users', 'id_usuario'),
+			'webcajita' => array(self::HAS_MANY, 'Webcajita', 'id_web'),
+			'usuario' => array(self::BELONGS_TO, 'User', 'id_usuario'),
 		);
 	}
 
@@ -72,10 +72,10 @@ class Web extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'url' => 'Url',
-			'titulo' => 'Titulo',
+			'url' => 'Dirección (bitly)',
+			'titulo' => 'Título',
 			'tipo' => 'Tipo',
-			'id_usuario' => 'Id Usuario',
+			'id_usuario' => 'Usuario',
 		);
 	}
 

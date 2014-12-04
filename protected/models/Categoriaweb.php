@@ -57,7 +57,7 @@ class Categoriaweb extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'webcajitases' => array(self::HAS_MANY, 'Webcajitas', 'id_categoria'),
+			'webcajita' => array(self::HAS_MANY, 'Webcajita', 'id_categoria'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class Categoriaweb extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Descripción',
 			'activado' => 'Activado',
 		);
 	}

@@ -6,7 +6,7 @@ class WebController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -64,18 +64,24 @@ class WebController extends Controller
 	{
 		$model=new Web;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 
-		if(isset($_POST['Web']))
-		{
-			$model->attributes=$_POST['Web'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			// Uncomment the following line if AJAX validation is needed
+			$this->performAjaxValidation($model);
+
+			if( isset($_POST['Web'] )){
+				$model->attributes=$_POST['Web'];
+				if($model->save())
+					$this->redirect(array('webcajita/crear', 'id_web'=>$model->id));
+			}
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'rol = 5';
+			$users = Profile::model()->findAll($criteria);
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'establecimientos'=>$users,
 		));
 	}
 
