@@ -8,6 +8,8 @@ class WebcajitaController extends Controller
 	 */
 	public $layout='//layouts/column1';
 
+	const NUM_CAJITAS_PER = 12;
+	const NUM_CAJITAS_IPAD = 48;
 	/**
 	 * @return array action filters
 	 */
@@ -81,7 +83,7 @@ class WebcajitaController extends Controller
 
 	public function actionCrear( $id_web ){
 		$model=new Webcajita;
-
+		$imagenes = array();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){			
@@ -95,16 +97,51 @@ class WebcajitaController extends Controller
 					$cajitas[$i] = Webcajita::model();
 
 			if( isset($_POST['Webcajita']) ){
-				$model->attributes=$_POST['Webcajita'];
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
+				$posicion = 1;
+				$cuantos = 0;
+				foreach ($_POST['Webcajita'] as $j=>$model){
+		        	$models[] = Webcajita::model(); 
+		        }
+				foreach ($_POST['Webcajita'] as $j=>$model){	        	
+		            if ( isset($_POST['Webcajita'][$j]) ) {     
+		            			            	      	
+		                $models[$j] = new Webcajita; // if you had static model only
+		                $models[$j]->attributes=$model;
+		                $models[$j]->posicion = $posicion;
+		                $posicion++; 
+		                $models[$j]->id_web = $web->id;
+
+	                	if( !$models[$j]->save(false) ){
+	                		$todook = false;	                
+	                	}else{
+	                		$cuantos++;
+	                	}
+		            }
+		        }
+
+				$this->redirect(array('crear','id_web'=>$web->id));
+			}else{
+				//cargo los datos por defecto para crear la plantilla
+				$ruta = Yii::app()->baseUrl.'/images/web_per/';
+				$imagenes[0] = array('titulo' => '888poker.es','ruta' => $ruta.'888poker.gif');
+				$imagenes[1] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365.gif');
+				$imagenes[2] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
+				$imagenes[3] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill.gif');
+				$imagenes[4] = array('titulo' => 'bwin.es','ruta' =>$ruta.'bwin.jpg');
+				$imagenes[5] = array('titulo' => 'luckia.es','ruta' =>$ruta.'luckia.gif');
+				$imagenes[6] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill_casino.gif');
+				$imagenes[7] = array('titulo' => 'ukash, recargas, ...','ruta' =>$ruta.'ukash.jpg');
+				$imagenes[8] = array('titulo' => 'betfair.es','ruta' =>$ruta.'betfair.gif');
+				$imagenes[9] = array('titulo' => 'paf.es','ruta' =>$ruta.'paf.gif');
+				$imagenes[10] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
+				$imagenes[11] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365_casino.gif');				
 			}
 		}
 
 		$this->render('crear',array(
-			'model'=>$model,
 			'web'=>$web,
 			'cajitas'=>$cajitas,
+			'imagenes'=>$imagenes,
 		));
 	}
 

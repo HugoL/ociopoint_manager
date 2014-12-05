@@ -71,8 +71,9 @@ class WebController extends Controller
 
 			if( isset($_POST['Web'] )){
 				$model->attributes=$_POST['Web'];
-				if($model->save())
+				if($model->save()){
 					$this->redirect(array('webcajita/crear', 'id_web'=>$model->id));
+				}
 			}
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'rol = 5';
