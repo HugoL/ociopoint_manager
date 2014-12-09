@@ -34,7 +34,7 @@ class WebcajitaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','crear'),
+				'actions'=>array('create','update','crear','editar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -87,14 +87,18 @@ class WebcajitaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){			
-			$web = Web::model()->findByPk($id_web);
+			$web = Web::model()->findByPk($id_web);			
 
-			if( $web->tipo == 0 ) //pagina Web Personalizada
+			
+			if( $web->tipo == 0 ){ //pagina Web Personalizada
 				for( $i = 0; $i < 12; $i++ )
 					$cajitas[$i] = Webcajita::model();
-			else
+				
+			}else{ //pagina iPad
 				for( $i = 0; $i < 48; $i++ )
 					$cajitas[$i] = Webcajita::model();
+			}
+			
 
 			if( isset($_POST['Webcajita']) ){
 				$posicion = 1;
@@ -105,21 +109,28 @@ class WebcajitaController extends Controller
 				foreach ($_POST['Webcajita'] as $j=>$model){	        	
 		            if ( isset($_POST['Webcajita'][$j]) ) {     
 		            			            	      	
-		                $models[$j] = new Webcajita; // if you had static model only
-		                $models[$j]->attributes=$model;
-		                $models[$j]->posicion = $posicion;
-		                $posicion++; 
-		                $models[$j]->id_web = $web->id;
+		                if( isset($model->id) ){
+		                	$models[$j] = $this->loadModel($model[$j]->id);
+		                	$models[$j]->attributes=$model;
+		                	$models[$j]->isNewRecord = false;
+		                }else{
+		                	$models[$j] = new Webcajita; // if you had static model only
+		                	$models[$j]->attributes=$model;
+		                	$models[$j]->posicion = $posicion;
+		                	$posicion++; 
+		                	$models[$j]->id_web = $web->id;
+		                }
+		                
 
-	                	if( !$models[$j]->save(false) ){
-	                		$todook = false;	                
+	                	if( !$models[$j]->save() ){
+	                		$todook = false;
 	                	}else{
 	                		$cuantos++;
 	                	}
 		            }
-		        }
-
-				$this->redirect(array('crear','id_web'=>$web->id));
+		        }		        
+		        //$cajitas = Webcajita::model()->findAll('id_web = '.$web->id);
+				$this->redirect(array('editar','id_web'=>$web->id));
 			}else{
 				//cargo los datos por defecto para crear la plantilla
 				$ruta = Yii::app()->baseUrl.'/images/web_per/';
@@ -135,13 +146,46 @@ class WebcajitaController extends Controller
 				$imagenes[9] = array('titulo' => 'paf.es','ruta' =>$ruta.'paf.gif');
 				$imagenes[10] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
 				$imagenes[11] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365_casino.gif');				
-			}
+			}			
 		}
 
 		$this->render('crear',array(
 			'web'=>$web,
 			'cajitas'=>$cajitas,
 			'imagenes'=>$imagenes,
+		));
+	}
+
+	public function actionEditar( $id_web ){
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$web = Web::model()->findByPk($id_web);
+			$cajitas = Webcajita::model()->findAll('id_web = '.$web->id);
+
+			if( isset($_POST['Webcajita']) ){
+				$posicion = 1;
+				$cuantos = 0;
+				foreach ($cajitas as $j=>$model){
+		        	$models[] = $model; 
+		        }
+				foreach ($_POST['Webcajita'] as $j=>$model){	        	
+		            if ( isset($_POST['Webcajita'][$j]) ) {     
+		            			            	      	
+		                //$models[$j] = $this->loadModel(); // if you had static model only
+		                $models[$j]->attributes=$model;
+		                $model[$j]->isNewRecord = false;
+	                	if( !$models[$j]->update(false) ){
+	                		$todook = false;	                
+	                	}else{
+	                		$cuantos++;
+	                	}
+		            }
+		        }
+			}
+			$cajitas = Webcajita::model()->findAll('id_web = '.$web->id);
+		}
+		$this->render('editar', array(
+			'web' => $web,
+			'cajitas' => $cajitas,
 		));
 	}
 

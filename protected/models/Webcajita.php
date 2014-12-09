@@ -46,7 +46,8 @@ class Webcajita extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('url, posicion, titulo, imagen, id_categoria, id_web', 'required'),
-			array('posicion, titulo, tamano, id_categoria, id_web', 'numerical', 'integerOnly'=>true),
+			array('posicion, tamano, id_categoria, id_web', 'numerical', 'integerOnly'=>true),
+			array('titulo', 'length', 'max'=>256),
 			array('url', 'length', 'max'=>800),
 			array('imagen', 'length', 'max'=>512),
 			// The following rule is used by search().

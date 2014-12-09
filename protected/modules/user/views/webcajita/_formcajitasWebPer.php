@@ -4,7 +4,7 @@
 		'enableAjaxValidation'=>false,
 	)); ?>
 	<div class="form-horizontal">
-		<?php $i = 1; $j = 0;?>
+		<?php $i = 1; $j = 0; $cajita = new Webcajita;;?>
 	<div class="row-fluid">
 	<?php foreach ($cajitas as $key => $cajita): ?>
 			<?php if( empty($cajita->imagen) )
@@ -17,17 +17,22 @@
 				<div class="row-fluid">
 			<?php endif; ?>
 			<div class="span4 well well-small">
-				<?php echo $form->hiddenField($cajita,'['.$key.']id_usuario',array('value'=>$web->id_usuario));
+				<?php 
+					if( !empty($cajita->id) )
+						echo $form->hiddenField($cajita,'['.$key.']id',array('value'=>$cajita->id));
+					echo $form->hiddenField($cajita,'['.$key.']id_usuario',array('value'=>$web->id_usuario));
 					echo $form->hiddenField($cajita,'['.$key.']id_categoria',array('value'=> '1'));
+					//echo $form->hiddenField($cajita,'['.$key.']posicion',array('value'=> $cajita->posicion));
 				 ?>
 				<div style="background-image: url(<?php echo $imagen['ruta']; ?>);" class="cajita">
-					<center><div class"clearfix"><p>&nbsp;</p></div><div class"clearfix"><p>&nbsp;</p></div><?php echo $form->textField($cajita,'['.$key.']imagen',array('class' => 'input-large','placeholder' => 'Dirección de la imagen')); ?>
+					<center><div class="clearfix"><p>&nbsp;</p></div><div class="clearfix"><p>&nbsp;</p></div>
+					<?php echo $form->textField($cajita,'['.$key.']imagen',array('class' => 'input-large','placeholder' => 'Dirección de la imagen')); ?>
 					<?php echo $form->error($cajita,'[$key]imagen'); ?></center></div>
 				<div class="control-group">
 					<center><?php echo $form->textField($cajita,'['.$key.']url',array('class' => 'input-large','placeholder' => 'Dirección (bitly)')); ?>
 					<?php echo $form->error($cajita,'[$key]url'); ?></center>
 
-					<div class"clearfix">&nbsp;</div>
+					<div class="clearfix">&nbsp;</div>
 
 					<center><span>Título: </span><?php echo $form->textField($cajita,'['.$key.']titulo',array('class' => 'input-medium','value' => $imagen['titulo'])); ?>
 					<?php echo $form->error($cajita,'[$key]titulo'); ?>
