@@ -9,6 +9,8 @@
 
     <!-- Bootstrap -->
     <?php  
+    $baseUrl = Yii::app()->theme->baseUrl;
+    $cs = Yii::app()->getClientScript();
     $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
     $cs->registerCssFile($baseUrl.'/css/bootstrap-responsive.min.css');
     $cs->registerCssFile($baseUrl.'/css/hlestilos.css');
@@ -26,6 +28,11 @@
     <![endif]-->
   </head>
   <body>
-  
+    <section class="main-body">
+    <div class="container-fluid">
+            <!-- Include content pages -->
+            <?php echo $content; ?>
+    </div>
+    </section>
   </body>
 </html>

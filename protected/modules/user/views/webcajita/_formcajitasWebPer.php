@@ -36,7 +36,7 @@
 
 					<center><span>Título: </span><?php echo $form->textField($cajita,'['.$key.']titulo',array('class' => 'input-medium','value' => $imagen['titulo'])); ?>
 					<?php echo $form->error($cajita,'[$key]titulo'); ?>
-					<a href="#" class="facebook"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/f.jpg'; ?>"></a>&nbsp;<a href="#" class="facebook"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/twitter.jpg'; ?>"></a></center>
+					<a href="http://www.facebook.com/sharer.php?u=<?php echo isset($cajita->url) ? $cajita->url : '#' ?>&t=<?php echo isset($cajita->titulo) ? $cajita->titulo : ' ' ?>" class="facebook" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/f.jpg'; ?>"></a>&nbsp;<a href="http://twitter.com/?status=<?php echo isset($cajita->titulo) ? $cajita->titulo : ' ' ?>%20<?php echo isset($cajita->url) ? $cajita->url : '#' ?>" class="facebook" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/twitter.jpg'; ?>"></a></center>
 				</div><!-- /control-group -->
 			</div>		
 			<?php if( $i == 3 ): ?>

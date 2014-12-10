@@ -6,16 +6,32 @@ class WebController extends Controller
 	
 	public $layout = '//layouts/column1';	
 
-	public function actionIndex()
+	public function actionIndex( $id )
 	{
 		Yii::app()->theme = 'Frontend';
-		$this->render('index');
+
+		/*if( !isset($id) )
+			throw new CHttpException(404,'La página solicitada no está disponible.');*/
+
+		$id = strip_tags($id);
+		$criteria = new CDbCriteria;
+		$criteria->compare('referencia',$id);
+		$profile = Profile::model()->find($criteria);
+	
+		$this->loadConfiguracion($profile->user_id);
+
+		$criteria2 = new CDbCriteria;
+		$criteria2->condition = 'id_web = :id_web';
+		$criteria2->params = array(':id_web' => $this->_model->id);
+		$cajitas = Webcajita::model()->findAll($criteria2);
+
+		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas));
 	}
 
 	public function loadConfiguracion( $id=null ){
 		if( $this->_model===null ){
 			if( $id!==null || isset($_GET['id']) )
-				$this->_model=Web::model()->findbyPk($id!==null ? $id : $_GET['id']);
+				$this->_model=Web::model()->find($id!==null ? 'id_usuario ='. $id : 'id_usuario = '.$_GET['id']);
 			if( $this->_model===null )
 				throw new CHttpException(404,'The requested page does not exist.');
 		}

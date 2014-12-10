@@ -93,6 +93,21 @@ class WebcajitaController extends Controller
 			if( $web->tipo == 0 ){ //pagina Web Personalizada
 				for( $i = 0; $i < 12; $i++ )
 					$cajitas[$i] = Webcajita::model();
+
+				//cargo los datos por defecto para crear la plantilla
+				$ruta = Yii::app()->baseUrl.'/images/web_per/';
+				$imagenes[0] = array('titulo' => '888poker.es','ruta' => $ruta.'888poker.gif');
+				$imagenes[1] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365.gif');
+				$imagenes[2] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
+				$imagenes[3] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill.gif');
+				$imagenes[4] = array('titulo' => 'bwin.es','ruta' =>$ruta.'bwin.jpg');
+				$imagenes[5] = array('titulo' => 'luckia.es','ruta' =>$ruta.'luckia.gif');
+				$imagenes[6] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill_casino.gif');
+				$imagenes[7] = array('titulo' => 'ukash, recargas, ...','ruta' =>$ruta.'ukash.jpg');
+				$imagenes[8] = array('titulo' => 'betfair.es','ruta' =>$ruta.'betfair.gif');
+				$imagenes[9] = array('titulo' => 'paf.es','ruta' =>$ruta.'paf.gif');
+				$imagenes[10] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
+				$imagenes[11] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365_casino.gif');
 				
 			}else{ //pagina iPad
 				for( $i = 0; $i < 48; $i++ )
@@ -101,6 +116,7 @@ class WebcajitaController extends Controller
 			
 
 			if( isset($_POST['Webcajita']) ){
+				$imagen = 0;
 				$posicion = 1;
 				$cuantos = 0;
 				foreach ($_POST['Webcajita'] as $j=>$model){
@@ -119,6 +135,12 @@ class WebcajitaController extends Controller
 		                	$models[$j]->posicion = $posicion;
 		                	$posicion++; 
 		                	$models[$j]->id_web = $web->id;
+		                	if( empty($models[$j]->imagen) && isset($imagenes[$imagen]) ){
+		                		$img = $imagenes[$imagen];
+	                			$models[$j]->imagen = $img['ruta'];
+	                		}
+	                		if( empty($models[$j]->url) )
+	                			$models[$j]->url = '#';
 		                }
 		                
 
@@ -128,24 +150,10 @@ class WebcajitaController extends Controller
 	                		$cuantos++;
 	                	}
 		            }
+		            $imagen++;
 		        }		        
 		        //$cajitas = Webcajita::model()->findAll('id_web = '.$web->id);
 				$this->redirect(array('editar','id_web'=>$web->id));
-			}else{
-				//cargo los datos por defecto para crear la plantilla
-				$ruta = Yii::app()->baseUrl.'/images/web_per/';
-				$imagenes[0] = array('titulo' => '888poker.es','ruta' => $ruta.'888poker.gif');
-				$imagenes[1] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365.gif');
-				$imagenes[2] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
-				$imagenes[3] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill.gif');
-				$imagenes[4] = array('titulo' => 'bwin.es','ruta' =>$ruta.'bwin.jpg');
-				$imagenes[5] = array('titulo' => 'luckia.es','ruta' =>$ruta.'luckia.gif');
-				$imagenes[6] = array('titulo' => 'williamhill.es','ruta' =>$ruta.'williamhill_casino.gif');
-				$imagenes[7] = array('titulo' => 'ukash, recargas, ...','ruta' =>$ruta.'ukash.jpg');
-				$imagenes[8] = array('titulo' => 'betfair.es','ruta' =>$ruta.'betfair.gif');
-				$imagenes[9] = array('titulo' => 'paf.es','ruta' =>$ruta.'paf.gif');
-				$imagenes[10] = array('titulo' => 'sportium.es','ruta' =>$ruta.'sportium.gif');
-				$imagenes[11] = array('titulo' => 'bet365.es','ruta' =>$ruta.'bet365_casino.gif');				
 			}			
 		}
 

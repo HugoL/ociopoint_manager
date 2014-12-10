@@ -1,4 +1,11 @@
 .cesped {
-	background-image:url('img/cesped.jpg');
+	background-image:url('../img/cesped.jpg');
 	background-repeat: repeat;
+}
+.imagencajita{
+	max-width: 255px;
+	max-height: 190px;
+}
+.cajita{
+	
 }
