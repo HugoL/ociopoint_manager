@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Ociopoint Manager">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <title>Ociopoint</title>
 
     <!-- Bootstrap -->
@@ -29,10 +30,8 @@
   </head>
   <body>
     <section class="main-body">
-    <div class="container-fluid">
-            <!-- Include content pages -->
+                <!-- Include content pages -->
             <?php echo $content; ?>
-    </div>
     </section>
   </body>
 </html>

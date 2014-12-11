@@ -3,9 +3,37 @@
 	background-repeat: repeat;
 }
 .imagencajita{
-	max-width: 255px;
-	max-height: 190px;
+	width: 226px;
+	height: 190px;
 }
 .cajita{
-	
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.titulo{
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1.1em;
+	color: #595959;
+}
+
+.barrasup{
+	font-family: 'Ubuntu', sans-serif;
+	color: #595959;	
+	background-color: #fff !important;
+}
+.social{
+	margin: 5px;
 }
