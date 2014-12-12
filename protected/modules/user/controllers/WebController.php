@@ -32,7 +32,7 @@ class WebController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete'),
+				'actions'=>array('create','update','delete','listado','webs'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -129,9 +129,32 @@ class WebController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Web');
+		$dataProvider=new CActiveDataProvider('Web',$criteria);
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	public function actionListado(){
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'rol = 5';
+		//$dataProvider = Web::model()->findAll($criteria);
+		$dataProvider= Profile::model()->findAll($criteria);
+		$this->render('listado',array(
+			'establecimientos'=>$dataProvider,
+		));
+	}
+
+	public function actionWebs( $id ){
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'id_usuario = :id_usuario';
+		$criteria->params = array(':id_usuario' => $id);
+		//$dataProvider = Web::model()->findAll($criteria);
+		$dataProvider= Web::model()->findAll($criteria);
+		$profile = Profile::model()->findByPk($id);
+		$this->render('webs',array(
+			'webs'=>$dataProvider,
+			'profile' => $profile,
 		));
 	}
 
