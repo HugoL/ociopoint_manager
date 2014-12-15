@@ -42,7 +42,7 @@ class Web extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url, titulo, tipo, id_usuario', 'required'),
+			array('titulo, tipo, id_usuario', 'required'),
 			array('tipo, id_usuario', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>800),
 			array('titulo', 'length', 'max'=>128),
