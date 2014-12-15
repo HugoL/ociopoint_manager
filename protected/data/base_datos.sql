@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-12-2014 a las 14:09:49
+-- Tiempo de generación: 15-12-2014 a las 14:11:43
 -- Versión del servidor: 5.6.15-log
 -- Versión de PHP: 5.2.17
 
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `om_users` (
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-12-03 11:51:23', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-12-09 08:29:53', 0, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-12-15 08:35:05', 0, 1),
 (3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-11-12 09:32:40', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-11-27 09:19:49', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),
@@ -437,7 +437,37 @@ CREATE TABLE IF NOT EXISTS `om_webcajitas` (
   PRIMARY KEY (`id`),
   KEY `categoria` (`id_categoria`,`id_web`),
   KEY `id_web` (`id_web`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=254 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=25 ;
+
+--
+-- Volcado de datos para la tabla `om_webcajitas`
+--
+
+INSERT INTO `om_webcajitas` (`id`, `url`, `posicion`, `titulo`, `imagen`, `tamano`, `id_categoria`, `id_web`) VALUES
+(1, '#', 1, '888poker.es', '/~hugo/ociopoint_manager/images/web_per/888poker.gif', 0, 1, 1),
+(2, '#', 2, 'bet365.es', '/~hugo/ociopoint_manager/images/web_per/bet365.gif', 0, 1, 1),
+(3, '#', 3, 'sportium.es', '/~hugo/ociopoint_manager/images/web_per/sportium.gif', 0, 1, 1),
+(4, '#', 4, 'williamhill.es', '/~hugo/ociopoint_manager/images/web_per/williamhill.gif', 0, 1, 1),
+(5, '#', 5, 'bwin.es', '/~hugo/ociopoint_manager/images/web_per/bwin.jpg', 0, 1, 1),
+(6, '#', 6, 'luckia.es', '/~hugo/ociopoint_manager/images/web_per/luckia.gif', 0, 1, 1),
+(7, '#', 7, 'williamhill.es', '/~hugo/ociopoint_manager/images/web_per/williamhill_casino.gif', 0, 1, 1),
+(8, '#', 8, 'ukash, recargas, ...', '/~hugo/ociopoint_manager/images/web_per/ukash.jpg', 0, 1, 1),
+(9, '#', 9, 'betfair.es', '/~hugo/ociopoint_manager/images/web_per/betfair.gif', 0, 1, 1),
+(10, '#', 10, 'paf.es', '/~hugo/ociopoint_manager/images/web_per/paf.gif', 0, 1, 1),
+(11, '#', 11, 'sportium.es', '/~hugo/ociopoint_manager/images/web_per/sportium.gif', 0, 1, 1),
+(12, '#', 12, 'bet365.es', '/~hugo/ociopoint_manager/images/web_per/bet365_casino.gif', 0, 1, 1),
+(13, '#', 1, '888poker.es', '/~hugo/ociopoint_manager/images/web_per/888poker.gif', 0, 1, 3),
+(14, '#', 2, 'bet365.es', '/~hugo/ociopoint_manager/images/web_per/bet365.gif', 0, 1, 3),
+(15, '#', 3, 'sportium.es', '/~hugo/ociopoint_manager/images/web_per/sportium.gif', 0, 1, 3),
+(16, '#', 4, 'williamhill.es', '/~hugo/ociopoint_manager/images/web_per/williamhill.gif', 0, 1, 3),
+(17, '#', 5, 'bwin.es', '/~hugo/ociopoint_manager/images/web_per/bwin.jpg', 0, 1, 3),
+(18, '#', 6, 'luckia.es', '/~hugo/ociopoint_manager/images/web_per/luckia.gif', 0, 1, 3),
+(19, '#', 7, 'williamhill.es', '/~hugo/ociopoint_manager/images/web_per/williamhill_casino.gif', 0, 1, 3),
+(20, '#', 8, 'ukash, recargas, ...', '/~hugo/ociopoint_manager/images/web_per/ukash.jpg', 0, 1, 3),
+(21, '#', 9, 'betfair.es', '/~hugo/ociopoint_manager/images/web_per/betfair.gif', 0, 1, 3),
+(22, '#', 10, 'paf.es', '/~hugo/ociopoint_manager/images/web_per/paf.gif', 0, 1, 3),
+(23, '#', 11, 'sportium.es', '/~hugo/ociopoint_manager/images/web_per/sportium.gif', 0, 1, 3),
+(24, '#', 12, 'bet365.es', '/~hugo/ociopoint_manager/images/web_per/bet365_casino.gif', 0, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -447,13 +477,22 @@ CREATE TABLE IF NOT EXISTS `om_webcajitas` (
 
 CREATE TABLE IF NOT EXISTS `om_webs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(800) COLLATE utf8_spanish_ci NOT NULL,
+  `url` varchar(800) COLLATE utf8_spanish_ci DEFAULT NULL,
   `titulo` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
   `tipo` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `categoria` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `om_webs`
+--
+
+INSERT INTO `om_webs` (`id`, `url`, `titulo`, `tipo`, `id_usuario`) VALUES
+(1, 'http://bit.ly/yepa', 'yepa', 0, 11),
+(2, 'http://bit.ly/probando', 'tirar', 0, 13),
+(3, 'http://bit.ly/hugoasd', 'tirartambien', 0, 11);
 
 -- --------------------------------------------------------
 
