@@ -30,18 +30,18 @@
 		<?php echo CHtml::encode($data->nuevos_registros); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode($data->nuevos_depositantes); ?>
+		<?php echo CHtml::encode(number_format($data->nuevos_depositantes,2,',','.')); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(intval($data->valor_depositos)); ?>
+		<?php echo CHtml::encode(number_format($data->valor_depositos,2,',','.')); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(intval($data->numero_depositos)); ?>
+		<?php echo CHtml::encode(number_format($data->numero_depositos,2,',','.')); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(intval($data->facturacion_deportes)); ?>
+		<?php echo CHtml::encode(number_format($data->facturacion_deportes,2,',','.')); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(intval($comisiones)); ?>
+		<?php echo CHtml::encode(number_format($comisiones,2,',','.')); ?>
 	</td>
 </tr>

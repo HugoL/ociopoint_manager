@@ -73,18 +73,18 @@ endif;
 	<td>
 		<?php echo CHtml::encode($data->nuevos_depositantesCount); ?>
 	</td>
-	<td> <?php echo CHtml::encode(intval($data->valor_depositosCount)); ?></td>
+	<td> <?php echo CHtml::encode(number_format($data->valor_depositosCount,2,',','.')); ?></td>
 	<td>
-		<?php echo CHtml::encode(intval($data->numero_depositosCount)); ?>
+		<?php echo CHtml::encode(number_format($data->numero_depositosCount,2,',','.')); ?>
 	</td>
 	<td>
-		<?php echo CHtml::encode(intval($data->facturacion_deportesCount)); ?>
+		<?php echo CHtml::encode(number_format($data->facturacion_deportesCount,2,',','.')); ?>
 	</td>
 	<td>
 		<?php if( $esadmin): ?>
-			<?php echo intval( $comisiones)." / ".intval($data->comisiones_debidasCount); ?>
+			<?php echo number_format( $comisiones,2,',','.')." / ".number_format($data->comisiones_debidasCount,2,',','.'); ?>
 		<?php else: ?>
-			<?php echo intval( $comisiones); ?>
+			<?php echo number_format( $comisiones,2,',','.'); ?>
 		<?php endif; ?>
 	</td>
 	<td>
