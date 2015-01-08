@@ -108,9 +108,8 @@ class AdminController extends Controller
 				$model->status = 0; //Solo los administradores pueden crear usuarios activos
 			}
 			if( $mirol < $profile->rol ){ //No se puede crear un usuario de rol igual o superior
-				//Asigno el padre del usuario, que es el que lo ha creado
-				$profile->id_padre = Yii::app()->user->id;
-
+				if( empty($profile->id_padre) )
+					$profile->id_padre = Yii::app()->user->id;
 				//FICHERO PDF
 				$pdf = CUploadedFile::getInstancesByName('pdf');
 				if( !is_dir(Yii::getPathOfAlias('webroot').'/uploads/pdf/') ){
@@ -150,6 +149,10 @@ class AdminController extends Controller
 				$this->redirect(Yii::app()->baseUrl.'/user/admin/create');
 			}
 		}
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'rol < 5'; //para ser padre de un usuario ha de ser de rol superior. Los usuarios-establecimientos no pueden ser padres.
+
+		$padres = Profile::model()->findAll( $criteria );
 
 		//Solo le paso la lista de los roles que puede elegir el usuario (aquellos cuyo id sea inferior al suyo)
 		$criteria = new CDbCriteria();
@@ -161,6 +164,7 @@ class AdminController extends Controller
 			'model'=>$model,
 			'profile'=>$profile,
 			'rollist'=>$rollist,
+			'padres'=>$padres,
 		));
 	}
 
@@ -196,6 +200,10 @@ class AdminController extends Controller
 				}else $profile->validate();
 			}
 			//Solo le paso la lista de los roles que puede elegir el usuario (aquellos cuyo id sea inferior al suyo)
+			$criteria = new CDbCriteria();
+			$criteria->condition = 'rol < 5'; //para ser padre de un usuario ha de ser de rol superior. Los usuarios-establecimientos no pueden ser padres.
+
+			$padres = Profile::model()->findAll( $criteria );
 		}else{
 			$this->redirect(Yii::app()->request->baseUrl.'/site/page/nopermitido');
 			Yii::app()->end;
@@ -209,6 +217,7 @@ class AdminController extends Controller
 			'model'=>$model,
 			'profile'=>$profile,
 			'rollist'=>$rollist,
+			'padres'=>$padres,
 		));
 	}
 

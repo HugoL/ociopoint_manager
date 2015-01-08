@@ -17,5 +17,8 @@ $this->menu=array(
     </div>
 <?php endif; ?>
 <?php
-	echo $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile, 'rollist'=>$rollist));
+	if( !isset($padres) )
+		$padres = "";
+
+	echo $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile, 'rollist'=>$rollist, 'padres'=>$padres));
 ?>

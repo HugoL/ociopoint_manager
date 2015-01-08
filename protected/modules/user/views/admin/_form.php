@@ -100,6 +100,17 @@
 
 		<?php echo $form->error($profile,'cuentabancaria'); ?>
 		<small>Si se deja vacío se cogerá el porcentaje por defecto</small>
+	
+	<?php 
+	/*** Select para seleccionar el padre ***/ 
+		if( empty($profile->id_padre) )
+			$profile->id_padre = Yii::app()->user->id;
+		
+		echo $form->labelEx($profile,'Padre');
+		echo $form->dropDownList($profile,'id_padre', 
+        	CHtml::listData($padres,'user_id', 'firstname')
+        ); 
+	?>
 	</div>
 	<?php endif; ?>
 	

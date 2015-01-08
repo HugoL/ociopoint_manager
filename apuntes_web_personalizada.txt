@@ -1,0 +1,4 @@
+- menu superior
+	- pronósticos deportivos (estilo blog) (puede ser simplemente un enlace a un blog de wordpress)
+	- chat entre visitantes
+	- pop up (para anunciar algo)
