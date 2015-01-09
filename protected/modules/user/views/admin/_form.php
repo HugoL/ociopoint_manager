@@ -108,7 +108,7 @@
 		
 		echo $form->labelEx($profile,'Padre');
 		echo $form->dropDownList($profile,'id_padre', 
-        	CHtml::listData($padres,'user_id', 'firstname')
+        	CHtml::listData($padres,'user_id', 'nombreCompleto')
         ); 
 	?>
 	</div>

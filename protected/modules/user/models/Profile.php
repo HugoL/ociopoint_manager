@@ -181,4 +181,13 @@ class Profile extends UActiveRecord
 			return $this->_model;
 		}
 	}
+
+	public function getNombreCompleto(){
+		if( !empty( $this->referencia) )
+			$completo = $this->firstname.' '.$this->lastname. ' ('.$this->referencia.')';
+		else
+			$completo = $this->firstname.' '.$this->lastname;
+
+		return $completo;
+	}
 }
