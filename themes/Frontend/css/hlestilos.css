@@ -1,4 +1,4 @@
-.cesped {
+.cesped{
 	background-image:url('../img/cesped.jpg');
 	background-repeat: repeat;
 }
@@ -36,4 +36,21 @@
 }
 .social{
 	margin: 5px;
+}
+#chat{
+  background-color: #fff;
+}
+.menu{
+  padding: 4px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.menu ul li a{
+  font-family: "Ubuntu",sans-serif;
+  font-size: 1.3em;
 }

@@ -24,6 +24,7 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.*',
         'application.modules.rights.components.*',
+        'application.extensions.yiichat.*',
 	),
 	'aliases' => array(
 	    'xupload' => 'ext.xupload'

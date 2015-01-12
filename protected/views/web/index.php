@@ -8,16 +8,29 @@ $this->breadcrumbs=array(
 <?php if(isset($model)): ?>
 	<?php if( $model->tipo == 0 ): ?> <div class="cesped"> <?php endif; ?>
 	<div class="container-fluid">
-		 <div class="barrasup navbar navbar-default">
+		 <!-- <div class="barrasup navbar navbar-default">
 		 	<div class="navbar-default">
 		 		<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
 		 		<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-		 			<center><h2><?php echo $model->titulo; ?></h2></center>
+		 			<center><h2><?php //echo $model->titulo; ?></h2></center>
 		 		</div>
-		 		<div class="col-md-1 col-xs-1 col-sm-1 col-lg-1"> <h2><a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></h2></div>	
+		 		<div class="col-md-1 col-xs-1 col-sm-1 col-lg-1"> <h2><a href="#" class="sharetodos"><img src="<?php //echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></h2></div>	
 		 	</div>
 		 	</div>
-		 </div>
+		 </div> -->
+		 <!-- pestañas -->
+		 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 menu">
+		 <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11">
+			 <ul class="nav nav-pills">
+	            <li  role="presentation" class="active" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#" class="navbar-brand"><?php echo $model->titulo; ?></a></li>
+	            <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#">Chat</a></li>
+	            <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#">Pronósticos deportivos</a></li>
+	        </ul>
+	        </div>
+	        <h4>
+	         <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"><a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></div>
+    	</div>
+		 <!-- /pestañas -->
 		<?php $i = 1; ?>
 		<?php foreach ($cajitas as $key => $cajita): ?>
 			<?php if( $i == 1 ): ?>

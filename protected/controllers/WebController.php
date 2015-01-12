@@ -28,6 +28,14 @@ class WebController extends Controller
 		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas));
 	}
 
+	public function actionChat(){
+		if( !isset($nick) ){
+			//tiene que introducir un nick
+		}
+		
+		$this->render('chat',array('nick'=>$nick));
+	}
+
 	public function loadConfiguracion( $id=null ){
 		if( $this->_model===null ){
 			if( $id!==null || isset($_GET['id']) )
