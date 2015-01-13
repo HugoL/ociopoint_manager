@@ -25,15 +25,37 @@ class WebController extends Controller
 		$criteria2->params = array(':id_web' => $this->_model->id);
 		$cajitas = Webcajita::model()->findAll($criteria2);
 
-		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas));
+		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas, 'profile'=>$profile));
 	}
 
-	public function actionChat(){
-		if( !isset($nick) ){
-			//tiene que introducir un nick
+	public function actionChat( $id ){
+		Yii::app()->theme = 'Frontend';
+		$model = new ChatPost;
+		
+		if( isset($_POST['ChatPost']) ){
+			$model->attributes = $_POST['ChatPost']['post_identity'];
+			Yii::app()->session['nick'] = $_POST['ChatPost']['post_identity'];
+		}
+
+		$id = strip_tags($id);
+		$criteria = new CDbCriteria;
+		$criteria->compare('referencia',$id);
+		$profile = Profile::model()->find($criteria);
+		
+		$web = $this->loadConfiguracion($profile->user_id);
+
+		if( !isset(Yii::app()->session['nick']) ){
+			$this->render( 'setnick',array('model'=>$model, 'web'=>$web));
+			//Yii::app()->session['nick'] = "Anonimo"+Yii::app()->format->formatDateTime(time()) + rand(0,100);
+		}else{						
+			$this->render('chat',array('nick'=>Yii::app()->session['nick'], 'web'=>$web,'profile'=>$profile));
 		}
 		
-		$this->render('chat',array('nick'=>$nick));
+	}
+
+	public function actionSalir( $id ){
+		unset(Yii::app()->session['nick'] );
+		$this->redirect(array('web/index/id/'.$id));
 	}
 
 	public function loadConfiguracion( $id=null ){

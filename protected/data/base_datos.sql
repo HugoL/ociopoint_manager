@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-12-2014 a las 14:11:43
+-- Tiempo de generación: 13-01-2015 a las 14:17:02
 -- Versión del servidor: 5.6.15-log
 -- Versión de PHP: 5.2.17
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `om_profiles` (
   PRIMARY KEY (`user_id`),
   KEY `rol` (`rol`),
   KEY `id_padre` (`id_padre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Volcado de datos para la tabla `om_profiles`
@@ -205,7 +205,8 @@ INSERT INTO `om_profiles` (`user_id`, `lastname`, `firstname`, `direccion`, `pob
 (27, 'jalalaj', 'jajaja', 'alñjsjk', 'ljasljksjk', 'ñkajsdfs', '874587', '698745841', '', 5, 2, '', NULL, '', NULL),
 (28, 'mmm', 'mmm', 'mmm', 'mmm', 'mmm', '147852', '214587410', '', 4, 2, '', NULL, '', NULL),
 (29, 'pffff', 'pfff', 'akjdñsljk', 'adfsadf', 'adfad', '854785', '654123214', '', 5, 2, '', NULL, '', NULL),
-(30, 'lkajs', 'asjsklja', 'alñksj', 'añkljas', 'ñaklsff', '874587', '698554415', '', 4, 3, '', '29.pdf', '', NULL);
+(30, 'lkajs', 'asjsklja', 'alñksj', 'añkljas', 'ñaklsff', '874587', '698554415', '', 4, 3, '', '29.pdf', '', NULL),
+(31, 'Mese Oh', 'Que', 'c/ que me se oh', 'zaragoza', 'zaragoza', '501214', '621458741', '', 4, 3, '', NULL, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `om_users` (
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Volcado de datos para la tabla `om_users`
@@ -306,8 +307,8 @@ CREATE TABLE IF NOT EXISTS `om_users` (
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-12-03 11:51:23', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2014-12-15 08:35:05', 0, 1),
-(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2014-11-12 09:32:40', 0, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2015-01-12 12:09:30', 0, 1),
+(3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2015-01-09 09:45:12', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-11-27 09:19:49', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),
 (7, 'jingles', '2e59e9270f40bcaca25ccd2d23f87d0a', 'misterjingles@hotmail.com', '9de30667d37fdcc922395d25fbe35cc8', '2014-10-20 08:29:37', '2014-10-20 08:31:16', 0, 1),
@@ -331,7 +332,8 @@ INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `crea
 (27, 'uiuiuiuiu', 'd0def0bd6a866c9d13d7a63d5f729836', 'uiuiuiuiu@unizar.es', 'f8851afeaa9a9f20b1a08f0737bdb601', '2014-11-10 11:32:36', '0000-00-00 00:00:00', 0, 0),
 (28, 'mierda', '14f87ec1e760d16c0380c74ec7678b04', 'mierda@mierda.es', 'bdbd5e62e94ad741915b14362aa69024', '2014-11-10 11:34:45', '0000-00-00 00:00:00', 0, 0),
 (29, 'pfffpfpf', '9917680b8ecfd863c2f2c5c5f6587add', 'pfff@pfflflf.es', 'ba7a95557288559460405918454fd366', '2014-11-10 11:37:03', '0000-00-00 00:00:00', 0, 0),
-(30, 'aattsss', 'cc2c7156f2e5b52c5fa7e98ec458c61d', 'aattsss@gmail.com', 'af5bf9434cf2859d5d499bb38f7ddd4f', '2014-11-12 09:33:54', '0000-00-00 00:00:00', 0, 0);
+(30, 'aattsss', 'cc2c7156f2e5b52c5fa7e98ec458c61d', 'aattsss@gmail.com', 'af5bf9434cf2859d5d499bb38f7ddd4f', '2014-11-12 09:33:54', '0000-00-00 00:00:00', 0, 0),
+(31, 'quemeseoh', 'e477fb268cc4cd42d071dcd591086870', 'quemeseoh@gmail.com', '62d264fa0fec79da735deabe1472b7d4', '2015-01-09 09:46:18', '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -513,6 +515,25 @@ CREATE TABLE IF NOT EXISTS `rights` (
 
 INSERT INTO `rights` (`itemname`, `type`, `weight`) VALUES
 ('superadmin', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `yiichat_post`
+--
+
+CREATE TABLE IF NOT EXISTS `yiichat_post` (
+  `id` char(40) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
+  `chat_id` char(40) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `post_identity` char(40) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `owner` char(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `created` bigint(30) DEFAULT NULL,
+  `text` blob,
+  `data` blob,
+  PRIMARY KEY (`id`),
+  KEY `yiichat_chat_id` (`chat_id`),
+  KEY `yiichat_chat_id_identity` (`chat_id`,`post_identity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Restricciones para tablas volcadas

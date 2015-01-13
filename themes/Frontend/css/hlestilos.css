@@ -1,6 +1,9 @@
 .cesped{
 	background-image:url('../img/cesped.jpg');
 	background-repeat: repeat;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 .imagencajita{
 	width: 226px;
@@ -53,4 +56,9 @@
 .menu ul li a{
   font-family: "Ubuntu",sans-serif;
   font-size: 1.3em;
+}
+.titulochat p{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
 }
