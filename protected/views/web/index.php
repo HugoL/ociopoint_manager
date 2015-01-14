@@ -31,6 +31,21 @@ $this->breadcrumbs=array(
 	         <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"><a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></div>
     	</div>
 		 <!-- /pestañas -->
+		 <div><a href="#modalPopup" role="button" class="btn" data-toggle="modal">Popup</a></div>
+
+		 <div id="modalPopup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">PopUp</h3>
+			</div>
+			<div class="modal-body">
+			<p>Contenido del popup</p>
+			</div>
+			<div class="modal-footer">
+			<button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+			</div>
+			</div>
+
 		<?php $i = 1; ?>
 		<?php foreach ($cajitas as $key => $cajita): ?>
 			<?php if( $i == 1 ): ?>
