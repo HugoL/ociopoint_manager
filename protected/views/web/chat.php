@@ -5,7 +5,7 @@
          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 menu">
          <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11">
              <ul class="nav nav-pills">
-                <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#" class="navbar-brand"><?php echo $web->titulo; ?></a></li>
+                <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><?php echo CHtml::link($web->titulo,array('web/index/id/'.$profile->referencia),array('class' => 'navbar-brand')); ?></li>
                 <li  role="presentation" class="active" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#">Chat</a></li>
                 <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#">Pronósticos deportivos</a></li>
             </ul>
@@ -17,7 +17,7 @@
 <div class="clearfix">&nbsp;</div>
 <div class="panel panel-default">
     <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12"><h3>Ociopoint Chat</h3></div>
-    <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12 titulochat"><p>Chateando como <span class="label label-primary"><strong><?php echo isset(Yii::app()->session['nick']) ? Yii::app()->session['nick'] : "Anonimo"; ?></strong></span>&nbsp;&nbsp;<span class="label label-danger"><?php echo CHtml::link('Salir',array('web/salir/id/'.$profile->referencia)); ?></span></p></div>
+    <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12 titulochat"><p>Chateando como <span class="label label-primary"><strong><?php echo isset(Yii::app()->session['nick']) ? Yii::app()->session['nick'] : "Anonimo"; ?></strong></span>&nbsp;&nbsp;<span class="btn btn-danger btn-xs" id="salir"><?php echo CHtml::link('Salir',array('web/salir/id/'.$profile->referencia)); ?></span></p></div>
     <div class="clearfix">&nbsp;</div>
 
 </div><!-- /panel -->

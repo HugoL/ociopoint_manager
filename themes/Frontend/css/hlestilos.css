@@ -1,6 +1,8 @@
-.cesped{
-	background-image:url('../img/cesped.jpg');
-	background-repeat: repeat;
+body{
+  background-image:url('../img/cesped.jpg');
+  background-repeat: repeat;
+}
+.cesped{	
   height: 100%;
   width: 100%;
   position: absolute;
@@ -61,4 +63,7 @@
   margin-top: 20px;
   margin-bottom: 10px;
   text-align: right;
+}
+#salir a{
+  color: #fff !important;
 }

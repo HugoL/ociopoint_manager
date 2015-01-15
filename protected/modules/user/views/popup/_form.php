@@ -23,19 +23,33 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'texto'); ?>
-		<?php echo $form->textArea($model,'texto',array('rows'=>6, 'cols'=>50)); ?>
+		<?php $this->widget('application.extensions.cleditor.ECLEditor', array(
+        'model'=>$model,
+        'attribute'=>'texto', //Model attribute name. Nome do atributo do modelo.
+        'options'=>array(
+            'width'=>'100%',
+            'height'=>250,
+            'useCSS'=>true,
+        ),
+        'value'=>$model->texto,
+    )); ?>
 		<?php echo $form->error($model,'texto'); ?>
 	</div>
 
 	<div class="row">
+		<?php if( !empty($model->fecha_inicio) ): ?>
+			<?php //$inicio = date('d-m-Y',strtotime($model->fecha_inicio)); ?>
+		<?php else: ?>
+			<?php $inicio = ""; ?>
+		<?php endif; ?>
 		<?php echo $form->labelEx($model,'fecha_inicio'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                 'name'=>'Popup[fecha_inicio]',
                 'id'=>'Popup_fecha_inicio',
-            	'value'=>Yii::app()->dateFormatter->format("d-M-y",strtotime($model->fecha)),
+            	'value'=>$model->fecha_inicio,
                 'options'=>array(
                 'showAnim'=>false,
-                'dateFormat' => 'dd-mm-yy',
+                'dateFormat' => 'yy-mm-dd',
                 ),
                 'htmlOptions'=>array(
                 'style'=>'height:20px;',
@@ -46,14 +60,19 @@
 	</div>
 
 	<div class="row">
+		<?php if( !empty($model->fecha_fin) ): ?>
+			<?php //$fin = date('d-m-Y',strtotime($model->fecha_fin)); ?>
+		<?php else: ?>
+			<?php $fin = ""; ?>
+		<?php endif; ?>
 		<?php echo $form->labelEx($model,'fecha_fin'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                 'name'=>'Popup[fecha_fin]',
                 'id'=>'Popup_fecha_fin',
-            	'value'=>Yii::app()->dateFormatter->format("d-M-y",strtotime($model->fecha)),
+            	'value'=> $model->fecha_fin,
                 'options'=>array(
                 'showAnim'=>false,
-                'dateFormat' => 'dd-mm-yy',
+                'dateFormat' => 'yy-mm-dd',
                 ),
                 'htmlOptions'=>array(
                 'style'=>'height:20px;',

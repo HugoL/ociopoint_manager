@@ -31,20 +31,32 @@ $this->breadcrumbs=array(
 	         <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"><a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></div>
     	</div>
 		 <!-- /pestañas -->
-		 <div><a href="#modalPopup" role="button" class="btn" data-toggle="modal">Popup</a></div>
+		 <?php if(!empty($popup)): ?>
+		 <!-- Button trigger modal -->
+		 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ventana">
+		 	PopUp
+		 </button>
 
-		 <div id="modalPopup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">PopUp</h3>
-			</div>
-			<div class="modal-body">
-			<p>Contenido del popup</p>
-			</div>
-			<div class="modal-footer">
-			<button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-			</div>
-			</div>
+		 <!-- Modal -->
+		 <div class="modal fade" id="ventana" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog">
+		 		<div class="modal-content">
+		 			<div class="modal-header">
+		 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		 				<h4 class="modal-title" id="myModalLabel"><?php echo CHtml::encode($popup->titulo); ?></h4>
+		 			</div>
+		 			<div class="modal-body">
+		 				<?php echo $popup->texto; ?>
+		 			</div>
+		 			<div class="modal-footer">
+		 				
+		 			</div>
+		 		</div>
+		 	</div>
+		 </div>
+		<?php endif; ?>
+
+	</div>
 
 		<?php $i = 1; ?>
 		<?php foreach ($cajitas as $key => $cajita): ?>

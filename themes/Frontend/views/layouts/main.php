@@ -18,7 +18,7 @@
     //$cs->registerCssFile($baseUrl.'/css/style-blue.css');
     ?>
     <?php
-    $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
+    //$cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.min.js');
   ?>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -33,5 +33,11 @@
                 <!-- Include content pages -->
             <?php echo $content; ?>
     </section>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function(){
+        $('#ventana').modal('show');
+    });
+    </script>
   </body>
 </html>

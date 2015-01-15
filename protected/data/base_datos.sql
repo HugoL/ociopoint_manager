@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-01-2015 a las 14:17:02
+-- Tiempo de generación: 15-01-2015 a las 13:52:58
 -- Versión del servidor: 5.6.15-log
 -- Versión de PHP: 5.2.17
 
@@ -145,6 +145,23 @@ CREATE TABLE IF NOT EXISTS `om_facturas` (
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `observaciones` text COLLATE utf8_spanish_ci NOT NULL,
   `proforma` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 -> es proforma 0 -> es factura',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `om_popups`
+--
+
+CREATE TABLE IF NOT EXISTS `om_popups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(512) COLLATE utf8_spanish_ci NOT NULL,
+  `texto` text COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `activado` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -307,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `om_users` (
 
 INSERT INTO `om_users` (`id`, `username`, `password`, `email`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', '2014-10-02 21:06:21', '2014-12-03 11:51:23', 1, 1),
-(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2015-01-12 12:09:30', 0, 1),
+(2, 'jair', '90586b2e23ac7909183be12cf9253f5b', 'info@kioskopoint.com', '929485ed244701f9785edaebd1126fa9', '2014-10-02 21:06:21', '2015-01-15 09:05:22', 0, 1),
 (3, 'distribuidor1', 'f270943efd2e9d9e772978b56ad3a2c1', 'distribuidor@ociopoint.com', '09f9101f0e6114eec1bddd13350c0d4f', '2014-10-16 14:19:20', '2015-01-09 09:45:12', 0, 1),
 (5, 'comercial1', '4072c1c3f468878a7d48dd7a4564cb57', 'comercial@kioskopoint.com', '288f0fc2f73be9866c582e5d8db01be9', '2014-10-16 15:08:40', '2014-11-27 09:19:49', 0, 1),
 (6, 'establecimiento1', 'b181c79e2793c5e0496e25b32ee9982e', 'establecimiento@kioskopoint.com', 'b44cbe276bf2c7f546296a2c0d7c3c6b', '2014-10-16 15:11:56', '2014-10-20 22:17:28', 0, 1),

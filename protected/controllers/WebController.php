@@ -6,8 +6,7 @@ class WebController extends Controller
 	
 	public $layout = '//layouts/column1';	
 
-	public function actionIndex( $id )
-	{
+	public function actionIndex( $id ){
 		Yii::app()->theme = 'Frontend';
 
 		/*if( !isset($id) )
@@ -25,7 +24,13 @@ class WebController extends Controller
 		$criteria2->params = array(':id_web' => $this->_model->id);
 		$cajitas = Webcajita::model()->findAll($criteria2);
 
-		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas, 'profile'=>$profile));
+		$popup = PopUp::model()->find();
+		
+		if( (!empty($popup->fecha_inicio) && strtotime($popup->fecha_inicio) > strtotime(date('Y-m-d'))) || (!empty($popup->fecha_fin) && strtotime($popup->fecha_fin) < strtotime(date('Y-m-d'))) ){
+			$popup = "";
+		}
+
+		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas, 'profile'=>$profile, 'popup'=>$popup));
 	}
 
 	public function actionChat( $id ){
@@ -45,7 +50,7 @@ class WebController extends Controller
 		$web = $this->loadConfiguracion($profile->user_id);
 
 		if( !isset(Yii::app()->session['nick']) ){
-			$this->render( 'setnick',array('model'=>$model, 'web'=>$web));
+			$this->render( 'setnick',array('model'=>$model, 'web'=>$web, 'profile' => $profile));
 			//Yii::app()->session['nick'] = "Anonimo"+Yii::app()->format->formatDateTime(time()) + rand(0,100);
 		}else{						
 			$this->render('chat',array('nick'=>Yii::app()->session['nick'], 'web'=>$web,'profile'=>$profile));

@@ -66,9 +66,13 @@ class PopupController extends Controller
 		if(isset($_POST['Popup']))
 		{
 			$model->attributes=$_POST['Popup'];
+			if( !empty($popup->fecha_inicio) )
+				$popup->fecha_inicio = date('Y-m-d',strtotime($popup->fecha_inicio));
+			if( !empty($popup->fecha_fin) )
+				$popup->fecha_fin = date('Y-m-d',strtotime($popup->fecha_fin));
 			if($model->save()){
 				Yii::app()->user->setFlash('popupsuccess','Se ha guardao el popup correctamente');
-				$this->redirect(array('web/create'));
+				$this->redirect(array('popup/update/id/'.$model->id));
 			}
 		}
 
@@ -89,12 +93,25 @@ class PopupController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Popup']))
-		{
+		if(isset($_POST['Popup'])){
 			$model->attributes=$_POST['Popup'];
-			if($model->save()){
+			if( !empty($_POST['Popup']['fecha_inicio']) )
+				$model->fecha_inicio = $_POST['Popup']['fecha_inicio'];
+			else
+				$model->fecha_inicio = NULL;
+			if( !empty($_POST['Popup']['fecha_fin']) )
+				$model->fecha_fin = $_POST['Popup']['fecha_fin'];
+			else
+				$model->fecha_fin = NULL;
+
+			/*if( !empty($popup->fecha_inicio) )
+				$popup->fecha_inicio = date('Y-m-d',strtotime($popup->fecha_inicio));
+			if( !empty($popup->fecha_fin) )
+				$popup->fecha_fin = date('Y-m-d',strtotime($popup->fecha_fin));*/
+
+			if( $model->save() ){
 				Yii::app()->user->setFlash('popupsuccess','Se ha guardao el popup correctamente');
-				$this->redirect(array('web/create'));
+				//$this->redirect(array('web/create'));
 			}
 		}
 
