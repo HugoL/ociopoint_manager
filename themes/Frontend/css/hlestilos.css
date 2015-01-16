@@ -67,3 +67,23 @@ body{
 #salir a{
   color: #fff !important;
 }
+.chatango {
+  width: 100%;
+  height: 100%;
+}
+.compartirgral a[href*="twitter"]:before {
+  font-family: FontAwesome;padding-right:10px;content:"\f099"; color:#32b6e6;
+}
+.compartirgral a[href*="facebook"]:before {
+  font-family: FontAwesome;padding-right:10px;content:"\f09a"; color:#6e88c6;
+}
+.compartirgral a[href*="linkedin"]:before {
+  font-family: FontAwesome;padding-right:10px;content:"\f0e1";} a[href*="plus.google"]:before {font-family: FontAwesome;padding-right:10px;content:"\f0d5";
+}
+.compartirgral a[href*="plus.google"]:before {
+  font-family: FontAwesome;padding-right:10px;content:"\f0d5"; color: #EF4836;
+}
+.compartirgral a[href*="email"]:before {
+  font-family: FontAwesome;padding-right:10px;content:"\f003"; color: #95A5A6;
+}
+}

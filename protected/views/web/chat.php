@@ -1,6 +1,6 @@
 <div class="cesped">
 <!-- chat -->
-<div class="container-fluid">
+<div class="container-fluid">    
      <!-- pestañas -->
          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 menu">
          <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11">
@@ -16,29 +16,10 @@
 <!-- /pestañas -->
 <div class="clearfix">&nbsp;</div>
 <div class="panel panel-default">
-    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12"><h3>Ociopoint Chat</h3></div>
-    <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12 titulochat"><p>Chateando como <span class="label label-primary"><strong><?php echo isset(Yii::app()->session['nick']) ? Yii::app()->session['nick'] : "Anonimo"; ?></strong></span>&nbsp;&nbsp;<span class="btn btn-danger btn-xs" id="salir"><?php echo CHtml::link('Salir',array('web/salir/id/'.$profile->referencia)); ?></span></p></div>
-    <div class="clearfix">&nbsp;</div>
-
-</div><!-- /panel -->
-<div id='chat'></div>
-<?php 
-    $this->widget('YiiChatWidget',array(
-        'chat_id'=>'1',                   // a chat identificator
-        'identity'=> $nick,                      // the user, Yii::app()->user->id ?
-        'selector'=>'#chat',                // were it will be inserted
-        'minPostLen'=>1,                    // min and
-        'maxPostLen'=>50,                   // max string size for post
-        'model'=>new ChatHandler(),    // the class handler. **** FOR DEMO, READ MORE LATER IN THIS DOC ****
-        'data'=>'any data',                 // data passed to the handler
-        // success and error handlers, both optionals.
-        'onSuccess'=>new CJavaScriptExpression(
-            "function(code, text, post_id){   }"),
-        'onError'=>new CJavaScriptExpression(
-            "function(errorcode, info){  }"),
-    ));
-?>
-<!-- /chat -->
+    <div class="panel-heading"><center><h3>Ociopoint Chat</h3></center></div>
+<div class="panel-body"><center>
+<script id="cid0020000082391319498" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 500px;height: 400px;">{"handle":"ociopoint","arch":"js","styles":{"a":"0084ef","b":100,"c":"FFFFFF","d":"FFFFFF","k":"0084ef","l":"0084ef","m":"0084ef","n":"FFFFFF","p":"10.8","q":"0084ef","r":100,"usricon":0,"cnrs":"0.35"}}</script>
+</center></div>
+<div class="clearfix">&nbsp;</div>
 </div><!-- /container-fluid -->
 </div><!-- /cesped -->
-</div>

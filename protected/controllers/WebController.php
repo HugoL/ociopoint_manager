@@ -33,14 +33,24 @@ class WebController extends Controller
 		$this->render('index',array('model'=>$this->_model, 'cajitas' => $cajitas, 'profile'=>$profile, 'popup'=>$popup));
 	}
 
+	public function actionAjaxContacto() {
+		$email = $_POST['email'];
+		$titulo = $_POST['titulo'];
+		$url = $_POST['url'];
+
+		$texto = $titulo." te invita a registrarte en ".$url;
+ 
+		//enviar el email
+		if( mail($email, $titulo, $texto) )
+			return "Email enviado. Gracias por utilizar Ociopoint";
+		else
+			return "No se ha podido enviar el email";
+
+    	Yii::app()->end();
+	}
+
 	public function actionChat( $id ){
 		Yii::app()->theme = 'Frontend';
-		$model = new ChatPost;
-		
-		if( isset($_POST['ChatPost']) ){
-			$model->attributes = $_POST['ChatPost']['post_identity'];
-			Yii::app()->session['nick'] = $_POST['ChatPost']['post_identity'];
-		}
 
 		$id = strip_tags($id);
 		$criteria = new CDbCriteria;
@@ -48,13 +58,9 @@ class WebController extends Controller
 		$profile = Profile::model()->find($criteria);
 		
 		$web = $this->loadConfiguracion($profile->user_id);
-
-		if( !isset(Yii::app()->session['nick']) ){
-			$this->render( 'setnick',array('model'=>$model, 'web'=>$web, 'profile' => $profile));
-			//Yii::app()->session['nick'] = "Anonimo"+Yii::app()->format->formatDateTime(time()) + rand(0,100);
-		}else{						
-			$this->render('chat',array('nick'=>Yii::app()->session['nick'], 'web'=>$web,'profile'=>$profile));
-		}
+							
+		$this->render('chat',array('web'=>$web,'profile'=>$profile));
+		
 		
 	}
 
