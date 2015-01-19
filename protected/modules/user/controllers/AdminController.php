@@ -179,9 +179,10 @@ class AdminController extends Controller
 		//si no es administrador no podrá actualizar los datos
 		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$this->performAjaxValidation(array($model,$profile));
-			if(isset($_POST['User'])){
+			if(isset($_POST['User'])){				
 				$model->attributes=$_POST['User'];
-				$profile->attributes=$_POST['Profile'];
+				$profile->attributes=$_POST['Profile'];	
+				$profile->id_padre = $_POST['Profile']['id_padre'];				
 				$profile->rol = htmlentities(strip_tags($_POST['Profile']['rol']));
 				$profile->comision = htmlentities(strip_tags($_POST['Profile']['comision']));
 				if($model->validate()&&$profile->validate()) {

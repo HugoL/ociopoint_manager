@@ -24,7 +24,7 @@ class WebController extends Controller
 		$criteria2->params = array(':id_web' => $this->_model->id);
 		$cajitas = Webcajita::model()->findAll($criteria2);
 
-		$popup = PopUp::model()->find();
+		$popup = Popup::model()->find();
 		
 		if( (!empty($popup->fecha_inicio) && strtotime($popup->fecha_inicio) > strtotime(date('Y-m-d'))) || (!empty($popup->fecha_fin) && strtotime($popup->fecha_fin) < strtotime(date('Y-m-d'))) ){
 			$popup = "";

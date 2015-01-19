@@ -1,4 +1,6 @@
-- menu superior
-	- pronósticos deportivos (estilo blog) (puede ser simplemente un enlace a un blog de wordpress)
-	- chat entre visitantes
-	- pop up (para anunciar algo)
+Ventas:
+-En la vista de detalle por meses, añadir una columna en la que aparezca la cantidad que se ha pagado al usuario (si no se ha pagado nada aparecerá un 0)
+-Mirar la fórmula de cantidad que se queda jair
+
+Web personalizada:
+Crear un apartado para hacer las entradas y que se vean accediendo a través del menú de la web personalizada: Pelotazos

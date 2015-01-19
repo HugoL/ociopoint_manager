@@ -77,7 +77,7 @@ body{
 .compartirgral a[href*="facebook"]:before {
   font-family: FontAwesome;padding-right:10px;content:"\f09a"; color:#6e88c6;
 }
-.compartirgral a[href*="linkedin"]:before {
+/*.compartirgral a[href*="linkedin"]:before {
   font-family: FontAwesome;padding-right:10px;content:"\f0e1";} a[href*="plus.google"]:before {font-family: FontAwesome;padding-right:10px;content:"\f0d5";
 }
 .compartirgral a[href*="plus.google"]:before {
@@ -85,5 +85,5 @@ body{
 }
 .compartirgral a[href*="email"]:before {
   font-family: FontAwesome;padding-right:10px;content:"\f003"; color: #95A5A6;
-}
+}*/
 }

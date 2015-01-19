@@ -100,7 +100,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=hlociopoint_manager',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => '523360',
 			'charset' => 'utf8',
 			'charset' => 'utf8',
             'tablePrefix' => 'om_',
