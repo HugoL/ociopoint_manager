@@ -130,6 +130,15 @@
 
 		<?php echo $form->error($profile,'pdf'); ?>
 	</div>
+	<div class="row" id="codigo_chat">
+		<br/>
+		<?php echo $form->labelEx($profile,'codigo_chat'); ?>
+		<?php echo $form->textArea($profile,'codigo_chat',array('placeholder'=>'Pega aquí el código de Chatango')); 
+        ?>
+
+		<?php echo $form->error($profile,'codigo_chat'); ?>
+		<small>Si quieres habilitar el chat para este establecimiento pega el código de Chatango</small>
+	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save'), array('class'=>'btn btn-primary')); ?>
@@ -138,3 +147,18 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php Yii::app()->getClientScript()->registerScript("habilitar_codigo_chat",
+    "
+    $(document).ready(function(){
+    	if( $('#Profile_rol').val() != '5' ){
+    		$('#codigo_chat').hide();
+    	}
+    	$('#Profile_rol').change(function(){
+    		if( $('#Profile_rol').val() == '5' ){
+    			$('#codigo_chat').show();
+    		}else{
+    			$('#codigo_chat').hide();
+    		}
+    	});
+	});
+    ",CClientScript::POS_LOAD)  ?>
