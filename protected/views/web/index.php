@@ -5,17 +5,6 @@ $this->breadcrumbs=array(
 	'Web',
 );
 ?>
-<?php 
-Yii::app()->clientScript->registerScript(
-        'compartir',
-        '$(document).ready(function($) {
-      $(".sharetodos").click(function(event) {
-           $(".compartirgral").toggle();
-      });  
-   	});',
-       CClientScript::POS_END
-      );
-?>
 <?php if(isset($model)): ?>
 	<?php if( $model->tipo == 0 ): ?> <div class="cesped"> <?php endif; ?>
 	<div class="container-fluid">
@@ -29,43 +18,7 @@ Yii::app()->clientScript->registerScript(
 		 	</div>
 		 	</div>
 		 </div> -->
-		 <!-- pestañas -->
-		 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 menu">
-		 <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11">
-			 <ul class="nav nav-pills">
-	            <li  role="presentation" class="active" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#" class="navbar-brand"><?php echo $model->titulo; ?></a></li>
-	            <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><?php echo CHtml::link('Chat',array('web/chat/id/'.$profile->referencia)); ?></li>
-	            <li  role="presentation" <?php if( 1 == 2) echo "class='active'"; ?>><a href="#">Pronósticos deportivos</a></li>
-	        </ul>
-	        </div>
-	        <h4>
-	         <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"><a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png"/></a></div>
-    	</div>
-
-    	<div class="col-md-12">
-    		<div class="col-md-7"></div>
-    		<div class="compartirgral col-xs-12 col-md-5" style="display:none">
-    			<div class="panel panel-default">
-    				<div class="panel-body">
-    					<div class="col-xs-3 ">
-    						<a href="http://www.facebook.com/sharer.php?u=<?php echo $model->url; ?>&t=<?php echo CHtml::encode($model->titulo); ?>" class="gral"></a>
-    					</div>
-    					<div class="col-xs-3 ">
-    						<a href="http://twitter.com/?status=<?php echo CHtml::encode($model->titulo); ?>%20<?php echo $model->url; ?>" class="gral"></a>
-    					</div>
-    					<div class="col-xs-3 ">
-    						<a href="https://plus.google.com/share?url=<?php echo CHtml::encode($model->url); ?>" class="gral"></a>
-    					</div>
-
-    					<div class="col-xs-3 ">
-    						<a id="<?php echo CHtml::encode($model->url); ?>" class="btncontact gral" data-toggle="modal" data-target="#modalemail" href="#email"></a>
-    					</div>
-    				</div>
-    			</div><!-- panel -->
-    		</div><!-- /contgral -->
-    	</div>
-
-		 <!-- /pestañas -->
+		 <?php  $this->widget('UserMenu',array('titulo'=>$model->titulo,'referencia'=>$profile->referencia,'url'=>$model->url)); ?>
 		 <?php if(!empty($popup)): ?>
 		 <!-- Button trigger modal -->
 		 <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ventana">
@@ -115,8 +68,7 @@ Yii::app()->clientScript->registerScript(
 						        'dataType'=>'json',
 						        'data'=>'&email=jQuery("#email")&titulo=jQuery("#titulo")&url=JQuery("#url")',
 						        'success'=>'function(html){ 
-						        			$("#correcto").html(html); 
-						        			JQuery().;
+						        			$("#correcto").html(html);	        			
 						        		}',
 						        'error'=>'function(html){ jQuery("#correcto").html(html); }'
 						        ), 

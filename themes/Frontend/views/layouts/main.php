@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <title>Ociopoint</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- Bootstrap -->
     <?php  
     $baseUrl = Yii::app()->theme->baseUrl;
@@ -34,10 +34,27 @@
             <?php echo $content; ?>
     </section>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    $(window).load(function(){
+    <?php 
+Yii::app()->clientScript->registerScript(
+        "compartir",
+        "$(document).ready(function() {         
+          $('#menudesplegable').hide();
+
+          $('.sharetodos').click(function(event) {
+               $('.compartirgral').toggle();
+          }); 
+
+          $('#btnmenu').click(function(event) {
+               $('#menudesplegable').toggle();
+          });  
+    });",
+       CClientScript::POS_LOAD
+      );
+?>
+    <script>
+     $(window).load(function(){
         $('#ventana').modal('show');
-    });
+     });
     </script>
   </body>
 </html>
