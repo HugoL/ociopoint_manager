@@ -11,7 +11,7 @@
 				 		 <?php echo CHtml::link('<span class="glyphicon glyphicon-comment"></span> Chat',array('web/chat/id/'.$referencia)); ?>
 				 	</div>
 				 	<div <?php echo Yii::app()->controller->action->id == 'apuestas' ? "class='col-sm-12 col-xs-12 minimenu active'" : "class='col-sm-12 col-xs-12 minimenu'" ?>>
-				 		<?php echo CHtml::link('<span class="glyphicon glyphicon-eur"></span> Pelotazos',array('#')); ?>
+				 		<?php echo CHtml::link('<span class="glyphicon glyphicon-eur"></span> Pelotazos',array('web/index/id/'.$referencia)); ?>
 				 	</div>
 				 	<div class="col-sm-12 col-xs-12 minimenu">
 				 		<a href="#" class="sharetodos"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/'; ?>/share.png" width="25px" height="25px" /></a>
