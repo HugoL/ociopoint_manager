@@ -1,24 +1,11 @@
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('titulo')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<h3><?php echo  CHtml::link(CHtml::encode($data->titulo),array('view','id' => $data->id)); ?> <small><?php echo CHtml::encode($data->fecha); ?></small></h3>
+
+	<?php echo $data->resumen; ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('titulo')); ?>:</b>
-	<?php echo CHtml::encode($data->titulo); ?>
+	<?php echo $data->texto; ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('resumen')); ?>:</b>
-	<?php echo CHtml::encode($data->resumen); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('texto')); ?>:</b>
-	<?php echo CHtml::encode($data->texto); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha); ?>
-	<br />
-
-
+	
 </div>

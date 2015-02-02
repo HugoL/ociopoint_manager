@@ -2,6 +2,7 @@
 
 class EntradaController extends Controller
 {
+	
 	public function actionIndex(){
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'estado = 1';
@@ -10,6 +11,21 @@ class EntradaController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	public function loadModel($id)
+	{
+		$model=Entrada::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
 	}
 
 	// Uncomment the following methods and override them if needed

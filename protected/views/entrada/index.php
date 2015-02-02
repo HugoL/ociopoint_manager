@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 	'Entrada',
 );
 ?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+<h1>Blog Ociopoint</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

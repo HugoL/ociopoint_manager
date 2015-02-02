@@ -15,7 +15,8 @@ $this->menu=array(
 	array('label'=>'Manage Entrada', 'url'=>array('admin')),
 );
 ?>
-
+<?php echo CHtml::link('Ver entradas',array('index'),array('btn btn-primary')); ?>
+<br/>
 <h1>Entrada <?php echo $model->titulo; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
