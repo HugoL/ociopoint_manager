@@ -9,7 +9,7 @@ body{
 }
 .imagencajita{
 	width: 226px;
-	height: 190px;
+	height: 190px !important;
 }
 .cajita{
   display: inline-block;
