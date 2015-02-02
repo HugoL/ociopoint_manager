@@ -8,6 +8,8 @@
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <title>Ociopoint</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Bootstrap -->
     <?php  
     $baseUrl = Yii::app()->theme->baseUrl;
@@ -41,7 +43,7 @@ Yii::app()->clientScript->registerScript(
           $('#menudesplegable').hide();
 
           $('.sharetodos').click(function(event) {
-               $('.compartirgral').toggle();
+               $('.compartirgral').toggle('slow');
           }); 
 
           $('#btnmenu').click(function(event) {

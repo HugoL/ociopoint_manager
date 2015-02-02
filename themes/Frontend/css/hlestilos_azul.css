@@ -133,19 +133,15 @@ body{
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-  background-color: #2e353d;
+  background-color: rgb(63, 119, 183);
   position: fixed;
   top: 0px;
   width: 300px;
   height: 100%;
   color: #e1ffff;
-  border-radius: 4px;
-  -webkit-transition: all .2s ease-in-out;
-       -o-transition: all .2s ease-in-out;
-          transition: all .2s ease-in-out;
 }
 .nav-side-menu .brand {
-  background-color: #23282e;
+  background-color: rgb(27, 85, 155);
   line-height: 50px;
   display: block;
   text-align: center;
@@ -221,8 +217,8 @@ body{
 }
 .nav-side-menu li {
   padding-left: 0px;
-  border-left: 3px solid #2e353d;
-  border-bottom: 1px solid #23282e;
+  border-left: 3px solid rgb(27, 85, 155);
+  border-bottom: 1px solid #004190;
 }
 .nav-side-menu li a {
   text-decoration: none;
@@ -257,13 +253,9 @@ body{
     z-index: 10 !important;
     padding: 3px;
     background-color: #ffffff;
-    color: #000;
+    color: rgb(27, 85, 155);
     width: 40px;
     text-align: center;
-    border-radius: 4px;
-    -webkit-transition: all .2s ease-in-out;
-       -o-transition: all .2s ease-in-out;
-          transition: all .2s ease-in-out;
   }
   .brand {
     text-align: left !important;
