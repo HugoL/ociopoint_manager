@@ -13,6 +13,14 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Entrada</h1>
+<div class="">
+<?php echo CHtml::link('Ver entradas',array('entrada/index'),array('class'=>'btn btn-primary')); ?>
+</div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<br/>
+
+<h1>Nueva Entrada</h1>
+
+<div class="well">
+<center><?php echo $this->renderPartial('_form', array('model'=>$model)); ?></center>
+</div>

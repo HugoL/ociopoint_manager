@@ -39,7 +39,7 @@ class Entrada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('titulo, texto, fecha', 'required'),
+			array('titulo, texto', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('titulo', 'length', 'max'=>512),
 			array('resumen', 'safe'),

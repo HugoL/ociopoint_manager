@@ -2,9 +2,14 @@
 
 class EntradaController extends Controller
 {
-	public function actionIndex()
-	{
-		$this->render('index');
+	public function actionIndex(){
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'estado = 1';
+
+		$dataProvider=new CActiveDataProvider('Entrada',array('criteria' => $criteria));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
 	}
 
 	// Uncomment the following methods and override them if needed
