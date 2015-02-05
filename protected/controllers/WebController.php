@@ -7,7 +7,7 @@ class WebController extends Controller
 	public $layout = '//layouts/column1';	
 
 	public function actionIndex( $id ){
-		Yii::app()->theme = 'Frontend';
+		Yii::app()->theme = 'squadfree';
 
 		/*if( !isset($id) )
 			throw new CHttpException(404,'La página solicitada no está disponible.');*/
@@ -50,7 +50,7 @@ class WebController extends Controller
 	}
 
 	public function actionChat( $id ){
-		Yii::app()->theme = 'Frontend';
+		Yii::app()->theme = 'squadfree';
 
 		$id = strip_tags($id);
 		$criteria = new CDbCriteria;

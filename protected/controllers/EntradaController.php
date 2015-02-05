@@ -3,7 +3,9 @@
 class EntradaController extends Controller
 {
 	
-	public function actionIndex(){
+	public function actionIndex( $id = null ){
+		Yii::app()->theme = 'squadfree';
+
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'estado = 1';
 
@@ -15,6 +17,8 @@ class EntradaController extends Controller
 
 	public function actionView($id)
 	{
+		Yii::app()->theme = 'squadfree';
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
