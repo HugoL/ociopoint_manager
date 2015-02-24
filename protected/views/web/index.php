@@ -18,7 +18,7 @@ $this->breadcrumbs=array(
 		 	</div>
 		 	</div>
 		 </div> -->
-		 <?php  $this->widget('UserMenu',array('titulo'=>$model->titulo,'referencia'=>$profile->referencia,'url'=>$model->url)); ?>
+		 <?php  //$this->widget('UserMenu',array('titulo'=>$model->titulo,'referencia'=>$profile->referencia,'url'=>$model->url)); ?>
 		 <?php if(!empty($popup)): ?>
 		 <!-- Button trigger modal -->
 		 <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ventana">
@@ -93,7 +93,7 @@ $this->breadcrumbs=array(
 			<?php if( $i == 1 ): ?>
 				<!-- <div class="row-fluid"> -->
 			<?php endif; ?>
-			<div class="col-md-4 col-lg-3 col-sm-6 col-xs-12" >
+			<div class="col-md-4 col-lg-3 col-sm-6 col-xs-12" align="center" >
 				<div class="cajita">
 					<center><a href="<?php echo $cajita->url; ?>"><img class="imagencajita img-responsive" src="<?php echo $cajita->imagen; ?>"></a>
 					<span class="titulo"><?php echo $cajita->titulo; ?></span>&nbsp;<span class="social"><a href="http://www.facebook.com/sharer.php?u=<?php echo CHtml::encode($model->url); ?>&t=<?php echo CHtml::encode($model->titulo); ?>" class="facebook" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/f.jpg'; ?>"></a></span><span class="social"><a href="http://twitter.com/?status=<?php echo CHtml::encode($model->titulo); ?>%20<?php echo CHtml::encode($model->url); ?>" class="twitter" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/twitter.jpg'; ?>"></a></span><span class="social"><a href="http://www.plus.google.com/share?url=<?php echo CHtml::encode($model->url); ?>" class="google" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/google+.png'; ?>"></a></span><span class="social"><a href="#" class="sobre" target="_blank"><img src="<?php echo Yii::app()->baseUrl.'/images/web_per/sobrecillo.png'; ?>"></a></span></center>					
