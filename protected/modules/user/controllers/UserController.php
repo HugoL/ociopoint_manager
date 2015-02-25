@@ -24,7 +24,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'listarHijos', 'verUsuario'),
+				'actions'=>array('index','view', 'listarHijos', 'verUsuario','facturado'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -79,6 +79,23 @@ class UserController extends Controller
 		$roles = Rol::model()->findAll();	
 
 		$this->render( 'hijos',array('hijos'=>$hijos, 'roles'=>$roles) );
+	}
+
+	public function actionFacturado( ){
+		if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
+			$descendientes = $this->dameMisDescendientes();
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('id_padre',$descendientes,'OR');
+		}else{
+			$criteria = new CDbCriteria;
+		}
+		if( !empty($pag) ){
+			//calcular el offset y el limit correspondientes a la página
+		}
+		$hijos = Profile::model()->findAll( $criteria );	
+		$roles = Rol::model()->findAll();	
+
+		$this->render( 'facturado',array('hijos'=>$hijos, 'roles'=>$roles) );
 	}
 
 	public function actionVerUsuario( $id ){
