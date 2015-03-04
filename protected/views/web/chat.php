@@ -1,7 +1,7 @@
 <div class="cesped">
 <!-- chat -->
 <div class="container-fluid">    
-      <?php  $this->widget('UserMenu',array('titulo'=>$web->titulo,'referencia'=>$profile->referencia,'url'=>$web->url)); ?>
+      <?php  //$this->widget('UserMenu',array('titulo'=>$web->titulo,'referencia'=>$profile->referencia,'url'=>$web->url)); ?>
 
 <div class="clearfix">&nbsp;</div>
 <div class="panel panel-default">

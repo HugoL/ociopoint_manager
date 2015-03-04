@@ -134,4 +134,10 @@
   -webkit-transition: all .2s ease-in-out;
        -o-transition: all .2s ease-in-out;
           transition: all .2s ease-in-out;
+<<<<<<< HEAD
+=======
+}
+.entrada h3{
+  color:#2F89BA;
+>>>>>>> 91b0b8668e15c2b5eca77d8afe725425301b78e0
 }

@@ -82,7 +82,20 @@
         </div>
 
     	</div><!-- row-fluid -->
-        <div class="row-fluid">
+
+            <div class="row-fluid">
+                <div class="span4">
+                <center><div class="product-chooser-item">
+                    <div class="well">
+                     <a href="<?php echo Yii::app()->baseUrl.'/user/entrada/create'; ?>"><img src="<?php echo Yii::app()->baseUrl ?>/images/rss.png" class="img-rounded" alt="Blog"></a>
+                    <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+                        <span class="title">Blog</span>
+                        <span class="description">Blog Ociopoint</span>
+                    </div>
+                </div>
+                </div></center>
+            </div>
+        
             <div class="span4">
             <center><div class="product-chooser-item">
                 <div class="well">

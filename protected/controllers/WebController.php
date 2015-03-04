@@ -50,7 +50,7 @@ class WebController extends Controller
 	}
 
 	public function actionChat( $id ){
-		Yii::app()->theme = 'Frontend';
+		Yii::app()->theme = 'squadfree';
 
 		$id = strip_tags($id);
 		$criteria = new CDbCriteria;

@@ -40,7 +40,7 @@ class VentaController extends Controller
 	{
 		return array(			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv','verDetalleMes','eliminarVentasMes','eliminarVentasUsuario'),
+				'actions'=>array('index','view','create','update','verDetalle', 'ventasUsuario', 'importarCsv','verDetalleMes','eliminarVentasMes','eliminarVentasUsuario','verPagos'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -296,6 +296,23 @@ class VentaController extends Controller
 			$this->redirect("site/page/nopermitido");
 		}
 
+	}
+
+
+	public function actionVerPagos(){
+		
+		if( Yii::app()->getModule('user')->esAlgunAdmin() ){
+		                                                
+			//$hijos = Profile::model()->findAll( $criteria );
+			$criteria = new CDbCriteria;
+			/*$criteria->group = 'id_usuario';
+			$criteria->select = 'sum(comisiones_debidas) AS comisiones_debidasCount, id_usuario';	
+			$ventas = Venta::model()->findAll($criteria);*/
+
+			$usuarios = Profile::model()->findAll();
+
+			$this->render( 'pagos',array('usuarios' => $usuarios) );
+			}  
 	}
 
 	/**

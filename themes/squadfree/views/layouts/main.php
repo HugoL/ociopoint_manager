@@ -57,9 +57,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
       <ul class="nav navbar-nav">
+<<<<<<< HEAD
         <li class="active"><a href="#intro">Inicio</a></li>
         <li><a href="#about">Chat</a></li>
     <li><a href="#service">Pelotazo</a></li>
+=======
+        <?php if( isset($_GET['id']) ): ?>
+          <?php $ref = strip_tags($_GET['id']) ?>
+          <li <?php if( Yii::app()->controller->id == "web" && Yii::app()->controller->action->id == "index" ) echo "class='active'"; ?>><?php echo CHtml::link('Inicio',array('/web/index/id/'.$ref)); ?></li>
+          <li <?php if(Yii::app()->controller->action->id == "chat" ) echo "class='active'"; ?>><?php echo CHtml::link('Chat',array('/web/chat/id/'.$ref.'#ancla')); ?></li>
+          <li <?php if(Yii::app()->controller->id == "entrada" ) echo "class='active'"; ?>><?php echo CHtml::link('Pelotazo',array('/entrada/index/id/'.$ref.'#ancla')); ?></li>
+        <?php else: ?>
+          <li class="active"><a href="#intro">Inicio</a></li>
+          <li><a href="#about">Chat</a></li>
+          <li><a href="#service">Pelotazo</a></li>
+        <?php endif; ?>
+>>>>>>> 91b0b8668e15c2b5eca77d8afe725425301b78e0
       </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -86,6 +99,7 @@
       <div class="heading-about">
       <div class="container">
       <div class="row">
+<<<<<<< HEAD
         <div class="col-lg-8 col-lg-offset-2">
           <div class="wow bounceInDown" data-wow-delay="0.4s">
           <div class="section-heading">
@@ -98,6 +112,23 @@
       </div>
       </div>
     </div>
+=======
+        <?php if( Yii::app()->controller->action->id == "index" && Yii::app()->controller->id == "web" ): ?>
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+            <div class="section-heading">
+            <h2>Nuestras apuestas</h2>
+            <i class="fa fa-2x fa-angle-down"></i>
+
+            </div>
+            </div>
+          </div>
+        <?php endif; ?>
+      </div>
+      </div>
+    </div>
+    <a name="ancla"></a>
+>>>>>>> 91b0b8668e15c2b5eca77d8afe725425301b78e0
       <div class="container">
                 <!-- Include content pages -->
             <?php echo $content; ?>

@@ -81,6 +81,7 @@ class UserController extends Controller
 		$this->render( 'hijos',array('hijos'=>$hijos, 'roles'=>$roles) );
 	}
 
+
 	public function actionFacturado( ){
 		if( !Yii::app()->getModule('user')->esAlgunAdmin() ){
 			$descendientes = $this->dameMisDescendientes();
