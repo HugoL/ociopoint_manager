@@ -1,9 +1,9 @@
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="utf-8">
-    <title>Ociopoint</title>
+    <title>Ociopoint</title>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ociopoint Manager">
     <meta name="author" content="Webapplicationthemes.com">
@@ -18,6 +18,10 @@
 	  $cs = Yii::app()->getClientScript();
 	  Yii::app()->clientScript->registerCoreScript('jquery');
 	?>
+    <meta property="og:image" content="<?php echo $baseUrl ?>img/pelota_ociopoint.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="201">
+    <meta property="og:image:height" content="201">
     <!-- Fav and Touch and touch icons -->
     <link rel="shortcut icon" href="<?php echo $baseUrl;?>/img/icons/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $baseUrl;?>/img/icons/apple-touch-icon-144-precomposed.png">
